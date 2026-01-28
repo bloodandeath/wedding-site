@@ -1,0 +1,56 @@
+/* Theme (sage + silver/gray) */
+.page {
+    --bg: #d5f4df;
+    --panel: rgba(222, 231, 221, 0.72);
+    --panel-2: #f6f7f5;
+    --sage: #20633f;
+    --sage-2: #a7b6a6;
+
+    --dark-sage-1: #50784d;
+    --dark-sage-2: #476a45;
+    --dark-sage-3: #3e5d3c;
+    --dark-sage-4: #355034;
+    --dark-sage-5: #2d432b;
+    --dark-sage-6: #243522;
+    --dark-sage-7: #1b281a;
+    --dark-sage-8: #121b11;
+    --dark-sage-9: #090d09;
+
+    --light-sage-1: #6a9167;
+    --light-sage-2: #7a9d78;
+    --light-sage-3: #8baa89;
+    --light-sage-4: #9bb69a;
+    --light-sage-5: #acc2ab;
+    --light-sage-6: #bdcebb;
+    --light-sage-7: #cddacc;
+    --light-sage-8: #dee7dd;
+    --light-sage-9: #eef3ee;
+
+    --pastel-sage-1: #64cc94;
+    --pastel-sage-2: #8decb4;
+    --light-pastel-sage-2: #aaffcc;
+    --pastel-sage-3: #20633f;
+    --pastel-sage-4: #5ea37e;
+    --pastel-sage-5: #a9cca8;
+    --pastel-sage-6: #5b5f54;
+
+    --ink: #1c1f1c;
+    --muted: #333733;
+    --line: rgba(28, 31, 28, 0.15);
+    --shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+
+    background:
+            radial-gradient(1200px 600px at 20% -10%, rgba(123, 143, 122, 0.12), transparent 60%),
+            radial-gradient(900px 600px at 110% 10%, rgba(167, 182, 166, 0.12), transparent 60%),
+            var(--bg);
+
+    color: var(--ink);
+    min-height: 100vh;
+
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    "Apple Color Emoji", "Segoe UI Emoji";
+
+    /* This is the “content above wisps” rule (merged here) */
+    position: relative;
+    z-index: 1;
+}

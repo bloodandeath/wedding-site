@@ -1,0 +1,41 @@
+/* Sections */
+.section {
+    position: relative;
+    padding: 3.2rem 0;
+}
+
+.section--alt {
+    background: linear-gradient(180deg, rgba(246, 247, 245, 0.38), rgba(246, 247, 245, 0.20));
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.section::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+
+    height: 48px;
+
+    background: radial-gradient(
+            60% 100% at 50% 100%,
+            rgba(123, 143, 122, 0.14),
+            transparent 70%
+    );
+
+    pointer-events: none;
+}
+
+.section--alt::after {
+    background: radial-gradient(
+            60% 100% at 50% 100%,
+            rgba(123, 143, 122, 0.08),
+            transparent 70%
+    );
+}
+
+.section:last-of-type::after {
+    display: none;
+}
