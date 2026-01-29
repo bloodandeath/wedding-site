@@ -17,11 +17,10 @@
     />
 
     <StorySection
-        :storyLead="c.storyLead"
-        :storyBody="c.storyBody"
-        :photoAlt="c.photoAlt"
-        :photoCaption="c.photoCaption"
-        :weddingHashtag="c.weddingHashtag"
+        :title="c.story.title"
+        :lead="c.story.lead"
+        :slides="c.story.slides"
+        :autoplayMs="c.story.autoplayMs"
     />
 
     <DetailsSection

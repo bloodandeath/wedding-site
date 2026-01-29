@@ -10,15 +10,29 @@ export const siteContent = {
 
     travelInfoUrl: "#travel",
 
-    storyTitle:
-        "Come and join us!",
-    storyLead:
-        "We can’t wait to celebrate with our favorite people. Here’s everything you’ll need for the weekend.",
-    storyBody:
-        "We’ll keep this page updated as we get closer—check back for any last-minute notes!",
+    story: {
+        title: "Our Story",
+        lead: "A few favorite moments along the way.",
+        autoplayMs: 6000, // set to e.g. 6000 to auto-advance
+        slides: [
+            {
+                src: "/gallery/01.jpg",
+                alt: "Us smiling together at the beach",
+                caption: "The day everything felt easy.",
+            },
+            {
+                src: "/gallery/02.jpg",
+                alt: "Hiking trail photo",
+                caption: "Learning how we climb together.",
+            },
+            {
+                src: "/gallery/03.jpg",
+                alt: "Engagement photo",
+                caption: "The ‘yes’ that started it all.",
+            },
+        ],
+    },
 
-    photoAlt: "A soft, elegant wedding-themed photo placeholder",
-    photoCaption: "The day she said yes",
 
     ceremony: {
         time: "11:00 AM",
