@@ -2,91 +2,164 @@
   <section class="section" id="rsvp">
     <div class="container">
       <h2 class="h2">{{ title }}</h2>
-      <p class="lead" v-if="lead">{{ lead }}</p>
+      <p v-if="lead" class="lead">{{ lead }}</p>
 
-      <!-- EMBED MODE -->
-      <article v-if="mode === 'embed'" class="card rsvp-card">
-        <div class="embed" role="region" :aria-label="`${title} form`">
+      <article class="card rsvp-card">
+        <!-- Tally dynamic-height embed -->
+        <div class="embed" role="region" :aria-label="title + ' form'">
           <iframe
-              class="embed-frame"
-              :src="embedUrl"
-              :title="`${title} form`"
+              ref="iframeEl"
+              :data-tally-src="embedUrl"
               loading="lazy"
-              referrerpolicy="no-referrer"
+              width="100%"
+              height="100"
+              frameborder="0"
+              marginheight="0"
+              marginwidth="0"
+              :title="title + ' form'"
+              class="embed-frame"
           />
         </div>
 
         <p class="text muted rsvp-help">
-          If the form doesn’t load, open it in a new tab:
+          <span v-if="helpText">{{ helpText }} </span>
           <a class="link" :href="fallbackUrl || embedUrl" target="_blank" rel="noreferrer">
             RSVP link
           </a>
         </p>
 
-        <p class="text muted rsvp-help" v-if="privacyNote">
+        <p v-if="privacyNote" class="text muted rsvp-help">
           {{ privacyNote }}
         </p>
-      </article>
-
-      <!-- SELF-HOSTED MODE (stub you can wire later) -->
-      <article v-else class="card rsvp-card">
-        <p class="text muted">
-          RSVP is not configured yet.
-        </p>
-
-        <a
-            v-if="fallbackUrl"
-            class="btn btn--small"
-            :href="fallbackUrl"
-            target="_blank"
-            rel="noreferrer"
-        >
-          RSVP link
-        </a>
       </article>
     </div>
   </section>
 </template>
 
 <script setup>
-const props = defineProps({
-  mode: { type: String, default: "embed" }, // "embed" | "selfHosted"
+import { onMounted, onBeforeUnmount, ref, watch } from "vue";
+
+const {
+  title,
+  lead,
+  helpText,
+  embedUrl,
+  fallbackUrl,
+  privacyNote,
+} = defineProps({
   title: { type: String, default: "RSVP" },
-  lead: {
-    type: String,
-    default: "Please let us know if you can make it. We can’t wait to celebrate with you!",
-  },
-  embedUrl: { type: String, default: "" }, // e.g. Google Form embed URL
-  fallbackUrl: { type: String, default: "" }, // optional: opens in a new tab
-  privacyNote: {
-    type: String,
-    default:
-        "We’ll only use your info for wedding planning. No guest list is published.",
-  },
+  lead: { type: String, default: "" },
+  helpText: { type: String, default: "" },
+  embedUrl: { type: String, required: true },
+  fallbackUrl: { type: String, default: "" },
+  privacyNote: { type: String, default: "" },
+});
+
+const iframeEl = ref(null);
+let heightObserver = null;
+
+function ensureTallyScript() {
+  const widgetScriptSrc = "https://tally.so/widgets/embed.js";
+  const existing = document.querySelector(`script[src="${widgetScriptSrc}"]`);
+  if (existing) return Promise.resolve();
+
+  return new Promise((resolve) => {
+    const script = document.createElement("script");
+    script.src = widgetScriptSrc;
+    script.async = true;
+    script.onload = () => resolve();
+    script.onerror = () => resolve();
+    document.head.appendChild(script);
+  });
+}
+
+function loadTallyEmbeds() {
+  if (window.Tally && typeof window.Tally.loadEmbeds === "function") {
+    window.Tally.loadEmbeds();
+    return;
+  }
+
+  const el = iframeEl.value;
+  if (el && !el.getAttribute("src")) {
+    el.setAttribute("src", embedUrl);
+  }
+}
+
+function enableSmoothHeight() {
+  const el = iframeEl.value;
+  if (!el) return;
+
+  const applyHeightFromAttr = () => {
+    const hAttr = el.getAttribute("height");
+    const next = Number.parseInt(hAttr || "", 10);
+    if (!Number.isFinite(next) || next <= 0) return;
+
+    const current = Number.parseInt(el.style.height || "", 10);
+    if (!Number.isFinite(current) || current <= 0) {
+      el.style.height = `${next}px`;
+      return;
+    }
+    el.style.height = `${next}px`;
+  };
+
+  applyHeightFromAttr();
+
+  if (heightObserver) heightObserver.disconnect();
+  heightObserver = new MutationObserver((mutations) => {
+    for (const m of mutations) {
+      if (m.type === "attributes" && m.attributeName === "height") {
+        applyHeightFromAttr();
+      }
+    }
+  });
+
+  heightObserver.observe(el, { attributes: true, attributeFilter: ["height"] });
+}
+
+async function initEmbed() {
+  await ensureTallyScript();
+  loadTallyEmbeds();
+  enableSmoothHeight();
+}
+
+onMounted(() => {
+  initEmbed();
+});
+
+watch(
+    () => embedUrl,
+    () => {
+      initEmbed();
+    }
+);
+
+onBeforeUnmount(() => {
+  if (heightObserver) heightObserver.disconnect();
 });
 </script>
 
 <style scoped>
 .rsvp-card {
-  padding: 0.9rem;
+  padding: 0.6rem;
 }
 
 .embed {
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-radius: 16px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.55);
-  min-height: 520px;
+  min-height: 0;
 }
 
 .embed-frame {
   width: 100%;
-  height: 720px; /* tweak to match your form */
   border: 0;
   display: block;
+  transition: height 200ms ease;
+  will-change: height;
 }
 
 .rsvp-help {
-  margin-top: 0.9rem;
+  margin-top: 0.6rem;
 }
 </style>

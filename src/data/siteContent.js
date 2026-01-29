@@ -7,10 +7,6 @@ export const siteContent = {
     guestPolicy: "As invited",
 
     weddingDateISO: "2026-05-23T11:00:00-4:00",
-    rsvpUrl: "#rsvp",
-    rsvpEmbedUrl: "https://tally.so/embed/68Zo1e?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1",
-    rsvpFallbackUrl: "https://tally.so/r/68Zo1e",
-
 
     travelInfoUrl: "#travel",
 
@@ -32,7 +28,7 @@ export const siteContent = {
     },
 
     reception: {
-        time: "6:00 PM",
+        time: "1:00 PM",
         venue: "The Garden Venue",
         address: "456 Example Ave, Charleston, SC",
         mapUrl: "https://maps.google.com",
@@ -42,8 +38,8 @@ export const siteContent = {
     contactEmail: "hello@example.com",
 
     schedule: [
-        { time: "4:00 PM", title: "Guests arrive", notes: "Please be seated by 4:25 PM." },
-        { time: "4:30 PM", title: "Ceremony begins" },
+        { time: "11:00 AM", title: "Guests arrive", notes: "Please be seated by 4:25 PM." },
+        { time: "11:30 AM", title: "Ceremony begins" },
         { time: "5:00 PM", title: "Cocktail hour", notes: "Light bites & drinks." },
         { time: "6:00 PM", title: "Reception", notes: "Dinner, toasts, and dancing!" },
     ],
@@ -59,6 +55,20 @@ export const siteContent = {
         airport: "CHS (Charleston International Airport)",
         parking: "On-site parking available at the venue.",
         rideshare: "Uber/Lyft recommended after the reception.",
+    },
+
+    rsvpUrl: "#rsvp",
+    rsvp: {
+        title: "Rsvp",
+        lead: "Please let us know if you can make it. We can’t wait to celebrate with you!",
+        privacyNote: "We'll only use your info for wedding planning. No guest list is published.",
+
+        // Tally
+        embedUrl: "https://tally.so/embed/68Zo1e?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1",
+        fallbackUrl: "https://tally.so/r/68Zo1e",
+
+        deadlineText: "Please RSVP by April 15, 2026.",
+        helpText: "If you have any issues with the form, use the following link or reach out to us directly:"
     },
 
     faqs: [

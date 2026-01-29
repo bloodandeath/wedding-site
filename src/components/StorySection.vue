@@ -19,10 +19,10 @@
 
 <script setup>
 defineProps({
+  storyTitle: String,
   storyLead: String,
   storyBody: String,
   photoAlt: String,
   photoCaption: String,
-  weddingHashtag: { type: String, default: "" },
 });
 </script>

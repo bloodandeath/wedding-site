@@ -2,7 +2,9 @@
   <main class="page">
     <WispsLayer :count="90" />
 
-    <FloatingNav :rsvpUrl="c.rsvpUrl" />
+    <FloatingNav
+        :rsvpUrl="c.rsvpUrl"
+    />
 
     <HeroSection
         :titleLine="c.titleLine"
@@ -29,17 +31,39 @@
         :contactEmail="c.contactEmail"
     />
 
-    <ScheduleSection :schedule="c.schedule" />
+    <ScheduleSection
+        :schedule="c.schedule"
+    />
 
-    <TravelSection :hotel="c.hotel" :travel="c.travel" :travelInfoUrl="c.travelInfoUrl" />
+    <TravelSection
+        :hotel="c.hotel"
+        :travel="c.travel"
+        :travelInfoUrl="c.travelInfoUrl"
+    />
 
-    <RsvpSection />
+    <RsvpSection
+        mode="embed"
+        :title="c.rsvp.title"
+        :lead="c.rsvp.lead"
+        :privacyNote="c.rsvp.privacyNote"
+        :embedUrl="c.rsvp.embedUrl"
+        :fallbackUrl="c.rsvp.fallbackUrl"
+        :deadlineText="c.rsvp.deadlineText"
+        :helpText="c.rsvp.helpText"
+    />
 
     <RegistrySection />
 
-    <FaqSection :faqs="c.faqs" />
+    <FaqSection
+        :faqs="c.faqs"
+    />
 
-    <SiteFooter :coupleLine="c.coupleLine" :dateText="c.dateText" :cityText="c.cityText" :rsvpUrl="c.rsvpUrl" />
+    <SiteFooter
+        :coupleLine="c.coupleLine"
+        :dateText="c.dateText"
+        :cityText="c.cityText"
+        :rsvpUrl="c.rsvpUrl"
+    />
   </main>
 </template>
 
