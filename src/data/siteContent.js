@@ -6,18 +6,23 @@ export const siteContent = {
     dressCode: "Semi-formal",
     guestPolicy: "As invited",
 
-    weddingDateISO: "2026-05-23T11:00:00-15:00",
-    rsvpUrl: "/rsvp",
-    travelInfoUrl: "/travel",
+    weddingDateISO: "2026-05-23T11:00:00-4:00",
+    rsvpUrl: "#rsvp",
+    rsvpEmbedUrl: "https://tally.so/embed/68Zo1e?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1",
+    rsvpFallbackUrl: "https://tally.so/r/68Zo1e",
 
+
+    travelInfoUrl: "#travel",
+
+    storyTitle:
+        "Come and join us!",
     storyLead:
         "We can’t wait to celebrate with our favorite people. Here’s everything you’ll need for the weekend.",
     storyBody:
-        "We’ll keep this page updated as we get closer—check back for final timing, transportation tips, and any last-minute notes!",
+        "We’ll keep this page updated as we get closer—check back for any last-minute notes!",
 
     photoAlt: "A soft, elegant wedding-themed photo placeholder",
-    photoCaption: "Save the date • More details coming soon",
-    weddingHashtag: "",
+    photoCaption: "The day she said yes",
 
     ceremony: {
         time: "11:00 AM",

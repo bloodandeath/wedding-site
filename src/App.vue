@@ -33,6 +33,8 @@
 
     <TravelSection :hotel="c.hotel" :travel="c.travel" :travelInfoUrl="c.travelInfoUrl" />
 
+    <RsvpSection />
+
     <RegistrySection />
 
     <FaqSection :faqs="c.faqs" />
@@ -49,6 +51,7 @@ import StorySection from "@/components/StorySection.vue";
 import DetailsSection from "@/components/DetailsSection.vue";
 import ScheduleSection from "@/components/ScheduleSection.vue";
 import TravelSection from "@/components/TravelSection.vue";
+import RsvpSection from "@/components/RsvpSection.vue";
 import RegistrySection from "@/components/RegistrySection.vue";
 import FaqSection from "@/components/FaqSection.vue";
 import SiteFooter from "@/components/SiteFooter.vue";
