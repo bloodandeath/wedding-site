@@ -17,10 +17,10 @@
     />
 
     <GallerySection
-        :title="c.story.title"
-        :lead="c.story.lead"
-        :slides="c.story.slides"
-        :autoplayMs="c.story.autoplayMs"
+        :title="c.gallery.title"
+        :lead="c.gallery.lead"
+        :slides="c.gallery.slides"
+        :autoplayMs="c.gallery.autoplayMs"
     />
 
     <DetailsSection

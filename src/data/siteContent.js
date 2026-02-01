@@ -10,9 +10,7 @@ export const siteContent = {
 
     travelInfoUrl: "#travel",
 
-    story: {
-        title: "Our Story",
-        lead: "A few favorite moments along the way.",
+    gallery: {
         autoplayMs: 6000, // set to e.g. 6000 to auto-advance
         slides: [
             {
