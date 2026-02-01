@@ -1,54 +1,98 @@
 <template>
-  <section class="section" id="story">
+  <section class="section" id="gallery">
     <div class="container">
-      <h2 class="h2">{{ title }}</h2>
-      <p v-if="lead" class="lead">{{ lead }}</p>
-
-      <article
-          class="card gallery"
+      <div
+          ref="viewportEl"
+          class="viewport"
           tabindex="0"
-          @keydown.left.prevent="prev"
-          @keydown.right.prevent="next"
-          :aria-label="title + ' gallery'"
+          aria-label="Photo gallery"
+          @keydown.left.prevent="onKeyPrev"
+          @keydown.right.prevent="onKeyNext"
+          @pointerdown="onPointerDown"
+          @pointermove="onPointerMove"
+          @pointerup="onPointerUp"
+          @pointercancel="onPointerUp"
+          @pointerleave="onPointerUp"
       >
-        <div class="viewport">
-          <div class="track" :style="trackStyle">
-            <figure v-for="(s, i) in slides" :key="i" class="slide">
-              <img class="img" :src="s.src" :alt="s.alt || ''" loading="lazy" />
-              <figcaption v-if="s.caption" class="caption">
-                {{ s.caption }}
-              </figcaption>
-            </figure>
+        <!-- Interactions-only UI (arrows) -->
+        <button
+            class="nav nav--left"
+            type="button"
+            aria-label="Previous photo"
+            :data-visible="uiVisible"
+            @pointerdown.stop.prevent="onUiInteract"
+            @click.stop="onClickPrev"
+        >
+          <span class="chev" aria-hidden="true">
+            <svg viewBox="0 0 24 24" class="chevIcon">
+              <path
+                  d="M14.5 5.5L8 12l6.5 6.5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+        </button>
+
+        <button
+            class="nav nav--right"
+            type="button"
+            aria-label="Next photo"
+            :data-visible="uiVisible"
+            @pointerdown.stop.prevent="onUiInteract"
+            @click.stop="onClickNext"
+        >
+          <span class="chev" aria-hidden="true">
+            <svg viewBox="0 0 24 24" class="chevIcon">
+              <path
+                  d="M9.5 5.5L16 12l-6.5 6.5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+        </button>
+
+        <!-- Track -->
+        <div
+            class="track"
+            :class="{ 'is-dragging': isDragging }"
+            :style="trackStyle"
+            @transitionend="onTransitionEnd"
+        >
+          <div v-for="(s, i) in renderSlides" :key="slideKey(s, i)" class="slide">
+            <div class="media">
+              <img class="img" :src="s.src" :alt="s.alt || ''" loading="lazy" draggable="false" />
+            </div>
           </div>
         </div>
 
-        <div class="controls">
-          <button class="btn btn--small" type="button" @click="prev" aria-label="Previous photo">
-            Prev
-          </button>
+        <!-- Cloud frame (white/transparent) -->
+        <div class="cloudFrame" aria-hidden="true"></div>
+      </div>
 
-          <div class="dots" role="tablist" aria-label="Gallery slide selector">
-            <button
-                v-for="(_, i) in slides"
-                :key="i"
-                class="dot"
-                type="button"
-                role="tab"
-                :aria-selected="i === index"
-                :aria-label="`Go to slide ${i + 1}`"
-                @click="go(i)"
-            />
-          </div>
-
-          <button class="btn btn--small" type="button" @click="next" aria-label="Next photo">
-            Next
-          </button>
+      <!-- Dots only (also interactions-only visibility) -->
+      <div class="dotsWrap" :data-visible="uiVisible" v-if="slides.length > 1">
+        <div class="dots" role="tablist" aria-label="Gallery slide selector">
+          <button
+              v-for="(_, i) in slides"
+              :key="i"
+              class="dot"
+              type="button"
+              role="tab"
+              :aria-selected="i === realIndex"
+              :aria-label="'Go to slide ' + (i + 1)"
+              @pointerdown.stop.prevent="onUiInteract"
+              @click.stop="onClickDot(i)"
+          />
         </div>
-
-        <p v-if="slides.length" class="muted counter" aria-live="polite">
-          {{ index + 1 }} / {{ slides.length }}
-        </p>
-      </article>
+      </div>
     </div>
   </section>
 </template>
@@ -56,135 +100,416 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
 
-const props = defineProps({
-  title: { type: String, default: "Our Story" },
-  lead: { type: String, default: "" },
-  slides: { type: Array, default: () => [] }, // [{src, alt, caption}]
-  autoplayMs: { type: Number, default: 0 }, // 0 = off
+const { slides, autoplayMs } = defineProps({
+  slides: { type: Array, default: () => [] }, // [{src, alt}]
+  autoplayMs: { type: Number, default: 0 },
 });
 
-const index = ref(0);
-let timer = null;
+const viewportEl = ref(null);
 
-const trackStyle = computed(() => ({
-  transform: `translateX(-${index.value * 100}%)`,
-}));
+const internalIndex = ref(0);
+const isDragging = ref(false);
+const dragStartX = ref(0);
+const dragDeltaX = ref(0);
+const disableTransition = ref(false);
+
+const uiVisible = ref(false);
+let uiHideTimer = null;
+
+let pointerId = null;
+let autoplayTimer = null;
+
+const hasLoopClone = computed(() => slides.length > 1);
+const renderSlides = computed(() => (hasLoopClone.value ? [...slides, slides[0]] : slides));
+const slideCount = computed(() => slides.length);
+
+const realIndex = computed(() => {
+  if (slideCount.value === 0) return 0;
+  if (!hasLoopClone.value) return internalIndex.value;
+  return internalIndex.value >= slideCount.value ? 0 : internalIndex.value;
+});
+
+function slideKey(s, i) {
+  return (s && s.src ? s.src : "slide") + ":" + i;
+}
 
 function clamp(i) {
-  const n = props.slides.length;
-  if (n === 0) return 0;
-  return (i + n) % n;
+  if (slideCount.value === 0) return 0;
+  if (!hasLoopClone.value) return Math.max(0, Math.min(slideCount.value - 1, i));
+  return Math.max(0, Math.min(slideCount.value, i)); // allow clone index
 }
 
-function go(i) {
-  index.value = clamp(i);
+const trackStyle = computed(() => {
+  const basePct = -internalIndex.value * 100;
+  const dragPx = isDragging.value ? dragDeltaX.value : 0;
+
+  const transition =
+      disableTransition.value || isDragging.value
+          ? "none"
+          : "transform 740ms cubic-bezier(0.22, 1, 0.36, 1)";
+
+  return {
+    transform: `translate3d(calc(${basePct}% + ${dragPx}px), 0, 0)`,
+    transition,
+  };
+});
+
+// ---- UI visibility (tap/drag shows; auto-hides) ----
+function showUi() {
+  uiVisible.value = true;
+  if (uiHideTimer) clearTimeout(uiHideTimer);
+  uiHideTimer = setTimeout(() => {
+    uiVisible.value = false;
+  }, 1500);
 }
 
-function next() {
-  go(index.value + 1);
+function onUiInteract() {
+  showUi();
+  resetAutoplay();
 }
 
-function prev() {
-  go(index.value - 1);
-}
-
+// ---- Autoplay ----
 function stopAutoplay() {
-  if (timer) {
-    clearInterval(timer);
-    timer = null;
+  if (autoplayTimer) {
+    clearInterval(autoplayTimer);
+    autoplayTimer = null;
   }
 }
 
 function startAutoplay() {
   stopAutoplay();
-  if (!props.autoplayMs || props.autoplayMs < 1000) return;
-  if (props.slides.length <= 1) return;
+  if (!autoplayMs || autoplayMs < 1200) return;
+  if (slideCount.value <= 1) return;
 
-  timer = setInterval(() => {
-    next();
-  }, props.autoplayMs);
+  autoplayTimer = setInterval(() => {
+    goNext();
+  }, autoplayMs);
 }
 
-onMounted(() => {
+function resetAutoplay() {
+  stopAutoplay();
   startAutoplay();
-});
+}
+
+// ---- Navigation ----
+function goNext() {
+  if (slideCount.value <= 1) return;
+  internalIndex.value = clamp(internalIndex.value + 1);
+}
+
+function goPrev() {
+  if (slideCount.value <= 1) return;
+
+  if (hasLoopClone.value && internalIndex.value === 0) {
+    disableTransition.value = true;
+    internalIndex.value = slideCount.value - 1;
+    requestAnimationFrame(() => {
+      disableTransition.value = false;
+    });
+    return;
+  }
+
+  internalIndex.value = clamp(internalIndex.value - 1);
+}
+
+function goTo(i) {
+  if (slideCount.value <= 1) return;
+  internalIndex.value = clamp(i);
+}
+
+function onTransitionEnd() {
+  if (!hasLoopClone.value) return;
+
+  if (internalIndex.value === slideCount.value) {
+    disableTransition.value = true;
+    internalIndex.value = 0;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        disableTransition.value = false;
+      });
+    });
+  }
+}
+
+// ---- Event wrappers that also show UI + reset autoplay ----
+function onClickNext() {
+  onUiInteract();
+  goNext();
+}
+function onClickPrev() {
+  onUiInteract();
+  goPrev();
+}
+function onClickDot(i) {
+  return () => {
+    onUiInteract();
+    goTo(i);
+  };
+}
+function onKeyNext() {
+  onUiInteract();
+  goNext();
+}
+function onKeyPrev() {
+  onUiInteract();
+  goPrev();
+}
+
+// ---- Swipe/drag ----
+function onPointerDown(e) {
+  if (slideCount.value <= 1) return;
+  if (!viewportEl.value) return;
+
+  e.preventDefault();
+  showUi();
+  stopAutoplay();
+
+  pointerId = e.pointerId;
+  viewportEl.value.setPointerCapture(pointerId);
+
+  isDragging.value = true;
+  dragStartX.value = e.clientX;
+  dragDeltaX.value = 0;
+}
+
+function onPointerMove(e) {
+  if (!isDragging.value) return;
+  if (e.pointerId !== pointerId) return;
+
+  e.preventDefault();
+  dragDeltaX.value = e.clientX - dragStartX.value;
+  showUi(); // keep UI visible while dragging
+}
+
+function onPointerUp(e) {
+  if (!isDragging.value) return;
+  if (pointerId !== null && e.pointerId !== pointerId) return;
+
+  const el = viewportEl.value;
+  const width = el ? el.clientWidth : 1;
+  const threshold = Math.max(60, width * 0.12);
+  const dx = dragDeltaX.value;
+
+  isDragging.value = false;
+  dragDeltaX.value = 0;
+  pointerId = null;
+
+  if (dx <= -threshold) goNext();
+  else if (dx >= threshold) goPrev();
+
+  resetAutoplay();
+}
+
+onMounted(() => startAutoplay());
 
 onBeforeUnmount(() => {
   stopAutoplay();
+  if (uiHideTimer) clearTimeout(uiHideTimer);
 });
 
 watch(
-    () => [props.autoplayMs, props.slides.length],
-    () => startAutoplay()
+    () => slideCount.value,
+    () => {
+      disableTransition.value = true;
+      internalIndex.value = 0;
+      requestAnimationFrame(() => {
+        disableTransition.value = false;
+      });
+      resetAutoplay();
+    }
 );
 </script>
 
 <style scoped>
-.gallery {
-  padding: 0.8rem;
-  outline: none;
-}
-
+/* Gallery viewport.
+   Fixed aspect ratio prevents "zoom/crop too much" on tall desktop screens. */
 .viewport {
+  position: relative;
   overflow: hidden;
   border-radius: 16px;
-  border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.45);
+  outline: none;
+
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+
+  aspect-ratio: 16 / 10;
+
+  /* Subtle rounded vignette: mostly clear, fully transparent at the very edge */
+  -webkit-mask-image: radial-gradient(
+      ellipse at center,
+      #000 76%,
+      rgba(0, 0, 0, 0.90) 84%,
+      rgba(0, 0, 0, 0.55) 92%,
+      transparent 100%
+  );
+  mask-image: radial-gradient(
+      ellipse at center,
+      #000 76%,
+      rgba(0, 0, 0, 0.90) 84%,
+      rgba(0, 0, 0, 0.55) 92%,
+      transparent 100%
+  );
 }
 
+
+
+/* Cloud frame overlay: white/transparent haze that blends into light sage background */
+.cloudFrame {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  z-index: 6;
+
+  /* Uniform airy haze */
+  background:
+      radial-gradient(120px 120px at 50% 0%, rgba(255,255,255,0.06), rgba(255,255,255,0) 70%),
+      radial-gradient(120px 120px at 50% 100%, rgba(255,255,255,0.06), rgba(255,255,255,0) 70%),
+      radial-gradient(140px 140px at 0% 50%, rgba(255,255,255,0.08), rgba(255,255,255,0) 72%),
+      radial-gradient(140px 140px at 100% 50%, rgba(255,255,255,0.08), rgba(255,255,255,0) 72%),
+      radial-gradient(220px 220px at 50% 50%, rgba(255,255,255,0.03), rgba(255,255,255,0) 70%);
+
+  filter: blur(3px);
+  opacity: 0.7;
+}
+
+
+
+/* Track */
 .track {
   display: flex;
   width: 100%;
-  transition: transform 380ms ease;
+  height: 100%; /* fill fixed aspect-ratio viewport */
   will-change: transform;
+}
+
+.track.is-dragging {
+  cursor: grabbing;
 }
 
 .slide {
   min-width: 100%;
-  margin: 0;
+  height: 100%;
+  padding: 0; /* no extra padding; strict gallery */
+}
+
+.media {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 16px; /* matches viewport */
+  background: transparent;
 }
 
 .img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+
+/* Arrows appear only during interactions */
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translate3d(0, -50%, 0);
+  width: 56px;
+  height: 56px;
+  z-index: 10;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+
+  opacity: 0;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+/* Symmetric inset: keep inside picture and aligned around where fade begins */
+.nav--left {
+  left: 18px;
+}
+.nav--right {
+  right: 18px;
+}
+
+.nav[data-visible="true"] {
+  opacity: 1;
+}
+
+/* Requested: lower opacity on hover */
+.nav[data-visible="true"]:hover {
+  opacity: 0.65;
+}
+
+.chev {
+  width: 44px;
+  height: 44px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.58);
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.chevIcon {
+  width: 22px;
+  height: 22px;
   display: block;
 }
 
-.caption {
-  padding: 0.7rem 0.8rem;
+/* Dots: only show during interactions */
+.dotsWrap {
+  margin-top: 0.9rem;
+  display: grid;
+  justify-items: center;
+
+  opacity: 0;
+  transform: translateY(-2px);
+  transition: opacity 180ms ease, transform 180ms ease;
 }
 
-.controls {
-  margin-top: 0.8rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.6rem;
+.dotsWrap[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .dots {
   display: flex;
-  gap: 0.45rem;
   align-items: center;
-  justify-content: center;
-  flex: 1;
+  gap: 16px;
+  padding: 10px 14px;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.dots::-webkit-scrollbar {
+  display: none;
 }
 
 .dot {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 999px;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.45);
   cursor: pointer;
+  flex: 0 0 auto;
+  transition: transform 160ms ease, background 160ms ease;
 }
 
 .dot[aria-selected="true"] {
   background: rgba(255, 255, 255, 1);
-}
-
-.counter {
-  margin-top: 0.6rem;
-  text-align: center;
+  transform: scale(1.18);
 }
 </style>

@@ -18,17 +18,14 @@ export const siteContent = {
             {
                 src: "/gallery/01.jpg",
                 alt: "Us smiling together at the beach",
-                caption: "The day everything felt easy.",
             },
             {
                 src: "/gallery/02.jpg",
                 alt: "Hiking trail photo",
-                caption: "Learning how we climb together.",
             },
             {
                 src: "/gallery/03.jpg",
                 alt: "Engagement photo",
-                caption: "The ‘yes’ that started it all.",
             },
         ],
     },
