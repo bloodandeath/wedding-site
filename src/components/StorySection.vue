@@ -335,23 +335,83 @@ watch(
 
   aspect-ratio: 16 / 10;
 
-  /* Subtle rounded vignette: mostly clear, fully transparent at the very edge */
-  -webkit-mask-image: radial-gradient(
-      ellipse at center,
-      #000 76%,
-      rgba(0, 0, 0, 0.90) 84%,
-      rgba(0, 0, 0, 0.55) 92%,
+  /* Eased (non-linear) cloud fade:
+       - left/right stronger than top/bottom
+       - fade starts very gently, ramps near edges */
+  -webkit-mask-image:
+      linear-gradient(to right,
+      transparent 0%,
+      rgba(0,0,0,0.05) 1.5%,
+      rgba(0,0,0,0.18) 3%,
+      rgba(0,0,0,0.40) 4.8%,
+      rgba(0,0,0,0.70) 6.5%,
+      #000 9.5%,
+      #000 90.5%,
+      rgba(0,0,0,0.70) 93.5%,
+      rgba(0,0,0,0.40) 95.2%,
+      rgba(0,0,0,0.18) 97%,
+      rgba(0,0,0,0.05) 98.5%,
       transparent 100%
-  );
-  mask-image: radial-gradient(
-      ellipse at center,
-      #000 76%,
-      rgba(0, 0, 0, 0.90) 84%,
-      rgba(0, 0, 0, 0.55) 92%,
+      ),
+      linear-gradient(to bottom,
+      transparent 0%,
+      rgba(0,0,0,0.06) 1.2%,
+      rgba(0,0,0,0.20) 2.4%,
+      rgba(0,0,0,0.46) 3.8%,
+      rgba(0,0,0,0.76) 5.2%,
+      #000 7.2%,
+      #000 92.8%,
+      rgba(0,0,0,0.76) 94.8%,
+      rgba(0,0,0,0.46) 96.2%,
+      rgba(0,0,0,0.20) 97.6%,
+      rgba(0,0,0,0.06) 98.8%,
       transparent 100%
-  );
+      );
+
+  /* composite the two masks (keep your existing composite rules) */
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+
+  mask-image:
+      linear-gradient(to right,
+      transparent 0%,
+      #000 6%,
+      #000 94%,
+      transparent 100%
+      ),
+      linear-gradient(to bottom,
+      transparent 0%,
+      #000 6%,
+      #000 94%,
+      transparent 100%
+      );
 }
 
+/* Light grain overlay to prevent banding + add softness */
+.viewport::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  pointer-events: none;
+  z-index: 7; /* above cloudFrame (6), below nav (10) */
+
+  opacity: 0.08;              /* keep subtle */
+  mix-blend-mode: overlay;    /* gentle; try 'soft-light' if you prefer */
+  background-repeat: repeat;
+  background-size: 180px 180px;
+
+  /* SVG turbulence noise (data URI) */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+
+  /* slight grain drift so it feels organic */
+  animation: grain-drift 10s steps(10) infinite;
+}
+
+@keyframes grain-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 180px 120px; }
+}
 
 
 /* Cloud frame overlay: white/transparent haze that blends into light sage background */
@@ -362,16 +422,65 @@ watch(
   border-radius: 16px;
   z-index: 6;
 
-  /* Uniform airy haze */
+  /* More transparent, less white cloud mist */
   background:
-      radial-gradient(120px 120px at 50% 0%, rgba(255,255,255,0.06), rgba(255,255,255,0) 70%),
-      radial-gradient(120px 120px at 50% 100%, rgba(255,255,255,0.06), rgba(255,255,255,0) 70%),
-      radial-gradient(140px 140px at 0% 50%, rgba(255,255,255,0.08), rgba(255,255,255,0) 72%),
-      radial-gradient(140px 140px at 100% 50%, rgba(255,255,255,0.08), rgba(255,255,255,0) 72%),
-      radial-gradient(220px 220px at 50% 50%, rgba(255,255,255,0.03), rgba(255,255,255,0) 70%);
+      /* Soft Edge Wrap */
+      radial-gradient(70% 70% at 50% 50%, rgba(255,255,255,0.00) 58%, rgba(255,255,255,0.05) 78%, rgba(255,255,255,0.00) 100%),
 
-  filter: blur(3px);
-  opacity: 0.7;
+      radial-gradient(140px 140px at 50% 0%,
+      rgba(255,255,255,0.035),
+      rgba(255,255,255,0) 72%
+      ),
+      radial-gradient(140px 140px at 50% 100%,
+      rgba(255,255,255,0.035),
+      rgba(255,255,255,0) 72%
+      ),
+      radial-gradient(180px 180px at 0% 50%,
+      rgba(255,255,255,0.03),
+      rgba(255,255,255,0) 75%
+      ),
+      radial-gradient(180px 180px at 100% 50%,
+      rgba(255,255,255,0.03),
+      rgba(255,255,255,0) 75%
+      ),
+      radial-gradient(260px 260px at 50% 50%,
+      rgba(255,255,255,0.025),
+      rgba(255,255,255,0) 72%
+      );
+
+  filter: blur(3.5px);
+  opacity: 0.85; /* higher opacity, but lighter color = more transparent feel */
+
+  background-size: 140% 140%;
+  animation: cloud-drift 24s ease-in-out infinite;
+  transform-origin: center;
+}
+
+
+@keyframes cloud-drift {
+  0% {
+    transform: translate3d(-1.8%, -1.2%, 0) scale(1.02);
+    background-position: 0% 0%;
+    opacity: 0.78;
+  }
+
+  35% {
+    transform: translate3d(1.2%, 1.4%, 0) scale(1.045);
+    background-position: 45% 35%;
+    opacity: 0.92;
+  }
+
+  65% {
+    transform: translate3d(1.6%, -0.8%, 0) scale(1.035);
+    background-position: 80% 70%;
+    opacity: 0.88;
+  }
+
+  100% {
+    transform: translate3d(-1.2%, 1.0%, 0) scale(1.02);
+    background-position: 100% 100%;
+    opacity: 0.82;
+  }
 }
 
 
@@ -512,4 +621,5 @@ watch(
   background: rgba(255, 255, 255, 1);
   transform: scale(1.18);
 }
+
 </style>
