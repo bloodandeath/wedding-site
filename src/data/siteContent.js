@@ -15,16 +15,33 @@ export const siteContent = {
         slides: [
             {
                 src: "/gallery/01.jpg",
-                alt: "Us smiling together at the beach",
+                alt: "Us at the Marine Corps Ball in 2025",
             },
             {
                 src: "/gallery/02.jpg",
-                alt: "Hiking trail photo",
+                alt: "Cute photo on a bench in New Bern",
             },
             {
                 src: "/gallery/03.jpg",
-                alt: "Engagement photo",
+                alt: "When we visited the Raleigh Arboritum",
             },
+            {
+                src: "/gallery/04.jpg",
+                alt: "Standing under the Rockville sign",
+            },
+            {
+                src: "/gallery/05.jpg",
+                alt: "Kissing near the wishing fountain",
+            },
+            {
+                src: "/gallery/06.jpg",
+                alt: "The day she said yes",
+            },
+            {
+                src: "/gallery/07.jpg",
+                alt: "Also the day she said yes",
+            },
+
         ],
     },
 
