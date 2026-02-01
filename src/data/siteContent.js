@@ -75,7 +75,7 @@ export const siteContent = {
     rsvp: {
         title: "Rsvp",
         lead: "Please let us know if you can make it. We can’t wait to celebrate with you!",
-        privacyNote: "We'll only use your info for wedding planning. No guest list is published.",
+        privacyNote: null,
 
         // Tally
         embedUrl: "https://tally.so/embed/68Zo1e?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1",
