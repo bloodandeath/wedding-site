@@ -16,7 +16,7 @@
         :rsvpUrl="c.rsvpUrl"
     />
 
-    <StorySection
+    <GallerySection
         :title="c.story.title"
         :lead="c.story.lead"
         :slides="c.story.slides"
@@ -70,7 +70,7 @@
 import WispsLayer from "@/components/WispsLayer.vue";
 import FloatingNav from "@/components/FloatingNav.vue";
 import HeroSection from "@/components/HeroSection.vue";
-import StorySection from "@/components/StorySection.vue";
+import GallerySection from "@/components/GallerySection.vue";
 import DetailsSection from "@/components/DetailsSection.vue";
 import ScheduleSection from "@/components/ScheduleSection.vue";
 import TravelSection from "@/components/TravelSection.vue";
