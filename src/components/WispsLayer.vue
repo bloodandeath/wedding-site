@@ -1,39 +1,34 @@
 <template>
   <div class="wisps" aria-hidden="true">
-    <div
-        v-for="p in particles"
-        :key="p.id"
-        class="wisp"
-        :style="p.style"
-    />
+    <span v-for="p in wispParticles" :key="p.id" class="wisp" :style="p.style" />
   </div>
 </template>
 
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { onMounted, onBeforeUnmount, ref, watch } from "vue";
 
 /**
- * Density model:
- * - densityPerScreen controls how many wisps per viewport-height of content
- * - minCount / maxCount clamp for performance
+ * Density: scales with page height so wisps don’t get sparse on long pages.
+ * - densityPerScreen = particles per viewport-height of content
+ * - clamps keep perf stable
  */
 const props = defineProps({
-  densityPerScreen: { type: Number, default: 120 }, // tune up/down
-  minCount: { type: Number, default: 160 },
-  maxCount: { type: Number, default: 520 },
+  densityPerScreen: { type: Number, default: 150 }, // ↑ more dense
+  minCount: { type: Number, default: 220 },
+  maxCount: { type: Number, default: 720 },
 
-  // Optional: allow forcing a specific count (set to 0 to use density)
+  // Optional override: set >0 to force a specific count
   count: { type: Number, default: 0 },
 });
 
-const particles = ref([]);
+const wispParticles = ref([]);
 
-let ro = null;
+let resizeObs = null;
 let rebuildTimer = null;
-let rafId = null;
+let scrollRaf = 0;
 
 function rand(min, max) {
-  return Math.random() * (max - min) + min;
+  return min + Math.random() * (max - min);
 }
 
 function clamp(n, min, max) {
@@ -69,31 +64,39 @@ function computeCount(pageH) {
 }
 
 /**
- * Depth/parallax factor:
- * Bigger wisps move faster than smaller ones.
- * The value is unitless multiplier used in CSS:
- *   top: calc(var(--y) + (var(--scrollY) * var(--par)))
+ * Parallax factor “par”:
+ * Used in CSS: top = y + scrollY * par
+ *
+ * Interpretation:
+ * - If par is large, we add back more scroll => moves slower (farther away)
+ * - If par is small, we add back less scroll => moves faster (closer)
+ *
+ * You want bigger wisps move faster:
+ * - larger size => smaller par
+ * - plus a small random jitter
  */
 function computeParallaxFactor(sizePx, maxSizePx) {
   const sizeNorm = sizePx / maxSizePx; // 0..1
-  const jitter = rand(0.80, 1.20);     // small random fluctuation
-  const base = 0.02 + sizeNorm * 0.18; // ~0.02..0.20
-  return +(base * jitter).toFixed(4);
+  const jitter = rand(0.85, 1.15);
+
+  // small (far) => ~0.20, big (near) => ~0.06
+  const base = 0.20 - sizeNorm * 0.14;
+
+  return +(clamp(base * jitter, 0.05, 0.22)).toFixed(4);
 }
 
 function makeParticle(id, pageH) {
-  // Spread across entire document space
   const x = rand(0, 100);
   const y = rand(0, pageH);
 
-  // Size range (kept modest to avoid “balls”; glow handled in CSS/SASS)
+  // Keep your preferred sizing (glow handled in CSS/SASS)
   const minS = 2.6;
-  const maxS = 6.2;
+  const maxS = 7.2;
   const size = rand(minS, maxS);
 
-  // Visual / behavior vars
   const glow = rand(0.65, 2.0);
 
+  // Drift motion vars for your SASS drift keyframes
   const dx = rand(-26, 26);
   const dy = rand(-22, 22);
   const dur = rand(18, 44);
@@ -102,17 +105,13 @@ function makeParticle(id, pageH) {
   const delay = -rand(0, dur);
   const twDelay = -rand(0, tw);
 
-  // Color tint (sage-family)
   const hue = rand(128, 152);
   const sat = rand(40, 70);
   const light = rand(18, 28);
   const alpha = rand(0.45, 0.75);
 
-  // Size-derived parallax speed (bigger = faster)
-  const par = computeParallaxFactor(size, maxS);
-
-  // For star glints / rotation
   const rot = rand(0, 360);
+  const par = computeParallaxFactor(size, maxS);
 
   return {
     id,
@@ -132,14 +131,23 @@ function makeParticle(id, pageH) {
       "--c": `hsla(${hue.toFixed(1)} ${sat.toFixed(1)}% ${light.toFixed(1)}% / ${alpha.toFixed(2)})`,
       "--rot": `${rot.toFixed(2)}deg`,
 
-      // Key parallax factor
+      // key depth variable
       "--par": par,
     },
   };
 }
 
 function applyScrollVar() {
-  setRootVar("--scrollY", `${window.scrollY}px`);
+  setRootVar("--scrollY", `${window.scrollY || 0}px`);
+}
+
+function onScroll() {
+  // rAF throttle
+  if (scrollRaf) return;
+  scrollRaf = requestAnimationFrame(() => {
+    applyScrollVar();
+    scrollRaf = 0;
+  });
 }
 
 function rebuildWisps() {
@@ -147,59 +155,36 @@ function rebuildWisps() {
   setRootVar("--pageH", `${pageH}px`);
 
   const count = computeCount(pageH);
-  particles.value = Array.from({ length: count }, (_, i) => makeParticle(i, pageH));
+  wispParticles.value = Array.from({ length: count }, (_, i) => makeParticle(i, pageH));
 }
 
 function scheduleRebuild() {
   if (rebuildTimer) clearTimeout(rebuildTimer);
-  rebuildTimer = setTimeout(() => {
-    rebuildWisps();
-  }, 140);
-}
-
-function startScrollRAF() {
-  const tick = () => {
-    applyScrollVar();
-    rafId = requestAnimationFrame(tick);
-  };
-  tick();
-}
-
-function stopScrollRAF() {
-  if (rafId) cancelAnimationFrame(rafId);
-  rafId = null;
+  rebuildTimer = setTimeout(rebuildWisps, 140);
 }
 
 onMounted(() => {
-  // Initial state
   applyScrollVar();
   rebuildWisps();
 
-  // Keep scroll var updated smoothly
-  startScrollRAF();
-
-  // Rebuild on resize
+  window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", scheduleRebuild, { passive: true });
 
-  // Auto-rebuild when layout/page height changes
-  ro = new ResizeObserver(() => {
-    scheduleRebuild();
-  });
-
-  // observing both catches more cases across browsers/layouts
-  ro.observe(document.documentElement);
-  if (document.body) ro.observe(document.body);
+  // Auto rebuild when document size/layout changes
+  resizeObs = new ResizeObserver(() => scheduleRebuild());
+  resizeObs.observe(document.documentElement);
+  if (document.body) resizeObs.observe(document.body);
 });
 
 onBeforeUnmount(() => {
-  stopScrollRAF();
+  window.removeEventListener("scroll", onScroll);
   window.removeEventListener("resize", scheduleRebuild);
 
-  if (ro) ro.disconnect();
+  if (resizeObs) resizeObs.disconnect();
   if (rebuildTimer) clearTimeout(rebuildTimer);
+  if (scrollRaf) cancelAnimationFrame(scrollRaf);
 });
 
-// If density-related props change, rebuild
 watch(
     () => [props.densityPerScreen, props.minCount, props.maxCount, props.count],
     () => scheduleRebuild()

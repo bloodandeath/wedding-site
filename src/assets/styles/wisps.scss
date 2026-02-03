@@ -3,15 +3,13 @@
     position: absolute;
     inset: 0;
     width: 100%;
+
+    /* IMPORTANT: make the field as tall as the document */
     height: var(--pageH, 100vh);
+
     pointer-events: none;
     overflow: hidden;
     z-index: 0;
-
-    /* Parallax: counter-scroll a bit so it moves slower than content */
-    transform: translate3d(0, calc(var(--scrollY, 0px) * 0.06), 0);
-
-    will-change: transform;
 }
 
 /* Helper: compile-time random number in a range (unitless) */
@@ -28,7 +26,7 @@
 .wisp {
     position: absolute;
     left: var(--x);
-    top: calc(var(--y) + (var(--scrollY, 0px) * var(--par, 0)));
+    top: calc(var(--y) + (var(--scrollY, 0px) * var(--par, 0.12)));
 
     width: var(--s);
     height: var(--s);
