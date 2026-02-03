@@ -82,4 +82,4 @@ import SiteFooter from "@/components/SiteFooter.vue";
 import { siteContent as c } from "@/data/siteContent";
 </script>
 
-<style src="@/assets/app.css"></style>
+<style src="@/assets/app.scss"></style>
