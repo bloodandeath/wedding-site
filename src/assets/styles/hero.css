@@ -1,78 +1,181 @@
-/* Hero */
+/* ===== HERO ===== */
 .hero {
     position: relative;
     overflow: hidden;
-    padding-bottom: 5.6rem;
+
+    min-height: 100vh;
+    min-height: 100svh;
+
+    display: grid;
+    place-items: center;
+
+    padding-bottom: 3.6rem; /* room for scroll cue */
 }
 
 .hero-content {
-    padding: 5.2rem 0 5.6rem;
+    width: 100%;
     text-align: center;
+
+    padding: clamp(2.0rem, 4.5vh, 3.4rem) 0 2.1rem;
+
+    display: grid;
+    align-content: center;
+}
+
+/* keep inner width consistent with rest of the site */
+.hero-inner {
+    display: grid;
+    gap: 1.25rem; /* overall rhythm */
+}
+
+.hero-top {
+    display: grid;
+    gap: 0.55rem;
 }
 
 .eyebrow {
     color: var(--dark-sage-4);
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    font-size: 0.8rem;
-    margin: 0 0 0.75rem;
+    font-size: 0.82rem;
+    margin: 0;
 }
 
 .title {
-    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-size: clamp(2.0rem, 5vw, 3.25rem);
     line-height: 1.05;
     margin: 0;
 }
 
 .subtitle {
-    margin: 0.8rem 0 1.6rem;
+    margin: 0;
     color: var(--muted);
 }
 
+/* ===== Shared alignment column (Countdown + Details) ===== */
+.hero-mid {
+    width: min(640px, 100%); /* THIS is the alignment anchor */
+    margin: 0 auto;
+
+    display: grid;
+    gap: 1.15rem; /* spacing between bubbles and details */
+}
+
+/* ===== Countdown ===== */
 .countdown {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.75rem;
-    width: min(640px, 100%);
-    margin: 0.6rem auto 1.4rem;
+    gap: 0.65rem;
+    width: 100%;
+    margin: 0;
 }
 
 .cd-item {
     background: rgba(255, 255, 255, 0.55);
     border: 1px solid var(--line);
     border-radius: 18px;
-    padding: 0.85rem 0.8rem;
+    padding: 0.72rem 0.6rem;
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.05);
 }
 
 .cd-num {
-    font-size: 1.6rem;
+    font-size: 1.22rem;
     font-weight: 750;
     color: var(--ink);
+    line-height: 1.1;
 }
 
 .cd-label {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--muted);
-    margin-top: 0.1rem;
+    margin-top: 0.12rem;
 }
 
+/* ===== Details card ===== */
+.details-card {
+    width: 100%; /* locked to countdown column */
+    text-align: left;
+
+    background: rgba(255, 255, 255, 0.46);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 0.95rem 1.0rem;
+
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(6px);
+}
+
+.details-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.35rem;
+}
+
+.details-kicker {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--dark-sage-4);
+}
+
+.details-time {
+    font-weight: 750;
+    color: var(--ink);
+    opacity: 0.92;
+}
+
+.details-venue {
+    font-size: 1.06rem;
+    font-weight: 780;
+    line-height: 1.25;
+    margin-top: 0.05rem;
+}
+
+.details-address {
+    margin-top: 0.25rem;
+    font-size: 0.95rem;
+    line-height: 1.35;
+}
+
+.details-actions {
+    margin-top: 0.7rem;
+    display: flex;
+    gap: 0.55rem;
+    flex-wrap: wrap;
+}
+
+.btn--small {
+    padding: 0.55rem 0.75rem;
+    border-radius: 14px;
+    font-size: 0.92rem;
+}
+
+.details-toast {
+    margin: 0.55rem 0 0;
+    font-size: 0.9rem;
+    color: var(--dark-sage-4);
+}
+
+/* ===== CTAs & note ===== */
 .cta-row {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
+    gap: 0.8rem;
     flex-wrap: wrap;
-    margin-bottom: 0.9rem;
+    margin-top: 0.25rem;
 }
 
 .note {
-    margin: 0.5rem 0 0;
+    margin: 0;
     color: var(--muted);
-    font-size: 0.95rem;
+    font-size: 0.93rem;
 }
 
-/* Scroll Cue */
+/* ===== Scroll cue ===== */
 .scroll-cue {
     position: absolute;
     left: 50%;
@@ -126,4 +229,19 @@
     background: radial-gradient(closest-side, rgba(123, 143, 122, 0.22), transparent 70%);
     pointer-events: none;
     filter: blur(2px);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 520px) {
+    .hero-mid { width: min(520px, 100%); }
+    .cd-num { font-size: 1.12rem; }
+    .cd-item { padding: 0.64rem 0.55rem; }
+    .details-card { padding: 0.85rem 0.9rem; }
+}
+
+@media (max-height: 760px) {
+    .hero-inner { gap: 1.0rem; }
+    .hero-mid { gap: 0.95rem; }
+    .cd-item { padding: 0.6rem 0.55rem; }
+    .details-actions { margin-top: 0.55rem; }
 }

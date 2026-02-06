@@ -26,7 +26,7 @@
 .wisp {
     position: absolute;
     left: var(--x);
-    top: calc(var(--y) + (var(--scrollY, 0px) * var(--par, 0.12)));
+    top: var(--y);
 
     width: var(--s);
     height: var(--s);
@@ -36,17 +36,24 @@
 
     /* crisp core + soft bloom */
     box-shadow:
-            0 0 0 0.6px rgba(255, 255, 255, 0.85),
-            0 0 10px rgba(255, 255, 255, 0.35),
-            0 0 18px rgba(120, 255, 200, 0.22),
-            0 0 28px rgba(32, 99, 63, 0.18);
+            0 0 0 0.7px rgba(255, 255, 255, 0.92),
+            0 0 12px rgba(255, 255, 255, 0.42),
+            0 0 22px rgba(120, 255, 200, 0.28),
+            0 0 36px rgba(32, 99, 63, 0.22);
 
-    opacity: 0.55;
+    opacity: 0.82;
+
     mix-blend-mode: screen;
 
     transform: translate3d(0, 0, 0);
     will-change: transform, opacity, filter, top;
 }
+
+/* Parallax bands (no calc multiplication!) */
+.wisp.depth-far   { top: calc(var(--y) + var(--wispParFar, 0px)); }
+.wisp.depth-mid   { top: calc(var(--y) + var(--wispParMid, 0px)); }
+.wisp.depth-near  { top: calc(var(--y) + var(--wispParNear, 0px)); }
+
 
 /* Soft star glint (rounded, not a hard right angle) */
 .wisp::before {
@@ -164,7 +171,7 @@ $MAX_PARTICLES: 180;
         22%  { transform: translate3d($x1, $y1, 0); }
         48%  { transform: translate3d($x2, $y2, 0); }
         72%  { transform: translate3d($x3, $y3, 0); }
-        100% { transform: translate3d($x4, $y4, 0); }
+        100% { transform: translate3d($x0, $y0, 0); }
     }
 
     /* Soft twinkle: gentle, noticeable, not flickery */

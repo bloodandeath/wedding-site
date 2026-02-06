@@ -6,9 +6,14 @@ export const siteContent = {
     dressCode: "Semi-formal",
     guestPolicy: "As invited",
 
-    weddingDateISO: "2026-05-23T11:00:00-4:00",
+    weddingDateISO: "2026-05-23T11:00:00-04:00",
 
-    travelInfoUrl: "#travel",
+    details: {
+        time: "11:00 AM - 3:00 PM",
+        venue: "The Club Continental",
+        address: "2143 Astor St, Orange Park, FL 32073",
+        mapUrlGoogle: "https://maps.app.goo.gl/4cFs2RigjW3n71x96",
+    },
 
     gallery: {
         autoplayMs: 6000, // set to e.g. 6000 to auto-advance
@@ -45,23 +50,20 @@ export const siteContent = {
         ],
     },
 
-
-    ceremony: {
-        time: "11:00 AM",
-        venue: "The Club Continental",
-        address: "2143 Astor St, Orange Park, FL 32073",
-        mapUrl: "https://maps.app.goo.gl/4cFs2RigjW3n71x96",
-    },
-
-    reception: {
-        time: "1:00 PM",
-        venue: "The Garden Venue",
-        address: "456 Example Ave, Charleston, SC",
-        mapUrl: "https://maps.google.com",
-    },
-
-    contactName: "Wedding Party",
-    contactEmail: "hello@example.com",
+    contacts: [
+        {
+            title: "The Bride",
+            name: "Mary Christensen",
+            phone: "(904) 305-5119",
+            email: "marychistensen527@yahoo.com",
+        },
+        {
+            title: "The Groom",
+            name: "Corbin Breton",
+            phone: "(904) 613-9352",
+            email: "corbintylerbreton@gmail.com",
+        }
+    ],
 
     schedule: [
         { time: "11:00 AM", title: "Guests arrive", notes: "Please be seated by 4:25 PM." },

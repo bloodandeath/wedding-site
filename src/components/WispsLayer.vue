@@ -1,6 +1,12 @@
 <template>
   <div class="wisps" aria-hidden="true">
-    <span v-for="p in wispParticles" :key="p.id" class="wisp" :style="p.style" />
+    <span
+        v-for="p in wispParticles"
+        :key="p.id"
+        class="wisp"
+        :class="p.depthClass"
+        :style="p.style"
+    />
   </div>
 </template>
 
@@ -8,22 +14,22 @@
 import { onMounted, onBeforeUnmount, ref, watch } from "vue";
 
 /**
- * Density: scales with page height so wisps don’t get sparse on long pages.
- * - densityPerScreen = particles per viewport-height of content
+ * Density model:
+ * - densityPerScreen controls how many wisps per viewport-height of content
  * - clamps keep perf stable
  */
 const props = defineProps({
-  densityPerScreen: { type: Number, default: 150 }, // ↑ more dense
-  minCount: { type: Number, default: 220 },
-  maxCount: { type: Number, default: 720 },
+  densityPerScreen: { type: Number, default: 170 }, // denser
+  minCount: { type: Number, default: 360 },
+  maxCount: { type: Number, default: 1200 },
 
-  // Optional override: set >0 to force a specific count
+  // Optional: set >0 to force a count (leave 0 to use density model)
   count: { type: Number, default: 0 },
 });
 
 const wispParticles = ref([]);
 
-let resizeObs = null;
+let ro = null;
 let rebuildTimer = null;
 let scrollRaf = 0;
 
@@ -57,46 +63,34 @@ function setRootVar(name, value) {
 
 function computeCount(pageH) {
   if (props.count && props.count > 0) return props.count;
-
   const screens = pageH / getViewportHeight();
   const raw = Math.round(screens * props.densityPerScreen);
   return clamp(raw, props.minCount, props.maxCount);
 }
 
 /**
- * Parallax factor “par”:
- * Used in CSS: top = y + scrollY * par
- *
- * Interpretation:
- * - If par is large, we add back more scroll => moves slower (farther away)
- * - If par is small, we add back less scroll => moves faster (closer)
- *
- * You want bigger wisps move faster:
- * - larger size => smaller par
- * - plus a small random jitter
+ * Depth bands:
+ * - far: smallest wisps (lag most)
+ * - near: largest wisps (lag least) => "move faster"
  */
-function computeParallaxFactor(sizePx, maxSizePx) {
-  const sizeNorm = sizePx / maxSizePx; // 0..1
-  const jitter = rand(0.85, 1.15);
-
-  // small (far) => ~0.20, big (near) => ~0.06
-  const base = 0.20 - sizeNorm * 0.14;
-
-  return +(clamp(base * jitter, 0.05, 0.22)).toFixed(4);
+function depthClassForSize(sizePx, minS, maxS) {
+  const t = (sizePx - minS) / (maxS - minS); // 0..1
+  if (t < 0.33) return "depth-far";
+  if (t < 0.70) return "depth-mid";
+  return "depth-near";
 }
 
 function makeParticle(id, pageH) {
   const x = rand(0, 100);
   const y = rand(0, pageH);
 
-  // Keep your preferred sizing (glow handled in CSS/SASS)
-  const minS = 2.6;
-  const maxS = 7.2;
+  // Slightly larger range (still point-light via SCSS)
+  const minS = 1.9;
+  const maxS = 5.2;
   const size = rand(minS, maxS);
 
-  const glow = rand(0.65, 2.0);
+  const glow = rand(0.85, 2.2);
 
-  // Drift motion vars for your SASS drift keyframes
   const dx = rand(-26, 26);
   const dy = rand(-22, 22);
   const dur = rand(18, 44);
@@ -111,10 +105,10 @@ function makeParticle(id, pageH) {
   const alpha = rand(0.45, 0.75);
 
   const rot = rand(0, 360);
-  const par = computeParallaxFactor(size, maxS);
 
   return {
     id,
+    depthClass: depthClassForSize(size, minS, maxS),
     style: {
       "--x": `${x.toFixed(3)}vw`,
       "--y": `${Math.round(y)}px`,
@@ -130,22 +124,27 @@ function makeParticle(id, pageH) {
 
       "--c": `hsla(${hue.toFixed(1)} ${sat.toFixed(1)}% ${light.toFixed(1)}% / ${alpha.toFixed(2)})`,
       "--rot": `${rot.toFixed(2)}deg`,
-
-      // key depth variable
-      "--par": par,
     },
   };
 }
 
-function applyScrollVar() {
-  setRootVar("--scrollY", `${window.scrollY || 0}px`);
+function applyParallaxVars() {
+  const y = window.scrollY || 0;
+
+  // Far lags most (moves slowest) => largest offset
+  // Near lags least (moves fastest) => smallest offset
+  setRootVar("--wispParFar", `${Math.round(y * 0.38)}px`);
+  setRootVar("--wispParMid", `${Math.round(y * 0.22)}px`);
+  setRootVar("--wispParNear", `${Math.round(y * 0.10)}px`);
+
+  // keep this if anything else uses it
+  setRootVar("--scrollY", `${y}px`);
 }
 
 function onScroll() {
-  // rAF throttle
   if (scrollRaf) return;
   scrollRaf = requestAnimationFrame(() => {
-    applyScrollVar();
+    applyParallaxVars();
     scrollRaf = 0;
   });
 }
@@ -164,23 +163,22 @@ function scheduleRebuild() {
 }
 
 onMounted(() => {
-  applyScrollVar();
+  applyParallaxVars();
   rebuildWisps();
 
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", scheduleRebuild, { passive: true });
 
-  // Auto rebuild when document size/layout changes
-  resizeObs = new ResizeObserver(() => scheduleRebuild());
-  resizeObs.observe(document.documentElement);
-  if (document.body) resizeObs.observe(document.body);
+  ro = new ResizeObserver(() => scheduleRebuild());
+  ro.observe(document.documentElement);
+  if (document.body) ro.observe(document.body);
 });
 
 onBeforeUnmount(() => {
   window.removeEventListener("scroll", onScroll);
   window.removeEventListener("resize", scheduleRebuild);
 
-  if (resizeObs) resizeObs.disconnect();
+  if (ro) ro.disconnect();
   if (rebuildTimer) clearTimeout(rebuildTimer);
   if (scrollRaf) cancelAnimationFrame(scrollRaf);
 });

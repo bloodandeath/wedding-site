@@ -5,13 +5,13 @@
 
       <div class="grid grid--3">
         <article class="card">
-          <h3 class="h3">Ceremony</h3>
+          <h3 class="h3">Ceremony & Reception</h3>
           <p class="text">
             <strong>{{ ceremony.time }}</strong><br />
             {{ ceremony.venue }}<br />
             <span class="muted">{{ ceremony.address }}</span>
           </p>
-          <a class="link" :href="ceremony.mapUrl" target="_blank" rel="noreferrer">Open in maps</a>
+          <a class="btn btn--small" :href="ceremony.mapUrlGoogle" target="_blank" rel="noreferrer">Open in maps</a>
         </article>
 
         <article class="card">
@@ -39,7 +39,7 @@
 
 <script setup>
 defineProps({
-  ceremony: Object,
+  details: Object,
   reception: Object,
   contactName: String,
   contactEmail: String,

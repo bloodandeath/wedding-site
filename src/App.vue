@@ -1,6 +1,10 @@
 <template>
   <main class="page">
-    <WispsLayer :count="90" />
+    <WispsLayer
+        :densityPerScreen="160"
+        :minCount="320"
+        :maxCount="1100"
+    />
 
     <FloatingNav
         :rsvpUrl="c.rsvpUrl"
@@ -14,6 +18,7 @@
         :guestPolicy="c.guestPolicy"
         :weddingDateISO="c.weddingDateISO"
         :rsvpUrl="c.rsvpUrl"
+        :details="c.details"
     />
 
     <GallerySection
@@ -21,13 +26,6 @@
         :lead="c.gallery.lead"
         :slides="c.gallery.slides"
         :autoplayMs="c.gallery.autoplayMs"
-    />
-
-    <DetailsSection
-        :ceremony="c.ceremony"
-        :reception="c.reception"
-        :contactName="c.contactName"
-        :contactEmail="c.contactEmail"
     />
 
     <ScheduleSection
@@ -53,6 +51,11 @@
 
     <RegistrySection />
 
+    <ContactSection
+        :contactName="c.contactName"
+        :contactEmail="c.contactEmail"
+    />
+
     <FaqSection
         :faqs="c.faqs"
     />
@@ -76,6 +79,7 @@ import ScheduleSection from "@/components/ScheduleSection.vue";
 import TravelSection from "@/components/TravelSection.vue";
 import RsvpSection from "@/components/RsvpSection.vue";
 import RegistrySection from "@/components/RegistrySection.vue";
+import ContactSection from "@/components/ContactSection.vue";
 import FaqSection from "@/components/FaqSection.vue";
 import SiteFooter from "@/components/SiteFooter.vue";
 
