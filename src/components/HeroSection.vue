@@ -39,32 +39,102 @@
             </div>
 
             <div class="details-venue" v-if="details.venue">{{ details.venue }}</div>
-            <div class="details-address muted" v-if="details.address">{{ details.address }}</div>
 
-            <div class="details-actions">
-              <a
-                  v-if="mapsHref"
-                  class="btn btn--small"
-                  :href="mapsHref"
-                  target="_blank"
-                  rel="noreferrer"
-              >
-                Open in Maps
-              </a>
+            <div class="details-addressBar" v-if="details.address">
+              <!-- Left: address + copy -->
+              <div class="addressLeft">
+    <span class="details-address muted">
+      {{ details.address }}
+    </span>
 
-              <button
-                  v-if="details.address"
-                  class="btn btn--ghost btn--small"
-                  type="button"
-                  @click="copyAddress"
-              >
-                Copy address
-              </button>
+                <div class="copyWrap">
+                  <button
+                      class="copyBtn"
+                      type="button"
+                      :class="{ 'is-copied': copied }"
+                      :aria-label="copied ? 'Address copied' : 'Copy address'"
+                      @click="copyAddress"
+                  >
+        <span class="copyIcon" aria-hidden="true">
+          <!-- Copy icon -->
+          <svg class="ico ico-copy" viewBox="0 0 24 24">
+            <path
+                d="M9 9h10v10H9V9Zm-4 6H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+          </svg>
+
+          <!-- Check icon -->
+          <svg class="ico ico-check" viewBox="0 0 24 24">
+            <path
+                d="M20 6L9 17l-5-5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+                  </button>
+
+                  <span
+                      class="copyTip"
+                      :class="{ 'is-visible': copied }"
+                      role="status"
+                      aria-live="polite"
+                  >
+        Copied
+      </span>
+                </div>
+              </div>
+
+              <!-- Right: maps -->
+              <div class="addressRight">
+                <!-- iOS split button -->
+                <div
+                    v-if="isIOS && (appleMapsHref || googleMapsHref)"
+                    class="splitBtn"
+                    role="group"
+                    aria-label="Open in Maps"
+                >
+                  <a
+                      v-if="appleMapsHref"
+                      class="splitBtn__item splitBtn__item--primary"
+                      :href="appleMapsHref"
+                      target="_blank"
+                      rel="noreferrer"
+                  >
+                    Apple Maps
+                  </a>
+                  <a
+                      v-if="googleMapsHref"
+                      class="splitBtn__item"
+                      :href="googleMapsHref"
+                      target="_blank"
+                      rel="noreferrer"
+                  >
+                    Google Maps
+                  </a>
+                </div>
+
+                <!-- non-iOS -->
+                <a
+                    v-else-if="mapsHref"
+                    class="btn btn--small"
+                    :href="mapsHref"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                  Open in Maps
+                </a>
+              </div>
             </div>
 
-            <p v-if="copyToast" class="details-toast" role="status" aria-live="polite">
-              Copied ✨
-            </p>
           </article>
         </div>
 
@@ -107,7 +177,6 @@ const props = defineProps({
   weddingDateISO: { type: String, required: true },
   rsvpUrl: { type: String, required: true },
 
-  // Uses your current siteContent model: c.details
   details: {
     type: Object,
     default: () => ({ time: "", venue: "", address: "", mapUrl: "" }),
@@ -118,41 +187,61 @@ const props = defineProps({
 
 const { countdown } = useCountdown(props.weddingDateISO);
 
+// Scroll cue
 const showScrollCue = ref(true);
 function onCueScroll() {
   showScrollCue.value = (window.scrollY || 0) < 40;
 }
-
 onMounted(() => {
   onCueScroll();
   window.addEventListener("scroll", onCueScroll, { passive: true });
 });
 onUnmounted(() => window.removeEventListener("scroll", onCueScroll));
 
-// Maps link: Apple Maps on iOS, Google Maps elsewhere
-function isIOS() {
+// iOS detection
+const isIOS = computed(() => {
   if (typeof navigator === "undefined") return false;
   return (
       /iPad|iPhone|iPod/.test(navigator.userAgent) ||
       (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
   );
-}
+});
 
 function enc(s) {
   return encodeURIComponent((s || "").trim());
 }
 
-const mapsHref = computed(() => {
+const queryString = computed(() => {
   const addr = props.details?.address || "";
   const venue = props.details?.venue || "";
-  const q = `${venue ? venue + ", " : ""}${addr}`.trim();
-  if (!q) return "";
+  return `${venue ? venue + ", " : ""}${addr}`.trim();
+});
 
-  if (isIOS()) return `https://maps.apple.com/?q=${enc(q)}`;
+// Apple Maps (iOS)
+const appleMapsHref = computed(() => {
+  const q = queryString.value;
+  if (!q) return "";
+  return `https://maps.apple.com/?q=${enc(q)}`;
+});
+
+// Google Maps (works on iOS too, opens app if installed; otherwise browser)
+const googleMapsHref = computed(() => {
+  const q = queryString.value;
+  if (!q) return "";
   return `https://www.google.com/maps/search/?api=1&query=${enc(q)}`;
 });
 
-const copyToast = ref(false);
+// Non-iOS default link
+const mapsHref = computed(() => {
+  const q = queryString.value;
+  if (!q) return "";
+  return googleMapsHref.value;
+});
+
+// Copy button (copy -> check)
+const copied = ref(false);
+let copyTimer = null;
+
 async function copyAddress() {
   const text = `${props.details?.venue ? props.details.venue + "\n" : ""}${props.details?.address || ""}`.trim();
   if (!text) return;
@@ -160,10 +249,15 @@ async function copyAddress() {
   try {
     await navigator.clipboard.writeText(text);
   } catch {
-    // clipboard can be blocked; just show toast anyway
+    // clipboard can be blocked; we still animate feedback
   }
 
-  copyToast.value = true;
-  window.setTimeout(() => (copyToast.value = false), 1200);
+  copied.value = true;
+  if (copyTimer) window.clearTimeout(copyTimer);
+  copyTimer = window.setTimeout(() => (copied.value = false), 1200);
 }
+
+onUnmounted(() => {
+  if (copyTimer) window.clearTimeout(copyTimer);
+});
 </script>

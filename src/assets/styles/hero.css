@@ -159,6 +159,185 @@
     color: var(--dark-sage-4);
 }
 
+/* Address bar: left content + right action */
+.details-addressBar {
+    margin-top: 0.35rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+/* Left side: address + copy icon */
+.addressLeft {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.details-address {
+    display: inline;
+    line-height: 1.35;
+    white-space: normal;
+}
+
+/* Right side: maps button */
+.addressRight {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* On small screens, stack neatly */
+@media (max-width: 520px) {
+    .details-addressBar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.55rem;
+    }
+
+    .addressRight {
+        align-self: flex-start;
+    }
+}
+
+.copyBtn {
+    flex: 0 0 auto;
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.55);
+    color: rgba(0, 0, 0, 0.72);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    transition: transform 180ms ease, opacity 180ms ease, background 180ms ease;
+}
+
+.copyBtn:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+.copyBtn:active {
+    transform: translateY(0px) scale(0.98);
+}
+
+.copyIcon {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+.ico {
+    position: absolute;
+    inset: 0;
+    width: 18px;
+    height: 18px;
+    display: block;
+    transition: opacity 180ms ease, transform 180ms ease;
+}
+
+/* default: show copy icon */
+.ico-copy { opacity: 1; transform: scale(1); }
+.ico-check { opacity: 0; transform: scale(0.85); }
+
+/* when copied: swap to check */
+.copyBtn.is-copied {
+    background: rgba(255, 255, 255, 0.78);
+}
+
+.copyBtn.is-copied .ico-copy {
+    opacity: 0;
+    transform: scale(0.85);
+}
+
+.copyBtn.is-copied .ico-check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.copyWrap {
+    position: relative;
+    flex: 0 0 auto;
+}
+
+/* Tiny tooltip */
+.copyTip {
+    position: absolute;
+    left: 50%;
+    top: -8px;
+
+    transform: translateX(-50%) translateY(0);
+    padding: 2px 6px;
+
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    color: rgba(32, 99, 63, 0.85);
+
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+
+    pointer-events: none;
+    opacity: 0;
+
+    transition:
+            opacity 160ms ease,
+            transform 160ms ease;
+}
+
+/* Animate in */
+.copyTip.is-visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-6px);
+}
+
+/* iOS split button */
+.splitBtn {
+    display: inline-flex;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.55);
+}
+
+.splitBtn__item {
+    padding: 0.55rem 0.75rem;
+    font-size: 0.92rem;
+    text-decoration: none;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    transition: opacity 160ms ease, background 160ms ease;
+    white-space: nowrap;
+}
+
+.splitBtn__item + .splitBtn__item {
+    border-left: 1px solid var(--line);
+}
+
+.splitBtn__item:hover {
+    opacity: 0.85;
+    background: rgba(255, 255, 255, 0.72);
+}
+
+.splitBtn__item--primary {
+    font-weight: 750;
+}
+
 /* ===== CTAs & note ===== */
 .cta-row {
     display: flex;
