@@ -1,36 +1,16 @@
 <template>
   <header class="hero" role="banner">
-    <section class="hero-content" id="top">
+    <section class="hero-content" id="home">
       <div class="container hero-inner">
         <!-- Top text -->
         <div class="hero-top">
           <p class="eyebrow">The wedding of</p>
           <h1 class="title">{{ titleLine }}</h1>
-          <p class="subtitle">{{ dateText }} • {{ cityText }}</p>
+          <p class="subtitle">{{ dateText }}</p>
         </div>
 
         <!-- Countdown + Details share one aligned column -->
         <div class="hero-mid">
-          <!-- Countdown -->
-          <div class="countdown countdown--compact" aria-label="Countdown to wedding day">
-            <div class="cd-item">
-              <div class="cd-num">{{ countdown.days }}</div>
-              <div class="cd-label">Days</div>
-            </div>
-            <div class="cd-item">
-              <div class="cd-num">{{ countdown.hours }}</div>
-              <div class="cd-label">Hours</div>
-            </div>
-            <div class="cd-item">
-              <div class="cd-num">{{ countdown.minutes }}</div>
-              <div class="cd-label">Min</div>
-            </div>
-            <div class="cd-item">
-              <div class="cd-num">{{ countdown.seconds }}</div>
-              <div class="cd-label">Sec</div>
-            </div>
-          </div>
-
           <!-- Details -->
           <article class="details-card" aria-label="Location details">
             <div class="details-head">
@@ -40,12 +20,10 @@
 
             <div class="details-venue" v-if="details.venue">{{ details.venue }}</div>
 
+            <!-- Address row: address + copy only -->
             <div class="details-addressBar" v-if="details.address">
-              <!-- Left: address + copy -->
               <div class="addressLeft">
-    <span class="details-address muted">
-      {{ details.address }}
-    </span>
+                <span class="details-address muted">{{ details.address }}</span>
 
                 <div class="copyWrap">
                   <button
@@ -55,31 +33,29 @@
                       :aria-label="copied ? 'Address copied' : 'Copy address'"
                       @click="copyAddress"
                   >
-        <span class="copyIcon" aria-hidden="true">
-          <!-- Copy icon -->
-          <svg class="ico ico-copy" viewBox="0 0 24 24">
-            <path
-                d="M9 9h10v10H9V9Zm-4 6H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            />
-          </svg>
+                    <span class="copyIcon" aria-hidden="true">
+                      <svg class="ico ico-copy" viewBox="0 0 24 24">
+                        <path
+                            d="M9 9h10v10H9V9Zm-4 6H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                      </svg>
 
-          <!-- Check icon -->
-          <svg class="ico ico-check" viewBox="0 0 24 24">
-            <path
-                d="M20 6L9 17l-5-5"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            />
-          </svg>
-        </span>
+                      <svg class="ico ico-check" viewBox="0 0 24 24">
+                        <path
+                            d="M20 6L9 17l-5-5"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
                   </button>
 
                   <span
@@ -88,17 +64,25 @@
                       role="status"
                       aria-live="polite"
                   >
-        Copied
-      </span>
+                    Copied
+                  </span>
                 </div>
               </div>
+            </div>
 
-              <!-- Right: maps -->
-              <div class="addressRight">
+            <!-- Foot row: Dress code left, Maps right (prevents mobile clashes) -->
+            <div class="details-footBar" v-if="dressCode || guestPolicy || mapsAnyHref">
+              <p class="note" v-if="dressCode || guestPolicy">
+                <span v-if="dressCode">Dress code: <strong>{{ dressCode }}</strong></span>
+                <span v-if="dressCode && guestPolicy"> • </span>
+                <span v-if="guestPolicy">Adults/children: <strong>{{ guestPolicy }}</strong></span>
+              </p>
+
+              <div class="mapsSlot" v-if="mapsAnyHref">
                 <!-- iOS split button -->
                 <div
                     v-if="isIOS && (appleMapsHref || googleMapsHref)"
-                    class="splitBtn"
+                    class="splitBtn splitBtn--compact"
                     role="group"
                     aria-label="Open in Maps"
                 >
@@ -109,7 +93,7 @@
                       target="_blank"
                       rel="noreferrer"
                   >
-                    Apple Maps
+                    Apple
                   </a>
                   <a
                       v-if="googleMapsHref"
@@ -118,13 +102,13 @@
                       target="_blank"
                       rel="noreferrer"
                   >
-                    Google Maps
+                    Google
                   </a>
                 </div>
 
                 <!-- non-iOS -->
                 <a
-                    v-else-if="mapsHref"
+                    v-else
                     class="btn btn--small"
                     :href="mapsHref"
                     target="_blank"
@@ -134,22 +118,23 @@
                 </a>
               </div>
             </div>
-
           </article>
+
+          <!-- Countdown -->
+          <div class="countdownBar" aria-label="Countdown to wedding day">
+            <span class="muted">Countdown:</span>
+            <span class="barNum">{{ countdown.days }}</span><span class="barLab">days</span>
+            <span class="barNum">{{ countdown.hours }}</span><span class="barLab">hrs</span>
+            <span class="barNum">{{ countdown.minutes }}</span><span class="barLab">min</span>
+            <span class="barNum">{{ countdown.seconds }}</span><span class="barLab">sec</span>
+          </div>
         </div>
 
         <!-- CTAs -->
         <div class="cta-row">
-          <a class="btn" :href="rsvpUrl">RSVP</a>
+          <a class="btn" href="#rsvp">RSVP</a>
           <a class="btn btn--ghost" href="#schedule">View schedule</a>
         </div>
-
-        <!-- Note -->
-        <p class="note" v-if="dressCode || guestPolicy">
-          <span v-if="dressCode">Dress code: <strong>{{ dressCode }}</strong></span>
-          <span v-if="dressCode && guestPolicy"> • </span>
-          <span v-if="guestPolicy">Adults/children: <strong>{{ guestPolicy }}</strong></span>
-        </p>
       </div>
     </section>
 
@@ -187,16 +172,29 @@ const props = defineProps({
 
 const { countdown } = useCountdown(props.weddingDateISO);
 
-// Scroll cue
+// Scroll cue — disappears permanently on first scroll
 const showScrollCue = ref(true);
+let scrollCueDismissed = false;
+
 function onCueScroll() {
-  showScrollCue.value = (window.scrollY || 0) < 40;
+  if (!scrollCueDismissed && (window.scrollY || 0) >= 40) {
+    scrollCueDismissed = true;
+    showScrollCue.value = false;
+    window.removeEventListener("scroll", onCueScroll);
+  }
 }
+
 onMounted(() => {
-  onCueScroll();
-  window.addEventListener("scroll", onCueScroll, { passive: true });
+  if ((window.scrollY || 0) >= 40) {
+    scrollCueDismissed = true;
+    showScrollCue.value = false;
+  } else {
+    window.addEventListener("scroll", onCueScroll, { passive: true });
+  }
 });
-onUnmounted(() => window.removeEventListener("scroll", onCueScroll));
+onUnmounted(() => {
+  if (!scrollCueDismissed) window.removeEventListener("scroll", onCueScroll);
+});
 
 // iOS detection
 const isIOS = computed(() => {
@@ -217,21 +215,20 @@ const queryString = computed(() => {
   return `${venue ? venue + ", " : ""}${addr}`.trim();
 });
 
-// Apple Maps (iOS)
 const appleMapsHref = computed(() => {
   const q = queryString.value;
   if (!q) return "";
   return `https://maps.apple.com/?q=${enc(q)}`;
 });
 
-// Google Maps (works on iOS too, opens app if installed; otherwise browser)
 const googleMapsHref = computed(() => {
   const q = queryString.value;
   if (!q) return "";
   return `https://www.google.com/maps/search/?api=1&query=${enc(q)}`;
 });
 
-// Non-iOS default link
+const mapsAnyHref = computed(() => !!(appleMapsHref.value || googleMapsHref.value));
+
 const mapsHref = computed(() => {
   const q = queryString.value;
   if (!q) return "";

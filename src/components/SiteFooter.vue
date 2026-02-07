@@ -8,7 +8,7 @@
 
         <div class="footer-brand__text">
           <div class="footer-couple">{{ coupleLine }}</div>
-          <div class="footer-sub muted">{{ dateText }} • {{ cityText }}</div>
+          <div class="footer-sub muted">{{ dateText }}</div>
         </div>
       </div>
 

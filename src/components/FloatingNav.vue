@@ -22,8 +22,16 @@
 
     <transition name="nav-reveal">
       <div v-if="navOpen" id="nav-menu" class="nav-links nav-links--expanded">
-        <a v-for="l in links" :key="l.href" :href="l.href" @click="navOpen = false">{{ l.label }}</a>
-        <a class="btn btn--small" :href="rsvpUrl">RSVP</a>
+        <a
+            v-for="l in links"
+            :key="l.href"
+            :href="l.href"
+            @click="navOpen = false"
+        >
+          {{ l.label }}
+        </a>
+
+        <a class="btn btn--small" href="#rsvp" @click="navOpen = false">RSVP</a>
       </div>
     </transition>
   </nav>
@@ -33,17 +41,16 @@
 import { onMounted, onUnmounted, ref } from "vue";
 import CrestLogo from "@/assets/logo.svg?component";
 
-defineProps({
-  rsvpUrl: { type: String, required: true },
+const props = defineProps({
   links: {
     type: Array,
     default: () => [
-      { label: "Home", href: "#top" },
-      { label: "Details", href: "#details" },
+      { label: "Home", href: "#home" },
       { label: "Schedule", href: "#schedule" },
       { label: "Travel", href: "#travel" },
       { label: "Registry", href: "#registry" },
       { label: "FAQ", href: "#faq" },
+      { label: "Contact", href: "#contact" },
     ],
   },
 });
@@ -95,5 +102,6 @@ onUnmounted(() => {
   window.removeEventListener("scroll", onWindowScroll);
   window.removeEventListener("scroll", onScrollAffordance);
   window.removeEventListener("keydown", onKeyDown);
+  if (scrollTimer) window.clearTimeout(scrollTimer);
 });
 </script>

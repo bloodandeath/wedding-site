@@ -2,13 +2,10 @@
   <main class="page">
     <WispsLayer
         :densityPerScreen="160"
-        :minCount="320"
-        :maxCount="1100"
+        :parallax="false"
     />
 
-    <FloatingNav
-        :rsvpUrl="c.rsvpUrl"
-    />
+    <FloatingNav />
 
     <HeroSection
         :titleLine="c.titleLine"
@@ -51,13 +48,13 @@
 
     <RegistrySection />
 
+    <FaqSection
+        :faqs="c.faqs"
+    />
+
     <ContactSection
         :contactName="c.contactName"
         :contactEmail="c.contactEmail"
-    />
-
-    <FaqSection
-        :faqs="c.faqs"
     />
 
     <SiteFooter
@@ -74,7 +71,6 @@ import WispsLayer from "@/components/WispsLayer.vue";
 import FloatingNav from "@/components/FloatingNav.vue";
 import HeroSection from "@/components/HeroSection.vue";
 import GallerySection from "@/components/GallerySection.vue";
-import DetailsSection from "@/components/DetailsSection.vue";
 import ScheduleSection from "@/components/ScheduleSection.vue";
 import TravelSection from "@/components/TravelSection.vue";
 import RsvpSection from "@/components/RsvpSection.vue";

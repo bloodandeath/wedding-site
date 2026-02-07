@@ -1,7 +1,7 @@
 <template>
   <div class="wisps" aria-hidden="true">
     <span
-        v-for="p in wispParticles"
+        v-for="p in visibleParticles"
         :key="p.id"
         class="wisp"
         :class="p.depthClass"
@@ -13,32 +13,30 @@
 <script setup>
 import { onMounted, onBeforeUnmount, ref, watch } from "vue";
 
-/**
- * Density model:
- * - densityPerScreen controls how many wisps per viewport-height of content
- * - clamps keep perf stable
- */
 const props = defineProps({
-  densityPerScreen: { type: Number, default: 170 }, // denser
-  minCount: { type: Number, default: 360 },
-  maxCount: { type: Number, default: 1200 },
-
-  // Optional: set >0 to force a count (leave 0 to use density model)
-  count: { type: Number, default: 0 },
+  densityPerScreen: { type: Number, default: 170 },
+  minCount:         { type: Number, default: 0 },
+  maxCount:         { type: Number, default: 700 },
+  count:            { type: Number, default: 0 },
+  parallax:         { type: Boolean, default: true },
+  parallaxFactor:   { type: Number, default: 0.22 },
 });
 
-const wispParticles = ref([]);
+// All particles (full page). Only the viewport-visible subset is rendered.
+const allParticles = ref([]);
+const visibleParticles = ref([]);
 
 let ro = null;
 let rebuildTimer = null;
 let scrollRaf = 0;
+let isMobile = false;
 
 function rand(min, max) {
   return min + Math.random() * (max - min);
 }
 
-function clamp(n, min, max) {
-  return Math.max(min, Math.min(max, n));
+function clamp(n, lo, hi) {
+  return Math.max(lo, Math.min(hi, n));
 }
 
 function getViewportHeight() {
@@ -49,11 +47,8 @@ function getPageHeight() {
   const de = document.documentElement;
   const b = document.body;
   return Math.max(
-      de.scrollHeight,
-      de.offsetHeight,
-      de.clientHeight,
-      b ? b.scrollHeight : 0,
-      b ? b.offsetHeight : 0
+      de.scrollHeight, de.offsetHeight, de.clientHeight,
+      b ? b.scrollHeight : 0, b ? b.offsetHeight : 0
   );
 }
 
@@ -62,37 +57,25 @@ function setRootVar(name, value) {
 }
 
 function computeCount(pageH) {
-  if (props.count && props.count > 0) return props.count;
+  if (props.count > 0) return props.count;
   const screens = pageH / getViewportHeight();
-  const raw = Math.round(screens * props.densityPerScreen);
-  return clamp(raw, props.minCount, props.maxCount);
-}
-
-/**
- * Depth bands:
- * - far: smallest wisps (lag most)
- * - near: largest wisps (lag least) => "move faster"
- */
-function depthClassForSize(sizePx, minS, maxS) {
-  const t = (sizePx - minS) / (maxS - minS); // 0..1
-  if (t < 0.33) return "depth-far";
-  if (t < 0.70) return "depth-mid";
-  return "depth-near";
+  // Lower density on mobile for performance
+  const density = isMobile ? Math.round(props.densityPerScreen * 0.45) : props.densityPerScreen;
+  const lo = isMobile ? Math.round(props.minCount * 0.4) : props.minCount;
+  const hi = isMobile ? Math.round(props.maxCount * 0.4) : props.maxCount;
+  return clamp(Math.round(screens * density), lo, hi);
 }
 
 function makeParticle(id, pageH) {
   const x = rand(0, 100);
   const y = rand(0, pageH);
 
-  // Slightly larger range (still point-light via SCSS)
   const minS = 1.9;
   const maxS = 5.2;
   const size = rand(minS, maxS);
 
-  const glow = rand(0.85, 2.2);
-
-  const dx = rand(-26, 26);
-  const dy = rand(-22, 22);
+  const dx = rand(-32, 32);
+  const dy = rand(-28, 28);
   const dur = rand(18, 44);
 
   const tw = rand(4, 10);
@@ -106,14 +89,20 @@ function makeParticle(id, pageH) {
 
   const rot = rand(0, 360);
 
+  const hasGlint = Math.random() < 0.25;
+  const glintDur = rand(7, 16);
+  const glintDelay = -rand(0, glintDur);
+
+  const depthClass = hasGlint ? "has-glint" : "";
+
   return {
     id,
-    depthClass: depthClassForSize(size, minS, maxS),
+    y,                 // raw y for virtualization culling
+    depthClass,
     style: {
       "--x": `${x.toFixed(3)}vw`,
       "--y": `${Math.round(y)}px`,
       "--s": `${size.toFixed(2)}px`,
-      "--g": glow.toFixed(2),
 
       "--dx": `${dx.toFixed(2)}px`,
       "--dy": `${dy.toFixed(2)}px`,
@@ -124,37 +113,65 @@ function makeParticle(id, pageH) {
 
       "--c": `hsla(${hue.toFixed(1)} ${sat.toFixed(1)}% ${light.toFixed(1)}% / ${alpha.toFixed(2)})`,
       "--rot": `${rot.toFixed(2)}deg`,
+      "--glintDur": `${glintDur.toFixed(2)}s`,
+      "--glintDelay": `${glintDelay.toFixed(2)}s`,
     },
   };
 }
 
-function applyParallaxVars() {
+// ── Parallax (uniform container translate) ──────────────────────────
+
+function applyParallax() {
+  if (!props.parallax) {
+    setRootVar("--wispPar", "0px");
+    return;
+  }
   const y = window.scrollY || 0;
-
-  // Far lags most (moves slowest) => largest offset
-  // Near lags least (moves fastest) => smallest offset
-  setRootVar("--wispParFar", `${Math.round(y * 0.38)}px`);
-  setRootVar("--wispParMid", `${Math.round(y * 0.22)}px`);
-  setRootVar("--wispParNear", `${Math.round(y * 0.10)}px`);
-
-  // keep this if anything else uses it
-  setRootVar("--scrollY", `${y}px`);
+  setRootVar("--wispPar", `${Math.round(y * props.parallaxFactor)}px`);
 }
+
+// ── Viewport virtualization ─────────────────────────────────────────
+// Only particles within viewport ± buffer are rendered in the DOM.
+
+function cullToViewport() {
+  const scrollY = window.scrollY || 0;
+  const vh = getViewportHeight();
+  const buffer = vh * 1.2;
+
+  // Account for parallax offset: the container is shifted down by par,
+  // so a wisp at y appears at (y + par - scrollY) in viewport space.
+  const par = props.parallax ? scrollY * props.parallaxFactor : 0;
+
+  // Visible if:  0 - buffer  <=  y + par - scrollY  <=  vh + buffer
+  // Rearranged:  scrollY - par - buffer  <=  y  <=  scrollY - par + vh + buffer
+  const lo = scrollY - par - buffer;
+  const hi = scrollY - par + vh + buffer;
+
+  visibleParticles.value = allParticles.value.filter(p => p.y >= lo && p.y <= hi);
+}
+
+// ── Scroll handler ──────────────────────────────────────────────────
 
 function onScroll() {
   if (scrollRaf) return;
   scrollRaf = requestAnimationFrame(() => {
-    applyParallaxVars();
+    applyParallax();
+    cullToViewport();
     scrollRaf = 0;
   });
 }
+
+// ── Rebuild ─────────────────────────────────────────────────────────
 
 function rebuildWisps() {
   const pageH = getPageHeight();
   setRootVar("--pageH", `${pageH}px`);
 
   const count = computeCount(pageH);
-  wispParticles.value = Array.from({ length: count }, (_, i) => makeParticle(i, pageH));
+  allParticles.value = Array.from({ length: count }, (_, i) => makeParticle(i, pageH));
+
+  applyParallax();
+  cullToViewport();
 }
 
 function scheduleRebuild() {
@@ -162,8 +179,12 @@ function scheduleRebuild() {
   rebuildTimer = setTimeout(rebuildWisps, 140);
 }
 
+// ── Lifecycle ───────────────────────────────────────────────────────
+
 onMounted(() => {
-  applyParallaxVars();
+  isMobile = window.matchMedia?.("(max-width: 860px)")?.matches ?? false;
+
+  applyParallax();
   rebuildWisps();
 
   window.addEventListener("scroll", onScroll, { passive: true });
@@ -187,4 +208,6 @@ watch(
     () => [props.densityPerScreen, props.minCount, props.maxCount, props.count],
     () => scheduleRebuild()
 );
+
+watch(() => props.parallax, () => applyParallax());
 </script>

@@ -6,8 +6,10 @@
 
 .section--alt {
     background: linear-gradient(180deg, rgba(246, 247, 245, 0.38), rgba(246, 247, 245, 0.20));
+}
+
+.section + .section {
     border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
 }
 
 .section::after {

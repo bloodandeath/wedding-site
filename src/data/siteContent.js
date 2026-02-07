@@ -4,7 +4,7 @@ export const siteContent = {
     dateText: "May 23, 2026",
     cityText: "Orange Park, FL",
     dressCode: "Semi-formal",
-    guestPolicy: "As invited",
+    guestPolicy: "",
 
     weddingDateISO: "2026-05-23T11:00:00-04:00",
 
@@ -19,6 +19,10 @@ export const siteContent = {
         autoplayMs: 6000, // set to e.g. 6000 to auto-advance
         slides: [
             {
+                src: "/gallery/00.jpg",
+                alt: "The day she said yes",
+            },
+            {
                 src: "/gallery/01.jpg",
                 alt: "Us at the Marine Corps Ball in 2025",
             },
@@ -28,7 +32,7 @@ export const siteContent = {
             },
             {
                 src: "/gallery/03.jpg",
-                alt: "When we visited the Raleigh Arboritum",
+                alt: "Pirate's Cove Hike",
             },
             {
                 src: "/gallery/04.jpg",
@@ -38,15 +42,6 @@ export const siteContent = {
                 src: "/gallery/05.jpg",
                 alt: "Kissing near the wishing fountain",
             },
-            {
-                src: "/gallery/06.jpg",
-                alt: "The day she said yes",
-            },
-            {
-                src: "/gallery/07.jpg",
-                alt: "Also the day she said yes",
-            },
-
         ],
     },
 
@@ -85,7 +80,6 @@ export const siteContent = {
         rideshare: "Uber/Lyft recommended after the reception.",
     },
 
-    rsvpUrl: "#rsvp",
     rsvp: {
         title: "Rsvp",
         lead: "Please let us know if you can make it. We can’t wait to celebrate with you!",

@@ -62,34 +62,32 @@
 }
 
 /* ===== Countdown ===== */
-.countdown {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.65rem;
-    width: 100%;
-    margin: 0;
+.countdownBar {
+    display: inline-flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.7rem;
+
+    border-radius: 999px;
+    border: 1px solid rgba(0,0,0,0.07);
+    background: rgba(255,255,255,0.30);
+    backdrop-filter: blur(6px);
+
+    margin: 0.3rem auto 0;
 }
 
-.cd-item {
-    background: rgba(255, 255, 255, 0.55);
-    border: 1px solid var(--line);
-    border-radius: 18px;
-    padding: 0.72rem 0.6rem;
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.05);
+.barNum {
+    font-weight: 850;
+    font-size: 1.02rem;
 }
 
-.cd-num {
-    font-size: 1.22rem;
-    font-weight: 750;
-    color: var(--ink);
-    line-height: 1.1;
-}
-
-.cd-label {
-    font-size: 0.75rem;
+.barLab {
+    font-size: 0.8rem;
     color: var(--muted);
-    margin-top: 0.12rem;
+    margin-right: 0.2rem;
 }
+
 
 /* ===== Details card ===== */
 .details-card {
@@ -145,12 +143,6 @@
     display: flex;
     gap: 0.55rem;
     flex-wrap: wrap;
-}
-
-.btn--small {
-    padding: 0.55rem 0.75rem;
-    border-radius: 14px;
-    font-size: 0.92rem;
 }
 
 .details-toast {
@@ -337,6 +329,49 @@
 .splitBtn__item--primary {
     font-weight: 750;
 }
+
+/* Foot bar: dress code / guest policy + maps (keeps mobile tidy) */
+.details-footBar {
+    margin-top: 0.55rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.details-footBar .note {
+    margin: 0;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.mapsSlot {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Slightly tighter split button for the hero foot row */
+.splitBtn--compact .splitBtn__item {
+    padding: 0.45rem 0.62rem;
+    font-size: 0.88rem;
+}
+
+@media (max-width: 520px) {
+    .details-footBar { gap: 0.55rem; }
+    .details-footBar .note { font-size: 0.9rem; }
+
+    .splitBtn--compact .splitBtn__item {
+        padding: 0.48rem 0.6rem;
+        font-size: 0.86rem;
+    }
+
+    .details-footBar .btn--small {
+        padding: 0.5rem 0.65rem;
+        font-size: 0.88rem;
+    }
+}
+
 
 /* ===== CTAs & note ===== */
 .cta-row {

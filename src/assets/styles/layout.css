@@ -1,3 +1,11 @@
+:root {
+    --nav-offset: 84px;
+}
+
+[id] {
+    scroll-margin-top: var(--nav-offset);
+}
+
 .container {
     width: min(1100px, calc(100% - 2rem));
     margin: 0 auto;

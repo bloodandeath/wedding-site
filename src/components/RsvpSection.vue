@@ -1,5 +1,5 @@
 <template>
-  <section class="section" id="rsvp">
+  <section class="section section--alt" id="rsvp">
     <div class="container">
       <h2 class="h2">{{ title }}</h2>
       <p v-if="lead" class="lead">{{ lead }}</p>

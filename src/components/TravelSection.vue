@@ -1,5 +1,5 @@
 <template>
-  <section class="section section--alt" id="travel">
+  <section class="section" id="travel">
     <div class="container">
       <h2 class="h2">Travel & stay</h2>
 
