@@ -14,7 +14,6 @@
         :dressCode="c.dressCode"
         :guestPolicy="c.guestPolicy"
         :weddingDateISO="c.weddingDateISO"
-        :rsvpUrl="c.rsvpUrl"
         :details="c.details"
     />
 

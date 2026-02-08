@@ -74,8 +74,6 @@
             <div class="details-footBar" v-if="dressCode || guestPolicy || mapsAnyHref">
               <p class="note" v-if="dressCode || guestPolicy">
                 <span v-if="dressCode">Dress code: <strong>{{ dressCode }}</strong></span>
-                <span v-if="dressCode && guestPolicy"> • </span>
-                <span v-if="guestPolicy">Adults/children: <strong>{{ guestPolicy }}</strong></span>
               </p>
 
               <div class="mapsSlot" v-if="mapsAnyHref">
@@ -160,7 +158,6 @@ const props = defineProps({
   dressCode: { type: String, default: "" },
   guestPolicy: { type: String, default: "" },
   weddingDateISO: { type: String, required: true },
-  rsvpUrl: { type: String, required: true },
 
   details: {
     type: Object,
