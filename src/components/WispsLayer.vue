@@ -1,5 +1,12 @@
 <template>
   <div class="wisps" aria-hidden="true">
+    <div class="watercolor-layer">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+      <div class="blob blob-4"></div>
+      <div class="noise-overlay"></div>
+    </div>
     <span
         v-for="p in visibleParticles"
         :key="p.id"
@@ -14,12 +21,10 @@
 import { onMounted, onBeforeUnmount, ref, watch } from "vue";
 
 const props = defineProps({
-  densityPerScreen: { type: Number, default: 170 },
+  densityPerScreen: { type: Number, default: 40 },
   minCount:         { type: Number, default: 0 },
   maxCount:         { type: Number, default: 700 },
   count:            { type: Number, default: 0 },
-  parallax:         { type: Boolean, default: true },
-  parallaxFactor:   { type: Number, default: 0.22 },
 });
 
 // All particles (full page). Only the viewport-visible subset is rendered.
@@ -70,26 +75,28 @@ function makeParticle(id, pageH) {
   const x = rand(0, 100);
   const y = rand(0, pageH);
 
-  const minS = 1.9;
-  const maxS = 5.2;
+  // Slightly larger, softer particles for the "elegant" look
+  const minS = 3.0;
+  const maxS = 8.0;
   const size = rand(minS, maxS);
 
-  const dx = rand(-32, 32);
-  const dy = rand(-28, 28);
-  const dur = rand(18, 44);
+  const dx = rand(-20, 20); // Slower horizontal drift
+  const dy = rand(-15, 15); // Slower vertical drift
+  const dur = rand(25, 60); // Longer animation durations
 
   const tw = rand(4, 10);
   const delay = -rand(0, dur);
   const twDelay = -rand(0, tw);
 
-  const hue = rand(128, 152);
-  const sat = rand(40, 70);
-  const light = rand(18, 28);
-  const alpha = rand(0.45, 0.75);
+  // Warm whites / creams for sage theme
+  const hue = rand(40, 60);
+  const sat = rand(20, 60);
+  const light = rand(70, 90);
+  const alpha = rand(0.3, 0.6);
 
   const rot = rand(0, 360);
 
-  const hasGlint = Math.random() < 0.25;
+  const hasGlint = Math.random() < 0.15; // Fewer glints
   const glintDur = rand(7, 16);
   const glintDelay = -rand(0, glintDur);
 
@@ -97,7 +104,7 @@ function makeParticle(id, pageH) {
 
   return {
     id,
-    y,                 // raw y for virtualization culling
+    y, // raw y for virtualization culling
     depthClass,
     style: {
       "--x": `${x.toFixed(3)}vw`,
@@ -119,33 +126,16 @@ function makeParticle(id, pageH) {
   };
 }
 
-// ── Parallax (uniform container translate) ──────────────────────────
-
-function applyParallax() {
-  if (!props.parallax) {
-    setRootVar("--wispPar", "0px");
-    return;
-  }
-  const y = window.scrollY || 0;
-  setRootVar("--wispPar", `${Math.round(y * props.parallaxFactor)}px`);
-}
-
 // ── Viewport virtualization ─────────────────────────────────────────
 // Only particles within viewport ± buffer are rendered in the DOM.
 
 function cullToViewport() {
   const scrollY = window.scrollY || 0;
   const vh = getViewportHeight();
-  const buffer = vh * 1.2;
+  const buffer = vh * 1.5; // Larger buffer since we are not strictly parallaxing
 
-  // Account for parallax offset: the container is shifted down by par,
-  // so a wisp at y appears at (y + par - scrollY) in viewport space.
-  const par = props.parallax ? scrollY * props.parallaxFactor : 0;
-
-  // Visible if:  0 - buffer  <=  y + par - scrollY  <=  vh + buffer
-  // Rearranged:  scrollY - par - buffer  <=  y  <=  scrollY - par + vh + buffer
-  const lo = scrollY - par - buffer;
-  const hi = scrollY - par + vh + buffer;
+  const lo = scrollY - buffer;
+  const hi = scrollY + vh + buffer;
 
   visibleParticles.value = allParticles.value.filter(p => p.y >= lo && p.y <= hi);
 }
@@ -155,7 +145,6 @@ function cullToViewport() {
 function onScroll() {
   if (scrollRaf) return;
   scrollRaf = requestAnimationFrame(() => {
-    applyParallax();
     cullToViewport();
     scrollRaf = 0;
   });
@@ -170,7 +159,6 @@ function rebuildWisps() {
   const count = computeCount(pageH);
   allParticles.value = Array.from({ length: count }, (_, i) => makeParticle(i, pageH));
 
-  applyParallax();
   cullToViewport();
 }
 
@@ -184,7 +172,6 @@ function scheduleRebuild() {
 onMounted(() => {
   isMobile = window.matchMedia?.("(max-width: 860px)")?.matches ?? false;
 
-  applyParallax();
   rebuildWisps();
 
   window.addEventListener("scroll", onScroll, { passive: true });
@@ -208,6 +195,4 @@ watch(
     () => [props.densityPerScreen, props.minCount, props.maxCount, props.count],
     () => scheduleRebuild()
 );
-
-watch(() => props.parallax, () => applyParallax());
 </script>
