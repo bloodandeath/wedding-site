@@ -2,7 +2,6 @@
   <main class="page">
     <WispsLayer
         :densityPerScreen="160"
-        :parallax="false"
     />
 
     <FloatingNav />

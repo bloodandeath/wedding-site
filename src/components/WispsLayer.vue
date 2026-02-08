@@ -1,10 +1,14 @@
 <template>
   <div class="wisps" aria-hidden="true">
-    <div class="watercolor-layer">
+    <div class="watercolor-layer" ref="watercolorRef">
       <div class="blob blob-1"></div>
       <div class="blob blob-2"></div>
       <div class="blob blob-3"></div>
       <div class="blob blob-4"></div>
+      <div class="blob blob-5"></div>
+      <div class="blob blob-6"></div>
+      <div class="blob blob-7"></div>
+      <div class="blob blob-8"></div>
       <div class="noise-overlay"></div>
     </div>
     <span
@@ -25,11 +29,14 @@ const props = defineProps({
   minCount:         { type: Number, default: 0 },
   maxCount:         { type: Number, default: 700 },
   count:            { type: Number, default: 0 },
+  watercolorParallax:       { type: Boolean, default: true },
+  watercolorParallaxFactor: { type: Number,  default: 0.05 },
 });
 
 // All particles (full page). Only the viewport-visible subset is rendered.
 const allParticles = ref([]);
 const visibleParticles = ref([]);
+const watercolorRef = ref(null);
 
 let ro = null;
 let rebuildTimer = null;
@@ -146,6 +153,13 @@ function onScroll() {
   if (scrollRaf) return;
   scrollRaf = requestAnimationFrame(() => {
     cullToViewport();
+
+    if (props.watercolorParallax && watercolorRef.value) {
+      const scrollY = window.scrollY || 0;
+      const offset = scrollY * props.watercolorParallaxFactor;
+      watercolorRef.value.style.setProperty('--wcPar', `${offset.toFixed(1)}px`);
+    }
+
     scrollRaf = 0;
   });
 }
