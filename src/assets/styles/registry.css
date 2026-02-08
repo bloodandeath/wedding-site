@@ -20,24 +20,34 @@
 
     overflow-x: auto;
     overflow-y: hidden;
-    padding: 0.25rem 0.25rem 0.75rem;
+    padding: 1rem 1rem 0.75rem;
 
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
 
     scrollbar-width: thin;
+
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 }
 
 .reg-carousel::-webkit-scrollbar {
     height: 10px;
 }
 .reg-carousel::-webkit-scrollbar-thumb {
-    background: rgba(28, 31, 28, 0.18);
+    background: rgba(123, 143, 122, 0.5);
     border-radius: 999px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background-clip: padding-box;
 }
 .reg-carousel::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.3);
     border-radius: 999px;
+    margin: 4px;
 }
 
 .reg-card {
@@ -45,8 +55,8 @@
     text-decoration: none;
     color: inherit;
 
-    background: rgba(255, 255, 255, 0.72);
-    border: 1px solid rgba(28, 31, 28, 0.14);
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(28, 31, 28, 0.08);
     border-radius: 22px;
     box-shadow: 0 14px 40px rgba(0, 0, 0, 0.10);
 
