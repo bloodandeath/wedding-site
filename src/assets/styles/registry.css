@@ -52,6 +52,7 @@
 
 .reg-card {
     scroll-snap-align: start;
+    scroll-margin-left: 0.9rem;
     text-decoration: none;
     color: inherit;
 
