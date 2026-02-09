@@ -56,6 +56,7 @@
 .brand--toggle {
     all: unset;
     cursor: pointer;
+    touch-action: manipulation;
 
     display: inline-flex;
     align-items: center;

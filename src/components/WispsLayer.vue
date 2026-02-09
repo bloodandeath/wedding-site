@@ -28,6 +28,8 @@ let ro = null;
 let rebuildTimer = null;
 let scrollRaf = 0;
 let isMobile = false;
+let lastWidth = 0;
+let lastHeight = 0;
 
 function rand(min, max) {
   return min + Math.random() * (max - min);
@@ -160,24 +162,36 @@ function scheduleRebuild() {
   rebuildTimer = setTimeout(rebuildWisps, 140);
 }
 
+// Guard against iOS address-bar resize (vertical-only changes < 120px)
+function handleResize() {
+  const newW = window.innerWidth;
+  const newH = window.innerHeight;
+  if (lastWidth && newW === lastWidth && Math.abs(newH - lastHeight) < 120) return;
+  lastWidth = newW;
+  lastHeight = newH;
+  scheduleRebuild();
+}
+
 // ── Lifecycle ───────────────────────────────────────────────────────
 
 onMounted(() => {
   isMobile = window.matchMedia?.("(max-width: 860px)")?.matches ?? false;
+  lastWidth = window.innerWidth;
+  lastHeight = window.innerHeight;
 
   rebuildWisps();
 
   window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", scheduleRebuild, { passive: true });
+  window.addEventListener("resize", handleResize, { passive: true });
 
-  ro = new ResizeObserver(() => scheduleRebuild());
+  ro = new ResizeObserver(() => handleResize());
   ro.observe(document.documentElement);
   if (document.body) ro.observe(document.body);
 });
 
 onBeforeUnmount(() => {
   window.removeEventListener("scroll", onScroll);
-  window.removeEventListener("resize", scheduleRebuild);
+  window.removeEventListener("resize", handleResize);
 
   if (ro) ro.disconnect();
   if (rebuildTimer) clearTimeout(rebuildTimer);
