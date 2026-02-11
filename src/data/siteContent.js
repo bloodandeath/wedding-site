@@ -67,17 +67,26 @@ export const siteContent = {
         { time: "12:30 PM - 3:00 PM", title: "Reception", notes: "Lunch, toasts, and dancing!" },
     ],
 
-    hotel: {
-        name: "Sage Hotel",
-        address: "789 Example Blvd, Charleston, SC",
-        blockDeadline: "September 1, 2026",
-        bookingUrl: "https://example.com",
-    },
+    accommodations: [
+        {
+            name: "Courtyard by Marriott Orange Park",
+            description: "Resturant on-site, short 2-mile drive from the venue.",
+            address: "610 Wells Rd, Orange Park, FL 32073",
+            bookingUrl: "https://www.marriott.com/en-us/hotels/jaxco-courtyard-jacksonville-orange-park/overview",
+        },
+        {
+            name: "Days Inn Orange Park - Jacksonville",
+            description: "Close to the venue, budget-friendly option.",
+            address: "4280 Eldridge Loop, Orange Park, FL 32073",
+            bookingUrl: "https://www.wyndhamhotels.com/days-inn/orange-park-florida/days-inn-orange-park-jacksonville/overview",
+        },
+    ],
 
     travel: {
-        airport: "CHS (Charleston International Airport)",
+        airport: "Jacksonville International Airport (JAX) — ~35 min drive to venue",
         parking: "On-site parking available at the venue.",
-        rideshare: "Uber/Lyft recommended after the reception.",
+        rideshare: "Uber & Lyft are readily available in the Orange Park area.",
+        rentalCar: "Recommended if you plan to explore Jacksonville or go down to St. Augustine.",
     },
 
     rsvp: {

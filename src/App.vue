@@ -28,9 +28,8 @@
     />
 
     <TravelSection
-        :hotel="c.hotel"
+        :accommodations="c.accommodations"
         :travel="c.travel"
-        :travelInfoUrl="c.travelInfoUrl"
     />
 
     <RsvpSection
