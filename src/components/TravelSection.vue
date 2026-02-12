@@ -53,6 +53,10 @@ defineProps({
   margin-bottom: 0.45rem;
 }
 
+.btn {
+  margin-top: 0.5rem;
+}
+
 .card--travel {
   grid-column: 1 / -1;
 }
