@@ -204,7 +204,9 @@ function goPrev() {
     disableTransition.value = true;
     internalIndex.value = slideCount.value - 1;
     requestAnimationFrame(() => {
-      disableTransition.value = false;
+      requestAnimationFrame(() => {
+        disableTransition.value = false;
+      });
     });
     return;
   }
@@ -241,10 +243,8 @@ function onClickPrev() {
   goPrev();
 }
 function onClickDot(i) {
-  return () => {
-    onUiInteract();
-    goTo(i);
-  };
+  onUiInteract();
+  goTo(i);
 }
 function onKeyNext() {
   onUiInteract();
@@ -260,7 +260,6 @@ function onPointerDown(e) {
   if (slideCount.value <= 1) return;
   if (!viewportEl.value) return;
 
-  e.preventDefault();
   showUi();
   stopAutoplay();
 
@@ -335,56 +334,23 @@ watch(
 
   aspect-ratio: 16 / 10;
 
-  /* Eased (non-linear) cloud fade:
-       - left/right stronger than top/bottom
-       - fade starts very gently, ramps near edges */
-  -webkit-mask-image:
-      linear-gradient(to right,
-      transparent 0%,
-      rgba(0,0,0,0.05) 1.5%,
-      rgba(0,0,0,0.18) 3%,
-      rgba(0,0,0,0.40) 4.8%,
-      rgba(0,0,0,0.70) 6.5%,
-      #000 9.5%,
-      #000 90.5%,
-      rgba(0,0,0,0.70) 93.5%,
-      rgba(0,0,0,0.40) 95.2%,
-      rgba(0,0,0,0.18) 97%,
-      rgba(0,0,0,0.05) 98.5%,
+  /* Radial vignette mask: smooth fade on all edges AND corners.
+     Ellipse sizes tuned so horizontal fade is slightly wider than vertical
+     (matching the original left/right emphasis). */
+  -webkit-mask-image: radial-gradient(
+      ellipse 94% 96% at 50% 50%,
+      #000 78%,
+      rgba(0,0,0,0.6) 87%,
+      rgba(0,0,0,0.15) 95%,
       transparent 100%
-      ),
-      linear-gradient(to bottom,
-      transparent 0%,
-      rgba(0,0,0,0.06) 1.2%,
-      rgba(0,0,0,0.20) 2.4%,
-      rgba(0,0,0,0.46) 3.8%,
-      rgba(0,0,0,0.76) 5.2%,
-      #000 7.2%,
-      #000 92.8%,
-      rgba(0,0,0,0.76) 94.8%,
-      rgba(0,0,0,0.46) 96.2%,
-      rgba(0,0,0,0.20) 97.6%,
-      rgba(0,0,0,0.06) 98.8%,
+  );
+  mask-image: radial-gradient(
+      ellipse 94% 96% at 50% 50%,
+      #000 78%,
+      rgba(0,0,0,0.6) 87%,
+      rgba(0,0,0,0.15) 95%,
       transparent 100%
-      );
-
-  /* composite the two masks (keep your existing composite rules) */
-  -webkit-mask-composite: source-in;
-  mask-composite: intersect;
-
-  mask-image:
-      linear-gradient(to right,
-      transparent 0%,
-      #000 6%,
-      #000 94%,
-      transparent 100%
-      ),
-      linear-gradient(to bottom,
-      transparent 0%,
-      #000 6%,
-      #000 94%,
-      transparent 100%
-      );
+  );
 }
 
 /* Light grain overlay to prevent banding + add softness */
@@ -460,25 +426,21 @@ watch(
 @keyframes cloud-drift {
   0% {
     transform: translate3d(-1.8%, -1.2%, 0) scale(1.02);
-    background-position: 0% 0%;
     opacity: 0.78;
   }
 
   35% {
     transform: translate3d(1.2%, 1.4%, 0) scale(1.045);
-    background-position: 45% 35%;
     opacity: 0.92;
   }
 
   65% {
     transform: translate3d(1.6%, -0.8%, 0) scale(1.035);
-    background-position: 80% 70%;
     opacity: 0.88;
   }
 
   100% {
     transform: translate3d(-1.2%, 1.0%, 0) scale(1.02);
-    background-position: 100% 100%;
     opacity: 0.82;
   }
 }
@@ -620,6 +582,12 @@ watch(
 .dot[aria-selected="true"] {
   background: rgba(255, 255, 255, 1);
   transform: scale(1.18);
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .viewport::after { animation: none; }
+  .cloudFrame { animation: none; }
 }
 
 </style>

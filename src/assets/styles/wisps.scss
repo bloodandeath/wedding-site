@@ -40,7 +40,6 @@
     mix-blend-mode: screen;
 
     transform: translate3d(0, 0, 0);
-    will-change: transform, opacity;
 
     animation:
         wisp-drift var(--dur) ease-in-out var(--delay) infinite,
@@ -161,4 +160,20 @@
 
 .wisp.has-glint::before {
     animation: wisp-glint var(--glintDur) ease-in-out var(--glintDelay) infinite;
+}
+
+/* Respect reduced-motion preferences — pause all continuous wisp animations */
+@media (prefers-reduced-motion: reduce) {
+    .wisps { translate: none; }
+
+    .wisp {
+        animation: none;
+        opacity: 0.5;
+    }
+
+    .wisp::before,
+    .wisp.has-glint::before {
+        animation: none;
+        opacity: 0;
+    }
 }

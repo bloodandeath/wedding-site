@@ -71,7 +71,7 @@ function closeNav() {
   navOpen.value = false;
 }
 
-function onDocumentPointerDown(e) {
+function onDocumentClick(e) {
   if (!navOpen.value) return;
   const navEl = navRef.value;
   if (navEl && navEl.contains(e.target)) return;
@@ -91,14 +91,14 @@ function onKeyDown(e) {
 }
 
 onMounted(() => {
-  document.addEventListener("pointerdown", onDocumentPointerDown, { capture: true });
+  document.addEventListener("click", onDocumentClick);
   window.addEventListener("scroll", onWindowScroll, { passive: true });
   window.addEventListener("scroll", onScrollAffordance, { passive: true });
   window.addEventListener("keydown", onKeyDown);
 });
 
 onUnmounted(() => {
-  document.removeEventListener("pointerdown", onDocumentPointerDown, { capture: true });
+  document.removeEventListener("click", onDocumentClick);
   window.removeEventListener("scroll", onWindowScroll);
   window.removeEventListener("scroll", onScrollAffordance);
   window.removeEventListener("keydown", onKeyDown);

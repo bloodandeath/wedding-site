@@ -35,12 +35,12 @@
 
     background: radial-gradient(
             closest-side,
-            rgba(123, 143, 122, 0.35),
-            rgba(123, 143, 122, 0.12),
-            transparent 70%
+            rgba(123, 143, 122, 0.28),
+            rgba(123, 143, 122, 0.14),
+            rgba(123, 143, 122, 0.04),
+            transparent 75%
     );
 
-    filter: blur(6px);
     opacity: 0.65;
     transform: scale(0.92);
     transition: opacity 0.25s ease, transform 0.25s ease;
@@ -73,7 +73,7 @@
     overflow: hidden;
 
     background: rgba(255, 255, 255, 0.55);
-    backdrop-filter: blur(14px);
+    backdrop-filter: blur(8px);
 
     border: 1px solid rgba(28, 31, 28, 0.14);
     box-shadow: 0 14px 40px rgba(0, 0, 0, 0.16);
