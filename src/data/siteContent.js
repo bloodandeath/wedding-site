@@ -45,21 +45,6 @@ export const siteContent = {
         ],
     },
 
-    contacts: [
-        {
-            title: "The Bride",
-            name: "Mary Christensen",
-            phone: "(904) 305-5119",
-            email: "marychistensen527@yahoo.com",
-        },
-        {
-            title: "The Groom",
-            name: "Corbin Breton",
-            phone: "(904) 613-9352",
-            email: "corbintylerbreton@gmail.com",
-        }
-    ],
-
     schedule: [
         { time: "11:00 AM", title: "Guests arrive", notes: "Please be seated by 11:10 PM." },
         { time: "11:15 AM", title: "Processional",  notes: "The ceremony begins" },
@@ -90,7 +75,7 @@ export const siteContent = {
     },
 
     rsvp: {
-        title: "Rsvp",
+        title: "RSVP",
         lead: "Please let us know if you can make it. We can’t wait to celebrate with you!",
         privacyNote: null,
 
@@ -98,14 +83,33 @@ export const siteContent = {
         embedUrl: "https://tally.so/embed/68Zo1e?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1",
         fallbackUrl: "https://tally.so/r/68Zo1e",
 
-        deadlineText: "Please RSVP by April 15, 2026.",
-        helpText: "If you have any issues with the form, use the following link or reach out to us directly:"
+        // Section footer
+        helpText: "If you have any issues with the form, use the following link. You may also reach out to us directly:"
     },
 
     faqs: [
-        { q: "Can I bring a plus one?", a: "We’re keeping it intimate. If your invitation includes a guest, they’re welcome!" },
-        { q: "Are kids invited?", a: "Please refer to your invitation for the guest list. Thanks for understanding!" },
-        { q: "What should I wear?", a: "Dress code is Semi-formal. Think polished and comfortable." },
-        { q: "Will there be transportation?", a: "We’ll share any shuttle details here as we get closer." },
+        { q: "When should I RSVP by?", a: "Please RSVP by April 15, 2026." },
+        { q: "Can I bring a plus one?", a: "Please reach out to us first, as seating is limited." },
+        { q: "Are kids invited?", a: "Yes, children are invited!" },
+        { q: "What time should I arrive?", a: "We will begin at 11:15 AM sharp. The doors will at 11:00 AM. Please be seated before 11:10 AM." },
+        { q: "What should I wear?", a: "Semi-formal attire is recommended. If you could wear an outfit to church then it is appropriate." },
+        { q: "Will there be an open bar?", a: "Yes, beer and wine will be provided, however spirits are not included and will need to be purchased on-site." },
+        { q: "What is the menu?", a: "The menu will be provided by the venue. We will be serving a buffet-style lunch. Please let us know if you have any dietary restrictions. We will post it as soon as we have it." },
     ],
+
+    contacts: [
+        {
+            title: "The Bride",
+            name: "Mary Christensen",
+            phone: "(904) 305-5119",
+            email: "marychistensen527@yahoo.com",
+        },
+        {
+            title: "The Groom",
+            name: "Corbin Breton",
+            phone: "(904) 613-9352",
+            email: "corbintylerbreton@gmail.com",
+        }
+    ],
+
 };

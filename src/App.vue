@@ -39,7 +39,6 @@
         :privacyNote="c.rsvp.privacyNote"
         :embedUrl="c.rsvp.embedUrl"
         :fallbackUrl="c.rsvp.fallbackUrl"
-        :deadlineText="c.rsvp.deadlineText"
         :helpText="c.rsvp.helpText"
     />
 
@@ -50,8 +49,7 @@
     />
 
     <ContactSection
-        :contactName="c.contactName"
-        :contactEmail="c.contactEmail"
+        :contacts="c.contacts"
     />
 
     <SiteFooter

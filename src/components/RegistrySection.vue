@@ -5,7 +5,7 @@
         <div>
           <h2 class="h2">Registry</h2>
           <p class="lead">
-            Your presence is the best gift. If you’d like, here are a few items we’re excited about.
+            Here are a few items we'd greatly appreciate. If you would like to contribute to our house & honeymoon fund, please bring an envelope to the ceremony.
           </p>
         </div>
 
