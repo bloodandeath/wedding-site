@@ -17,6 +17,7 @@
     />
 
     <GallerySection
+        data-reveal
         :title="c.gallery.title"
         :lead="c.gallery.lead"
         :slides="c.gallery.slides"
@@ -24,15 +25,18 @@
     />
 
     <ScheduleSection
+        data-reveal
         :schedule="c.schedule"
     />
 
     <TravelSection
+        data-reveal
         :accommodations="c.accommodations"
         :travel="c.travel"
     />
 
     <RsvpSection
+        data-reveal
         :title="c.rsvp.title"
         :lead="c.rsvp.lead"
         :deadlineText="c.rsvp.deadlineText"
@@ -40,13 +44,15 @@
         :helpText="c.rsvp.helpText"
     />
 
-    <RegistrySection />
+    <RegistrySection data-reveal />
 
     <FaqSection
+        data-reveal
         :faqs="c.faqs"
     />
 
     <ContactSection
+        data-reveal
         :contacts="c.contacts"
     />
 
@@ -60,6 +66,7 @@
 </template>
 
 <script setup>
+import { onMounted, onBeforeUnmount } from "vue";
 import WispsLayer from "@/components/WispsLayer.vue";
 import FloatingNav from "@/components/FloatingNav.vue";
 import HeroSection from "@/components/HeroSection.vue";
@@ -73,6 +80,31 @@ import FaqSection from "@/components/FaqSection.vue";
 import SiteFooter from "@/components/SiteFooter.vue";
 
 import { siteContent as c } from "@/data/siteContent";
+
+let revealObserver = null;
+
+onMounted(() => {
+  const els = document.querySelectorAll('[data-reveal]');
+  if (!els.length) return;
+
+  revealObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      }
+    },
+    { threshold: 0.08 }
+  );
+
+  for (const el of els) revealObserver.observe(el);
+});
+
+onBeforeUnmount(() => {
+  if (revealObserver) revealObserver.disconnect();
+});
 </script>
 
 <style src="@/assets/app.scss"></style>

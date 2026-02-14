@@ -8,7 +8,6 @@
     border-radius: 22px;
 
     box-shadow: var(--shadow);
-    contain: layout style;
 
     transition:
             border-color 320ms ease,
@@ -78,9 +77,9 @@
 
 .faq-body__inner {
     overflow: clip;
-    padding-top: 0;
+    min-height: 0;
     opacity: 0;
-    transition: padding-top 420ms ease, opacity 350ms ease;
+    transition: opacity 350ms ease;
 }
 
 .faq-body--open {
@@ -88,8 +87,11 @@
 }
 
 .faq-body--open .faq-body__inner {
-    padding-top: 0.75rem;
     opacity: 1;
+}
+
+.faq-body__inner .text {
+    margin-top: 0.75rem;
 }
 
 .faq--open {

@@ -385,7 +385,6 @@ async function onSubmit() {
 <style scoped>
 .rsvp-card {
   padding: 1.5rem;
-  contain: layout style;
 }
 
 /* ── Form groups ────────────────────────────────────── */
@@ -492,6 +491,7 @@ async function onSubmit() {
 
 .form-section__inner {
   overflow: clip;
+  min-height: 0;
   padding: 0 8px;
   opacity: 0;
   transition: opacity 350ms ease;
