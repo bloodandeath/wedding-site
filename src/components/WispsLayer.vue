@@ -30,6 +30,7 @@ let scrollRaf = 0;
 let isMobile = false;
 let lastWidth = 0;
 let lastHeight = 0;
+let generatedHeight = 0;
 
 function rand(min, max) {
   return min + Math.random() * (max - min);
@@ -66,9 +67,9 @@ function computeCount(pageH) {
   return clamp(Math.round(screens * density), lo, hi);
 }
 
-function makeParticle(id, pageH) {
+function makeParticle(id, minY, maxY) {
   const x = rand(0, 100);
-  const y = rand(0, pageH);
+  const y = rand(minY, maxY);
 
   // Slightly larger, softer particles for the "elegant" look
   const minS = 3.0;
@@ -150,10 +151,29 @@ function onScroll() {
 function rebuildWisps() {
   const pageH = getPageHeight();
   setRootVar("--pageH", `${pageH}px`);
+  generatedHeight = pageH;
 
   const count = computeCount(pageH);
-  allParticles.value = Array.from({ length: count }, (_, i) => makeParticle(i, pageH));
+  allParticles.value = Array.from({ length: count }, (_, i) => makeParticle(i, 0, pageH));
 
+  cullToViewport();
+}
+
+function appendWisps(fromY, toY) {
+  const vh = getViewportHeight();
+  const stripScreens = (toY - fromY) / vh;
+  const density = isMobile ? Math.round(props.densityPerScreen * 0.45) : props.densityPerScreen;
+  const extra = Math.round(stripScreens * density);
+  if (extra <= 0) return;
+
+  const startId = allParticles.value.length;
+  const newParticles = Array.from({ length: extra }, (_, i) =>
+    makeParticle(startId + i, fromY, toY)
+  );
+
+  allParticles.value = [...allParticles.value, ...newParticles];
+  setRootVar("--pageH", `${toY}px`);
+  generatedHeight = toY;
   cullToViewport();
 }
 
@@ -162,14 +182,38 @@ function scheduleRebuild() {
   rebuildTimer = setTimeout(rebuildWisps, 140);
 }
 
-// Guard against iOS address-bar resize (vertical-only changes < 120px)
+let heightCheckTimer = null;
+
 function handleResize() {
   const newW = window.innerWidth;
-  const newH = window.innerHeight;
-  if (lastWidth && newW === lastWidth && Math.abs(newH - lastHeight) < 120) return;
-  lastWidth = newW;
-  lastHeight = newH;
-  scheduleRebuild();
+  const viewH = window.innerHeight;
+
+  // Width change → full rebuild (particles use vw for horizontal position)
+  if (newW !== lastWidth) {
+    lastWidth = newW;
+    lastHeight = viewH;
+    scheduleRebuild();
+    return;
+  }
+
+  // Large viewport height change (orientation change) → full rebuild
+  if (Math.abs(viewH - lastHeight) >= 120) {
+    lastHeight = viewH;
+    scheduleRebuild();
+    return;
+  }
+
+  // Debounced document height growth check — avoids forced reflow during animations.
+  // getPageHeight() reads scrollHeight/offsetHeight which force synchronous layout.
+  // The 500ms delay ensures it fires AFTER the 420ms grid-template-rows transition.
+  if (heightCheckTimer) clearTimeout(heightCheckTimer);
+  heightCheckTimer = setTimeout(() => {
+    heightCheckTimer = null;
+    const pageH = getPageHeight();
+    if (pageH > generatedHeight + 50) {
+      appendWisps(generatedHeight, pageH);
+    }
+  }, 500);
 }
 
 // ── Lifecycle ───────────────────────────────────────────────────────
@@ -195,6 +239,7 @@ onBeforeUnmount(() => {
 
   if (ro) ro.disconnect();
   if (rebuildTimer) clearTimeout(rebuildTimer);
+  if (heightCheckTimer) clearTimeout(heightCheckTimer);
   if (scrollRaf) cancelAnimationFrame(scrollRaf);
 });
 

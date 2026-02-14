@@ -486,7 +486,7 @@ async function onSubmit() {
 .form-section {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 420ms cubic-bezier(0.33, 1, 0.68, 1);
+  transition: grid-template-rows 300ms cubic-bezier(0.33, 1, 0.68, 1);
 }
 
 .form-section__inner {
@@ -494,7 +494,7 @@ async function onSubmit() {
   min-height: 0;
   padding: 0 8px;
   opacity: 0;
-  transition: opacity 350ms ease;
+  transition: opacity 220ms ease;
 }
 
 .form-section--open {

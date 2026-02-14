@@ -48,6 +48,7 @@
 .grid {
     display: grid;
     gap: 1rem;
+    align-items: start;
 }
 
 .grid--2 {
