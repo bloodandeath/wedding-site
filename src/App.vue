@@ -33,12 +33,10 @@
     />
 
     <RsvpSection
-        mode="embed"
         :title="c.rsvp.title"
         :lead="c.rsvp.lead"
-        :privacyNote="c.rsvp.privacyNote"
-        :embedUrl="c.rsvp.embedUrl"
-        :fallbackUrl="c.rsvp.fallbackUrl"
+        :deadlineText="c.rsvp.deadlineText"
+        :submitUrl="c.rsvp.submitUrl"
         :helpText="c.rsvp.helpText"
     />
 

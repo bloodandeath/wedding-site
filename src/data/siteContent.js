@@ -76,24 +76,18 @@ export const siteContent = {
 
     rsvp: {
         title: "RSVP",
-        lead: "Please let us know if you can make it. We can’t wait to celebrate with you!",
-        privacyNote: null,
-
-        // Tally
-        embedUrl: "https://tally.so/embed/68Zo1e?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1",
-        fallbackUrl: "https://tally.so/r/68Zo1e",
-
-        // Section footer
-        helpText: "If you have any issues with the form, use the following link. You may also reach out to us directly:"
+        lead: "Please let us know if you can make it. We can't wait to celebrate with you!",
+        deadlineText: "Please RSVP by April 15, 2026.",
+        submitUrl: "https://script.google.com/macros/s/AKfycbyvnTMgA3BQy0csQ9Ok00wRwHa9SETxFcOPRDnbBMdUdZt2wDEsNW5HUGvURvl9impPFA/exec",  // Google Apps Script web app URL — see docs/google-sheets-rsvp.md
+        helpText: "Having trouble? Reach out to us directly.",
     },
 
     faqs: [
         { q: "When should I RSVP by?", a: "Please RSVP by April 15, 2026." },
         { q: "Can I bring a plus one?", a: "Please reach out to us first, as seating is limited." },
-        { q: "Are kids invited?", a: "Yes, children are invited!" },
         { q: "What time should I arrive?", a: "We will begin at 11:15 AM sharp. The doors will at 11:00 AM. Please be seated before 11:10 AM." },
-        { q: "What should I wear?", a: "Semi-formal attire is recommended. If you could wear an outfit to church then it is appropriate." },
-        { q: "Will there be an open bar?", a: "Yes, beer and wine will be provided, however spirits are not included and will need to be purchased on-site." },
+        { q: "What is semi-formal attire?", a: "If you could wear the outfit to church then it is appropriate." },
+        { q: "Will there be an open bar?", a: "Beer and wine will be provided. however spirits are not included and will need to be purchased on-site." },
         { q: "What is the menu?", a: "The menu will be provided by the venue. We will be serving a buffet-style lunch. Please let us know if you have any dietary restrictions. We will post it as soon as we have it." },
     ],
 
