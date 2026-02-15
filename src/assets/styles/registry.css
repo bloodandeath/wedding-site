@@ -1,15 +1,27 @@
 /* Registry Carousel */
 .registry-head {
     display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 1rem;
+    align-items: center;
+    gap: 1.5rem;
     margin-bottom: 1rem;
-    flex-wrap: wrap;
+}
+
+.registry-head .lead {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
 }
 
 .registry-amazon {
     white-space: nowrap;
+    flex-shrink: 0;
+}
+
+@media (max-width: 860px) {
+    .registry-head {
+        flex-direction: column;
+        align-items: stretch;
+    }
 }
 
 .reg-carousel {
@@ -22,7 +34,7 @@
     overflow-y: hidden;
     padding: 1rem 1rem 0.75rem;
 
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: x proximity;
     -webkit-overflow-scrolling: touch;
 
     scrollbar-width: thin;

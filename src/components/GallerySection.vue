@@ -2,37 +2,79 @@
   <section class="section" id="gallery">
     <div class="container">
       <div
-          ref="viewportEl"
-          class="viewport"
-          tabindex="0"
-          aria-label="Photo gallery"
+          class="gallery-wrap"
           @keydown.left.prevent="goPrev"
           @keydown.right.prevent="goNext"
+          tabindex="0"
+          aria-label="Photo gallery"
       >
         <div
-            v-for="(s, i) in slides"
-            :key="s.src"
-            class="slide"
-            :data-index="i"
-            ref="slideEls"
+            ref="viewportEl"
+            class="viewport"
+            @pointerdown="onPointerDown"
+            @pointermove="onPointerMove"
+            @pointerup="onPointerUp"
+            @pointercancel="onPointerUp"
+            @lostpointercapture="onPointerUp"
         >
-          <div class="media">
-            <img
-                class="img"
-                :src="s.src"
-                :alt="s.alt || ''"
-                :loading="i === 0 ? 'eager' : 'lazy'"
-                draggable="false"
-            />
+          <div
+              ref="trackEl"
+              class="track"
+              :style="trackStyle"
+              @transitionend="onTransitionEnd"
+          >
+            <!-- Clone of last slide -->
+            <div v-if="slides.length > 1" class="slide" aria-hidden="true">
+              <div class="media">
+                <img
+                    class="img"
+                    :src="slides[slides.length - 1].src"
+                    :alt="''"
+                    loading="lazy"
+                    draggable="false"
+                />
+              </div>
+            </div>
+
+            <!-- Real slides -->
+            <div
+                v-for="(s, i) in slides"
+                :key="s.src"
+                class="slide"
+            >
+              <div class="media">
+                <img
+                    class="img"
+                    :src="s.src"
+                    :alt="s.alt || ''"
+                    :loading="i === 0 ? 'eager' : 'lazy'"
+                    draggable="false"
+                />
+              </div>
+            </div>
+
+            <!-- Clone of first slide -->
+            <div v-if="slides.length > 1" class="slide" aria-hidden="true">
+              <div class="media">
+                <img
+                    class="img"
+                    :src="slides[0].src"
+                    :alt="''"
+                    loading="lazy"
+                    draggable="false"
+                />
+              </div>
+            </div>
           </div>
+
+          <!-- Cloud frame (decorative overlay) -->
+          <div class="cloudFrame" aria-hidden="true"></div>
         </div>
 
-        <!-- Cloud frame (decorative overlay) -->
-        <div class="cloudFrame" aria-hidden="true"></div>
-
-        <!-- Navigation arrows -->
+        <!-- Navigation arrows — OUTSIDE viewport so they don't scroll -->
         <button
-            class="nav nav--left"
+            v-if="slides.length > 1"
+            class="gal-nav gal-nav--left"
             type="button"
             aria-label="Previous photo"
             @click.stop="goPrev"
@@ -52,7 +94,8 @@
         </button>
 
         <button
-            class="nav nav--right"
+            v-if="slides.length > 1"
+            class="gal-nav gal-nav--right"
             type="button"
             aria-label="Next photo"
             @click.stop="goNext"
@@ -81,7 +124,7 @@
               class="dot"
               type="button"
               role="tab"
-              :aria-selected="i === activeIndex"
+              :aria-selected="i === realIndex"
               :aria-label="'Go to slide ' + (i + 1)"
               @click.stop="goTo(i)"
           />
@@ -92,7 +135,7 @@
 </template>
 
 <script setup>
-import { onBeforeUnmount, onMounted, ref } from "vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
 
 const props = defineProps({
   slides: { type: Array, default: () => [] },
@@ -100,58 +143,160 @@ const props = defineProps({
 });
 
 const viewportEl = ref(null);
-const slideEls = ref([]);
-const activeIndex = ref(0);
+const trackEl = ref(null);
+
+// trackIndex includes the leading clone: 0 = clone-last, 1 = first real, ...
+const trackIndex = ref(1);
+const transitionEnabled = ref(true);
+const dragOffset = ref(0);
 
 let autoplayTimer = null;
-let observer = null;
-let userInteracted = false;
 let autoplayResumeTimer = null;
+let isTransitioning = false;
 
-// ---- Navigation via native scrollTo ----
+// ── Drag state (non-reactive for perf) ──────────────────────────────
+let isDragging = false;
+let dragStartX = 0;
+let dragStartY = 0;
+let dragPointerId = null;
+let dragLocked = false;
 
-function goTo(i) {
-  const el = viewportEl.value;
-  if (!el) return;
-  const target = Math.max(0, Math.min(props.slides.length - 1, i));
-  el.scrollTo({ left: target * el.clientWidth, behavior: "smooth" });
+// ── Computed ────────────────────────────────────────────────────────
+
+const realIndex = computed(() => {
+  const n = props.slides.length;
+  if (n === 0) return 0;
+  let idx = trackIndex.value - 1;
+  if (idx < 0) idx = n - 1;
+  if (idx >= n) idx = 0;
+  return idx;
+});
+
+const trackStyle = computed(() => {
+  const base = -trackIndex.value * 100;
+  const px = dragOffset.value;
+  return {
+    transform: px !== 0
+        ? `translateX(calc(${base}% + ${px}px))`
+        : `translateX(${base}%)`,
+    transition: transitionEnabled.value
+        ? "transform 500ms cubic-bezier(0.33, 1, 0.68, 1)"
+        : "none",
+  };
+});
+
+// ── Navigation ──────────────────────────────────────────────────────
+
+function goNext() {
+  if (isTransitioning || props.slides.length <= 1) return;
+  transitionEnabled.value = true;
+  trackIndex.value++;
+  isTransitioning = true;
   onUserInteraction();
 }
 
-function goNext() {
-  goTo((activeIndex.value + 1) % props.slides.length);
-}
-
 function goPrev() {
-  goTo((activeIndex.value - 1 + props.slides.length) % props.slides.length);
+  if (isTransitioning || props.slides.length <= 1) return;
+  transitionEnabled.value = true;
+  trackIndex.value--;
+  isTransitioning = true;
+  onUserInteraction();
 }
 
-// ---- Active slide tracking via IntersectionObserver ----
+function goTo(i) {
+  if (isTransitioning) return;
+  transitionEnabled.value = true;
+  trackIndex.value = i + 1;
+  isTransitioning = true;
+  onUserInteraction();
+}
 
-function setupObserver() {
-  const el = viewportEl.value;
-  if (!el) return;
+function onTransitionEnd(e) {
+  if (e.target !== trackEl.value) return;
 
-  observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            const idx = Number(entry.target.dataset.index);
-            if (Number.isFinite(idx)) {
-              activeIndex.value = idx;
-            }
-          }
-        }
-      },
-      { root: el, threshold: 0.5 }
-  );
+  isTransitioning = false;
+  const n = props.slides.length;
 
-  for (const slide of slideEls.value) {
-    if (slide) observer.observe(slide);
+  if (trackIndex.value >= n + 1) {
+    // Landed on clone of first → jump to real first
+    transitionEnabled.value = false;
+    trackIndex.value = 1;
+    nextTick(() => {
+      void trackEl.value?.offsetHeight;
+      requestAnimationFrame(() => {
+        transitionEnabled.value = true;
+      });
+    });
+  } else if (trackIndex.value <= 0) {
+    // Landed on clone of last → jump to real last
+    transitionEnabled.value = false;
+    trackIndex.value = n;
+    nextTick(() => {
+      void trackEl.value?.offsetHeight;
+      requestAnimationFrame(() => {
+        transitionEnabled.value = true;
+      });
+    });
   }
 }
 
-// ---- Autoplay ----
+// ── Touch / Drag ────────────────────────────────────────────────────
+
+function onPointerDown(e) {
+  if (isTransitioning || props.slides.length <= 1) return;
+  if (e.button && e.button !== 0) return;
+
+  isDragging = true;
+  dragLocked = false;
+  dragStartX = e.clientX;
+  dragStartY = e.clientY;
+  dragPointerId = e.pointerId;
+  dragOffset.value = 0;
+  transitionEnabled.value = false;
+
+  viewportEl.value?.setPointerCapture(e.pointerId);
+  onUserInteraction();
+}
+
+function onPointerMove(e) {
+  if (!isDragging || e.pointerId !== dragPointerId) return;
+
+  const dx = e.clientX - dragStartX;
+  const dy = e.clientY - dragStartY;
+
+  if (!dragLocked) {
+    if (Math.abs(dx) < 5 && Math.abs(dy) < 5) return;
+    if (Math.abs(dy) > Math.abs(dx) * 1.2) {
+      isDragging = false;
+      dragOffset.value = 0;
+      transitionEnabled.value = true;
+      return;
+    }
+    dragLocked = true;
+  }
+
+  e.preventDefault();
+  dragOffset.value = dx;
+}
+
+function onPointerUp(e) {
+  if (!isDragging || e.pointerId !== dragPointerId) return;
+  isDragging = false;
+
+  const el = viewportEl.value;
+  const threshold = el ? el.clientWidth * 0.15 : 80;
+  const delta = dragOffset.value;
+
+  dragOffset.value = 0;
+  transitionEnabled.value = true;
+
+  if (Math.abs(delta) > threshold) {
+    if (delta < 0) goNext();
+    else goPrev();
+  }
+}
+
+// ── Autoplay ────────────────────────────────────────────────────────
 
 function stopAutoplay() {
   if (autoplayTimer) {
@@ -166,62 +311,50 @@ function startAutoplay() {
   if (props.slides.length <= 1) return;
 
   autoplayTimer = setInterval(() => {
-    const next = (activeIndex.value + 1) % props.slides.length;
-    const el = viewportEl.value;
-    if (!el) return;
-    el.scrollTo({ left: next * el.clientWidth, behavior: "smooth" });
+    if (!isTransitioning && !isDragging) {
+      transitionEnabled.value = true;
+      trackIndex.value++;
+      isTransitioning = true;
+    }
   }, props.autoplayMs);
 }
 
 function onUserInteraction() {
-  userInteracted = true;
   stopAutoplay();
   if (autoplayResumeTimer) clearTimeout(autoplayResumeTimer);
   autoplayResumeTimer = setTimeout(() => {
-    userInteracted = false;
     startAutoplay();
   }, 10000);
 }
 
-// ---- Lifecycle ----
+// ── Lifecycle ───────────────────────────────────────────────────────
 
 onMounted(() => {
-  setupObserver();
   startAutoplay();
-
-  // Pause autoplay on any touch/pointer interaction with the viewport
-  const el = viewportEl.value;
-  if (el) {
-    el.addEventListener("pointerdown", onUserInteraction, { passive: true });
-  }
 });
 
 onBeforeUnmount(() => {
   stopAutoplay();
-  if (observer) observer.disconnect();
   if (autoplayResumeTimer) clearTimeout(autoplayResumeTimer);
-
-  const el = viewportEl.value;
-  if (el) {
-    el.removeEventListener("pointerdown", onUserInteraction);
-  }
 });
 </script>
 
 <style scoped>
-/* Scroll-snap viewport */
+/* Gallery wrapper — positioning context for nav arrows */
+.gallery-wrap {
+  position: relative;
+  outline: none;
+}
+
+/* Viewport — overflow hidden, no scroll */
 .viewport {
   position: relative;
-  display: flex;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
+  overflow: hidden;
 
   border-radius: 16px;
-  outline: none;
   user-select: none;
   -webkit-user-select: none;
+  touch-action: pan-y pinch-zoom;
 
   aspect-ratio: 16 / 10;
 
@@ -240,10 +373,6 @@ onBeforeUnmount(() => {
       rgba(0,0,0,0.15) 95%,
       transparent 100%
   );
-}
-
-.viewport::-webkit-scrollbar {
-  display: none;
 }
 
 /* Light grain overlay */
@@ -313,11 +442,16 @@ onBeforeUnmount(() => {
   }
 }
 
+/* Track — flex row, animated via translateX */
+.track {
+  display: flex;
+  width: 100%;
+  will-change: transform;
+}
+
 /* Slides */
 .slide {
-  scroll-snap-align: start;
-  flex-shrink: 0;
-  min-width: 100%;
+  flex: 0 0 100%;
   height: 100%;
 }
 
@@ -340,8 +474,8 @@ onBeforeUnmount(() => {
   pointer-events: none;
 }
 
-/* Navigation arrows — always visible at low opacity */
-.nav {
+/* Navigation arrows — positioned on gallery-wrap, outside the viewport mask */
+.gal-nav {
   position: absolute;
   top: 50%;
   transform: translate3d(0, -50%, 0);
@@ -357,14 +491,14 @@ onBeforeUnmount(() => {
   transition: opacity 180ms ease;
 }
 
-.nav--left {
+.gal-nav--left {
   left: 18px;
 }
-.nav--right {
+.gal-nav--right {
   right: 18px;
 }
 
-.nav:hover {
+.gal-nav:hover {
   opacity: 1;
 }
 
@@ -427,5 +561,6 @@ onBeforeUnmount(() => {
 @media (prefers-reduced-motion: reduce) {
   .viewport::after { animation: none; }
   .cloudFrame { animation: none; }
+  .track { transition: none !important; }
 }
 </style>

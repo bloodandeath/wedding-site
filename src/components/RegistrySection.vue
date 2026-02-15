@@ -1,13 +1,12 @@
 <template>
   <section class="section" id="registry">
     <div class="container">
+      <h2 class="h2">Registry</h2>
+
       <div class="registry-head">
-        <div>
-          <h2 class="h2">Registry</h2>
-          <p class="lead">
-            Here are a few items we'd greatly appreciate. If you would like to contribute to our house & honeymoon fund, please bring an envelope to the ceremony.
-          </p>
-        </div>
+        <p class="lead">
+          Here are a few items we'd greatly appreciate. If you would like to contribute to our house & honeymoon fund, please bring an envelope to the ceremony.
+        </p>
 
         <a class="btn btn--ghost registry-amazon" :href="amazonRegistryUrl" target="_blank" rel="noreferrer">
           View full registry on Amazon

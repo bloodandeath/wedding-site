@@ -395,7 +395,7 @@ async function onSubmit() {
 
 .form-label {
   display: block;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.5rem;
   font-weight: 650;
   font-size: 0.92rem;
   color: var(--ink);

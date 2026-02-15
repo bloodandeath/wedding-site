@@ -71,14 +71,13 @@ function makeParticle(id, minY, maxY) {
   const x = rand(0, 100);
   const y = rand(minY, maxY);
 
-  // Slightly larger, softer particles for the "elegant" look
-  const minS = 3.0;
-  const maxS = 8.0;
+  const minS = 3.5;
+  const maxS = 11.0;
   const size = rand(minS, maxS);
 
-  const dx = rand(-20, 20); // Slower horizontal drift
-  const dy = rand(-15, 15); // Slower vertical drift
-  const dur = rand(25, 60); // Longer animation durations
+  const dx = rand(-40, 40);
+  const dy = rand(-30, 30);
+  const dur = rand(16, 42);
 
   const tw = rand(4, 10);
   const delay = -rand(0, dur);
@@ -88,7 +87,7 @@ function makeParticle(id, minY, maxY) {
   const hue = rand(40, 60);
   const sat = rand(20, 60);
   const light = rand(70, 90);
-  const alpha = rand(0.3, 0.6);
+  const alpha = rand(0.45, 0.72);
 
   const rot = rand(0, 360);
 

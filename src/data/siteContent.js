@@ -86,8 +86,7 @@ export const siteContent = {
         { q: "When should I RSVP by?", a: "Please RSVP by April 15, 2026." },
         { q: "Can I bring a plus one?", a: "Please reach out to us first, as seating is limited." },
         { q: "What time should I arrive?", a: "We will begin at 11:15 AM sharp. The doors will at 11:00 AM. Please be seated before 11:10 AM." },
-        { q: "What is semi-formal attire?", a: "If you could wear the outfit to church then it is appropriate." },
-        { q: "Will there be an open bar?", a: "Beer and wine will be provided. however spirits are not included and will need to be purchased on-site." },
+        { q: "Will there be an open bar?", a: "Beer and wine will be provided. If you'd like spirits, there will be a cash bar available." },
         { q: "What is the menu?", a: "The menu will be provided by the venue. We will be serving a buffet-style lunch. Please let us know if you have any dietary restrictions. We will post it as soon as we have it." },
     ],
 
