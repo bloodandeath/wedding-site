@@ -53,10 +53,6 @@ function getPageHeight() {
   );
 }
 
-function setRootVar(name, value) {
-  document.documentElement.style.setProperty(name, value);
-}
-
 function computeCount(pageH) {
   if (props.count > 0) return props.count;
   const screens = pageH / getViewportHeight();
@@ -149,7 +145,6 @@ function onScroll() {
 
 function rebuildWisps() {
   const pageH = getPageHeight();
-  setRootVar("--pageH", `${pageH}px`);
   generatedHeight = pageH;
 
   const count = computeCount(pageH);
@@ -171,7 +166,6 @@ function appendWisps(fromY, toY) {
   );
 
   allParticles.value = [...allParticles.value, ...newParticles];
-  setRootVar("--pageH", `${toY}px`);
   generatedHeight = toY;
   cullToViewport();
 }
@@ -211,6 +205,9 @@ function handleResize() {
     const pageH = getPageHeight();
     if (pageH > generatedHeight + 50) {
       appendWisps(generatedHeight, pageH);
+    } else if (pageH < generatedHeight - 50) {
+      generatedHeight = pageH;
+      cullToViewport();
     }
   }, 500);
 }

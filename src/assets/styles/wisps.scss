@@ -4,9 +4,6 @@
     inset: 0;
     width: 100%;
 
-    /* IMPORTANT: make the field as tall as the document */
-    height: var(--pageH, 100vh);
-
     pointer-events: none;
     overflow: hidden;
     z-index: 0;

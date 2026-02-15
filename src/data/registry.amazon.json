@@ -6,175 +6,200 @@
       "title": "4-Slice Toaster",
       "price": "$59.95",
       "image": "/registry/toaster.jpg",
-      "url": "https://www.amazon.com/Cuisinart-CPT-142BK-4-Slice-Compact-Toaster-Black/dp/B00D25P82U?colid=1QAMXLYPE5XKO&coliid=I2N05RUW5KMFUN"
+      "url": "https://www.amazon.com/Cuisinart-CPT-142BK-4-Slice-Compact-Toaster-Black/dp/B00D25P82U?colid=1QAMXLYPE5XKO&coliid=I2N05RUW5KMFUN",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAEFBgP/xAAkEAADAAIBAwMFAAAAAAAAAAABAgMAETEEBRIGE0EhM1Fyof/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCxb1OpvSKTAZGKgNs70fjWSO/28gfa2v4Myv8ASczNOnv0neAOqk0yaFhvg88H5ywFEoQSFDa1o6J5wNNDuyUQl5PMg60SDjKWAu6sxjTRY68UJ+mMDT2hK6eFprRedMN4nCUvtSRP1UDGMDpjGMD/2Q=="
     },
     {
       "id": "mary-suitcase",
       "title": "Mary's Travel Set",
       "price": "$89.99",
       "image": "/registry/mary-suitcase.jpg",
-      "url": "https://www.amazon.com/Merax-Luggage-Hardshell-Suitcase-Spinner/dp/B0FHW8NQ1P?colid=1QAMXLYPE5XKO&coliid=I6P6BFRTND6HR"
+      "url": "https://www.amazon.com/Merax-Luggage-Hardshell-Suitcase-Spinner/dp/B0FHW8NQ1P?colid=1QAMXLYPE5XKO&coliid=I6P6BFRTND6HR",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAIDBAb/xAAhEAACAgICAQUAAAAAAAAAAAABAgARAyEEMSISQZGS0f/EABcBAQEBAQAAAAAAAAAAAAAAAAABAgP/xAAXEQEBAQEAAAAAAAAAAAAAAAAAARES/9oADAMBAAIRAxEAPwDrw6+o+WofKFJXd1MTORlxgdFzclyHIOOj21H4lc+mlc67BvUShbtt+8SLtWtxMbG/IEEkG+jv9km42N2BazVEC4iGsgvGRR232iIgf//Z"
     },
     {
       "id": "corbin-suitcase",
       "title": "Corbin's Travel Set",
       "price": "$89.99",
       "image": "/registry/corbin-suitcase.jpg",
-      "url": "https://www.amazon.com/Merax-Hardside-Luggage-Expandable-Suitcase/dp/B0DFQ85MZ6?colid=1QAMXLYPE5XKO&coliid=IVKE3K84H9J3K"
+      "url": "https://www.amazon.com/Merax-Hardside-Luggage-Expandable-Suitcase/dp/B0DFQ85MZ6?colid=1QAMXLYPE5XKO&coliid=IVKE3K84H9J3K",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAMFBgT/xAAmEAABBQACAAQHAAAAAAAAAAABAAIDBBEFEhMhUbEVMUFCU3GB/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ANS63XbPjrDAR5FvYYua1zNRkjoSHSFpG4AR6rN2ZD8Qe37TK/R/Sk5a1rHNABLsJH6Qa2ldhswdo9aGnrhGZiKr4PTUkz8h9giBd4uszx5QHGTu0g78ux8/dQ0uPgsHJg54EZePPMIOfREQW3F1o4KgDNPfHnfUgIiIP//Z"
     },
     {
       "id": "doorbell-camera",
       "title": "Doorbell & House Cameras",
       "price": "$189.98",
       "image": "/registry/doorbell-camera.jpg",
-      "url": "https://www.amazon.com/All-new-Blink-Video-Doorbell-Outdoor/dp/B0F6VX3MGL?colid=1QAMXLYPE5XKO&coliid=IM8IKCC4EW7NY"
+      "url": "https://www.amazon.com/All-new-Blink-Video-Doorbell-Outdoor/dp/B0F6VX3MGL?colid=1QAMXLYPE5XKO&coliid=IM8IKCC4EW7NY",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAIDBgX/xAAhEAACAgEDBQEAAAAAAAAAAAAAAQIDEQQFIRIUInGBQf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDW9zHuVR0Ty031Y8V7f0uOTu1tlGk1llDcbYxzFxXOeDO6bc95nfTFz1Eoyks5r/M+gNwCFbzBPn6AJgAAAAP/2Q=="
     },
     {
       "id": "side-table",
       "title": "Side Table",
       "price": "$49.99",
       "image": "/registry/side-table.jpg",
-      "url": "https://www.amazon.com/VASAGLE-2-Tier-Nightstand-Bedroom-Heather/dp/B07XXLG1JG?colid=1QAMXLYPE5XKO&coliid=I2DX75E3KDBNJ3"
+      "url": "https://www.amazon.com/VASAGLE-2-Tier-Nightstand-Bedroom-Heather/dp/B07XXLG1JG?colid=1QAMXLYPE5XKO&coliid=I2DX75E3KDBNJ3",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGQABAAIDAAAAAAAAAAAAAAAAAAQFAQIG/8QAJBAAAgICAQQBBQAAAAAAAAAAAQIAAwQRIRITMTI0UmFxscH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AOpzS7J2UTqNgI9tSHiW5SotddVZAGyS58eP5JmWdPTqwVnZPUfHiVWJSqF+1k1I7KxJHPVyeOTILylzZSjka6lB1Exj/Hr19I/USjW/HS8ozbDp6sPIkLExu7Qq2XWFSDteOeT9oiBYV1rVWtaeqgAfgREQP//Z"
     },
     {
       "id": "night-stand",
       "title": "Nightstand",
       "price": "$99.99",
       "image": "/registry/night-stand.jpg",
-      "url": "https://www.amazon.com/AURINEST-Farmhouse-Nightstand-Charging-Station/dp/B0FXW9ZSFG?colid=1QAMXLYPE5XKO&coliid=IX7KSBECHJRYJ"
+      "url": "https://www.amazon.com/AURINEST-Farmhouse-Nightstand-Charging-Station/dp/B0FXW9ZSFG?colid=1QAMXLYPE5XKO&coliid=IX7KSBECHJRYJ",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAMEBf/EACMQAAICAQQCAgMAAAAAAAAAAAECAAMRBAUhMRIyEyJRkfD/xAAWAQEBAQAAAAAAAAAAAAAAAAACAQD/xAAVEQEBAAAAAAAAAAAAAAAAAAAAAf/aAAwDAQACEQMRAD8A6G67xfpaq3CnwLLgrgE9Ej9RTvx3GwV0aSxD7Eu6gcdia9B4agM1lasUOFyvXAHEpbVUK2sWtPkI9woBMkVJAxXLDBPYJzELauWGeQcGJGc/T3tolNenAVckkHnJ/hKtuFzVuD49fiIhhVjNjszEkZJyfqIiISf/2Q=="
     },
     {
       "id": "bed-desk",
       "title": "Bed Desk",
       "price": "$89.99",
       "image": "/registry/bed-desk.jpg",
-      "url": "https://www.amazon.com/Simple-Deluxe-Standing-Adjustable-Pneumatic/dp/B0FP4ZYF45?colid=1QAMXLYPE5XKO&coliid=I2OZ5OTK6BEG28"
+      "url": "https://www.amazon.com/Simple-Deluxe-Standing-Adjustable-Pneumatic/dp/B0FP4ZYF45?colid=1QAMXLYPE5XKO&coliid=I2OZ5OTK6BEG28",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGAABAQADAAAAAAAAAAAAAAAAAAQCAwb/xAAmEAACAgIBAwIHAAAAAAAAAAABAgAEAxExBRJBBmETFCEjcYGR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAWEQEBAQAAAAAAAAAAAAAAAAAAEQH/2gAMAwEAAhEDEQA/AL/UNywt9KuMB1+GMgTevJBO5DR6tewXPlxhbWZNJjQqdPvnZ9vE7BkRjtlUn3EkvAKaoUAffXj9wky1Vhc5MSu2NsZI2VbWx/ImcQqO4HaxVVM2TGGZgewj6jtJ8/ia7HTldAz2bLFGDqe/gjg8REC8REQP/9k="
     },
     {
       "id": "cookware-set",
       "title": "Cookware Set",
       "price": "$98.98",
       "image": "/registry/cookware-set.jpg",
-      "url": "https://www.amazon.com/GreenLife-CC001922-001-Ceramic-Non-Stick-Cookware/dp/B07H9P4MH4?colid=1QAMXLYPE5XKO&coliid=I1WP2XX7RLZAX0"
+      "url": "https://www.amazon.com/GreenLife-CC001922-001-Ceramic-Non-Stick-Cookware/dp/B07H9P4MH4?colid=1QAMXLYPE5XKO&coliid=I1WP2XX7RLZAX0",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAMEBgL/xAAfEAACAgEFAQEAAAAAAAAAAAABAgADEQQFEiFBMaH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A0u47hVompD2KGZu1z2Rg/mcSwNTSbDWLU5D6MzM7/p1fdC/Nl5cQQVJ88x5KSaazS2lWqsd+AckYHR+d/cwNwDkZHYiVttLHQ1l2LEj37ECdq0YksoJIwevJyNPSHDCpAw9AiIEsRED/2Q=="
     },
     {
       "id": "colander",
       "title": "Colander",
       "price": "$14.99",
       "image": "/registry/colander.jpg",
-      "url": "https://www.amazon.com/Gulex-Colander-Stainless-Strainer-Dishwasher/dp/B0BKRQQNPS?colid=1QAMXLYPE5XKO&coliid=IVP8HJ57W1MYK"
+      "url": "https://www.amazon.com/Gulex-Colander-Stainless-Strainer-Dishwasher/dp/B0BKRQQNPS?colid=1QAMXLYPE5XKO&coliid=IVP8HJ57W1MYK",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGgABAAEFAAAAAAAAAAAAAAAAAAECAwQFBv/EAB8QAAICAQUBAQAAAAAAAAAAAAABAgMRBBIhIjFR4f/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDr7LoVuKk8OXi+luGspk5dmtstrysclWoqVkPMyjyjFqoulY42Rca97by12f6BsAQkksIASAAAAA//2Q=="
     },
     {
       "id": "fruit-basket",
       "title": "Fruit Basket",
       "price": "$17.99",
       "image": "/registry/fruit-basket.jpg",
-      "url": "https://www.amazon.com/Sevenblue-Detachable-Vegetable-Capacity-Rectangular/dp/B0DBQKKMHM?colid=1QAMXLYPE5XKO&coliid=IF1V7NE6ZSQ23"
+      "url": "https://www.amazon.com/Sevenblue-Detachable-Vegetable-Capacity-Rectangular/dp/B0DBQKKMHM?colid=1QAMXLYPE5XKO&coliid=IF1V7NE6ZSQ23",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAEDBAX/xAAjEAACAQUAAQQDAAAAAAAAAAABAgMABBESIQUiMTJRQXGB/8QAGAEAAwEBAAAAAAAAAAAAAAAAAQIEAAP/xAAZEQADAQEBAAAAAAAAAAAAAAAAARECEjH/2gAMAwEAAhEDEQA/ANMnllDMr6jDhdQe4+z/ACqrmeFo9mVnUNt+QCM4AFQttFMnzErt0BfdSP1VUotTKkQZiCMjAz3J4ahq3r1lHLh0LKRmgGgXQH0jvBSp8csjW2EjyqsQO0rvGJUYpfHQR3MbpsrO2pwR0Guvb+Ks7YLpCGIHu/qNKUUKzeo5zg+hSlKJj//Z"
     },
     {
       "id": "wall-clock",
       "title": "Large Wall Clock",
       "price": "$56.96",
       "image": "/registry/wall-clock.jpg",
-      "url": "https://www.amazon.com/Ticking-Battery-Operated-Numerals-Decor-60cm/dp/B08TT9WJ5R?colid=1QAMXLYPE5XKO&coliid=IU6CZWGV3G1QZ"
+      "url": "https://www.amazon.com/Ticking-Battery-Operated-Numerals-Decor-60cm/dp/B08TT9WJ5R?colid=1QAMXLYPE5XKO&coliid=IU6CZWGV3G1QZ",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAAAAMEBQb/xAAmEAABAwMDAgcAAAAAAAAAAAABAAIDBBESBSEiE1ExMkFDYXGB/8QAFwEBAQEBAAAAAAAAAAAAAAAAAQACA//EABYRAQEBAAAAAAAAAAAAAAAAAAABEf/aAAwDAQACEQMRAD8A6VT04oswPWyh1gXNFo7k48Tex7FRjeyehkJkyaZPNf4Ru5YXPDrG4sLb90psMcwPtj8KI+Q5bWRRZNUDaWNkUTG4HkQR4nuq0obJppJa0FrtiB9IiA8/U6nVR1UzGycWvIAxGwREWnG26//Z"
     },
     {
       "id": "lounge-chairs",
       "title": "Lounge Chairs",
       "price": "$79.60",
       "image": "/registry/lounge-chairs.jpg",
-      "url": "https://www.amazon.com/Outsunny-Folding-4-Position-Reclining-Breathable/dp/B0CRQVXW91?colid=1QAMXLYPE5XKO&coliid=IN97PJIVUPZMV"
+      "url": "https://www.amazon.com/Outsunny-Folding-4-Position-Reclining-Breathable/dp/B0CRQVXW91?colid=1QAMXLYPE5XKO&coliid=IN97PJIVUPZMV",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAAAAQBBQb/xAAhEAACAgIBBAMAAAAAAAAAAAABAgADBBEhEhMxUUFh8P/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwD1leXXY3SobfPkTaclLjpQwOt8iSHFvqYMtm1HzobG/wB6mV4t1ZPbuY9K8Ejz9QOlEmLXrwilx7YAGIFMREBERA//2Q=="
     },
     {
       "id": "side-table-outdoor",
       "title": "Outdoor Side Table",
       "price": "$32.00",
       "image": "/registry/side-table-outdoor.jpg",
-      "url": ""
+      "url": "",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGQABAAMBAQAAAAAAAAAAAAAAAAMEBQEG/8QAJBAAAgIBBAEEAwAAAAAAAAAAAQIDBAAFESExEhMjMkEUUWH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A1dV1O5XtyRj266KCZI08iNxxv+uj9Zlw3bs8y/gGeeb5F3345652G2X9Y1BqVy4noF0miRS/0vDZUr6u0U8Dx7WJREsZhjU/Hvv6OB6TTrElqjFPKiozjfZTuMZHo3Ok1DsR7Y7xgT3I1kqTI4BDIQeP5nKNeKvViWKNUHgN/EAb8YxgTqqqoVQAB0AOsYxgf//Z"
     },
     {
       "id": "igloo-cooler",
       "title": "Igloo Cooler",
       "price": "$72.99",
       "image": "/registry/igloo-cooler.jpg",
-      "url": "https://www.amazon.com/Igloo-Marine-Ultra-Cooler-54-Quart/dp/B006H0L5TM?colid=1QAMXLYPE5XKO&coliid=I62WHAM3UDRQH"
+      "url": "https://www.amazon.com/Igloo-Marine-Ultra-Cooler-54-Quart/dp/B006H0L5TM?colid=1QAMXLYPE5XKO&coliid=I62WHAM3UDRQH",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAAAAMCBQb/xAAlEAACAgEDAwQDAAAAAAAAAAABAgADEQQSIRMxYQUiUcEUU5H/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A9SdfpwzL1FypwfcJmv1PSW7tlyNtO1sN2PxI9IVmxFJxk8nk88/czVSKyx3Z3HJ9oGT88CB0K767FyrqR27xIVaZHDOSwLHnB8Y+ogXamtzlkUnyJn8an9SfyIgVVQowoAHiIiB//9k="
     },
     {
       "id": "pasta-maker",
       "title": "Pasta Maker",
       "price": "$89.99",
       "image": "/registry/pasta-maker.jpg",
-      "url": ""
+      "url": "",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGQABAAMBAQAAAAAAAAAAAAAAAAIDBAEG/8QAIxAAAgEEAQMFAAAAAAAAAAAAAQIAAwQRMSEFQWESIkJRcf/EABYBAQEBAAAAAAAAAAAAAAAAAAABAv/EABcRAQEBAQAAAAAAAAAAAAAAAAABEQL/2gAMAwEAAhEDEQA/APW1rmnRb0scudKOTM1S9f44BPAAI3+niX3Nqlcg4AbWcdvqU0aSLXBVRkHAPgTPVzFk1LpVFreyWk5DFWb3Dvyd+YmsDGomi29Xa7IqiroREIlERA//2Q=="
     },
     {
       "id": "cast-iron-trivets",
       "title": "Cast Iron Trivets",
       "price": "$29.99",
       "image": "/registry/cast-iron-trivets.jpg",
-      "url": "https://www.amazon.com/Sumnacon-2Pcs-Rectangle-Cast-Trivet/dp/B0BHY6BBDT?colid=1QAMXLYPE5XKO&coliid=I34EC10MSYOEXR"
+      "url": "https://www.amazon.com/Sumnacon-2Pcs-Rectangle-Cast-Trivet/dp/B0BHY6BBDT?colid=1QAMXLYPE5XKO&coliid=I34EC10MSYOEXR",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAAAAMCBQT/xAAoEAACAQMDAgUFAAAAAAAAAAABAgQAAxEFEiETIgYjMUJhMlGhsdH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A60nVkjybiswZ0bGFDZx9ucfuot4pJcdOL2A87nwcVnXrsa5OFq5HYvaALOrhSQR6VGJqUCyfK04bh7mcE/mg7sbVY0iyLgZkz7XQgilb06as+N1lQp3FSpOcYpQeCTpdqRMv3muXQ5fHaRxwPipDRI6fTcujPBwV/lKUFo0UQxctWbtzbu3ckepA+KUpQf/Z"
     },
     {
       "id": "barbell",
       "title": "Barbell",
       "price": "$104.00",
       "image": "/registry/barbell.jpg",
-      "url": "https://www.amazon.com/CAP-Barbell-Classic-7-Foot-Olympic/dp/B0BFZFJDSH?colid=1QAMXLYPE5XKO&coliid=I37B8A57XPM707"
+      "url": "https://www.amazon.com/CAP-Barbell-Classic-7-Foot-Olympic/dp/B0BFZFJDSH?colid=1QAMXLYPE5XKO&coliid=I37B8A57XPM707",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGQABAAIDAAAAAAAAAAAAAAAAAAIEAQMG/8QAIRAAAgIBBAIDAAAAAAAAAAAAAQIAAxESITFBBCIyYcH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A6/WyuRYBpJ9WH7NkwRkYPEr2vZ47a/lT2O1+4FmJFHWxQyMGB7EQJQd+YiBCqqulStSKik5woxvERA//2Q=="
     },
     {
       "id": "weight-plates-set",
       "title": "Barbell Plate Set",
       "price": "$99.99",
       "image": "/registry/weight-plates-set.jpg",
-      "url": "https://www.amazon.com/CAP-Barbell-Economy-Olympic-Bumper/dp/B0DHYN3X3Z?colid=1QAMXLYPE5XKO&coliid=I13FURZZX7N7LQ"
+      "url": "https://www.amazon.com/CAP-Barbell-Economy-Olympic-Bumper/dp/B0DHYN3X3Z?colid=1QAMXLYPE5XKO&coliid=I13FURZZX7N7LQ",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGQABAAMBAQAAAAAAAAAAAAAAAAIEBQMG/8QAKBAAAQMDAwMDBQAAAAAAAAAAAQIDBAAFERIhMRMiYVGBoQYUFjKR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDnebnMVc30plOMBlWlKEkgfHPrvVJFwmnY3B7Cu4969jjxv496vX6Z17o5ojRyGTpJWnJXg4334zWchxSgU/axh1DqBCQCBjOP24xSHrPp2fJlW3U+FOqSsp18EjAO/kZx7UqVguKH7anLSWSg6dLY7eAc/NKCjcrBDlzEvK6iFOq79BAB87iqf4xCS24oOP5C8DdPH8pSlN6BCZgRgxHSQkHJJ3JPqaUpQn//2Q=="
     },
     {
       "id": "weight-bench",
       "title": "Weight Bench",
       "price": "$129.99",
       "image": "/registry/weight-bench.jpg",
-      "url": "https://www.amazon.com/Adjustable-Foldable-Strength-Training-Adjustment/dp/B099JZT1WR?colid=1QAMXLYPE5XKO&coliid=I20KE89LEFX9FP"
+      "url": "https://www.amazon.com/Adjustable-Foldable-Strength-Training-Adjustment/dp/B099JZT1WR?colid=1QAMXLYPE5XKO&coliid=I20KE89LEFX9FP",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAQFAf/EACUQAAICAQMEAQUAAAAAAAAAAAECAAMEERIhBRNBUQYiMWFxwf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDc+RV2Nh121sy9t9W2kjg8SjCyHzOlhtwW3aVZvRHn+zl+RXnVX4+Ovd42lg4Cn9GYuKwovyqKsm51Rl1rqr3s/gj1weIG9hODjKEdWUcanzEoqVDUpWoICAdpUAj8RAzK+m0U9YORWWUkg7NfpBIP2Eoqp7uVkGyx2Ctoq6gBQRyOBEQLKq0qqWusaIo0A9REQP/Z"
     },
     {
       "id": "barbell-rack",
       "title": "Barbell Rack",
       "price": "$119.99",
       "image": "/registry/barbell-rack.jpg",
-      "url": "https://www.amazon.com/Barbell-Power-Rack-Exercise-Stand/dp/B00HYQP72O?colid=1QAMXLYPE5XKO&coliid=ITEEQNSU3R40U"
+      "url": "https://www.amazon.com/Barbell-Power-Rack-Exercise-Stand/dp/B00HYQP72O?colid=1QAMXLYPE5XKO&coliid=ITEEQNSU3R40U",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAAAAIBBAb/xAAgEAACAwABBAMAAAAAAAAAAAABAgADEUEEITFhIjNR/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/APX3fX5zuOc5mNq2IAxwk6N9SerdUp1mC6wA0+5L3ob6h3AJPcg54/YHTERAi2pLkKWqGU8Gaq/AKxLca3MRAqIiB//Z"
     },
     {
       "id": "weight-plate-45",
       "title": "45lb Weight Plate",
       "price": "$51.99",
       "image": "/registry/weight-plate-45.jpg",
-      "url": "https://www.amazon.com/CAP-Barbell-Better-Olympic-Bumper/dp/B0CHL5BK64?colid=1QAMXLYPE5XKO&coliid=I2399NC3A0HAAF&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&th=1"
+      "url": "https://www.amazon.com/CAP-Barbell-Better-Olympic-Bumper/dp/B0CHL5BK64?colid=1QAMXLYPE5XKO&coliid=I2399NC3A0HAAF&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&th=1",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAAAAUEAQf/xAAoEAACAQMCBAYDAAAAAAAAAAABAwIABBEFBhITIUEUIjFRYbFScZH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A2bj3A20ebSzIjOIHMZjJGewqHbbg1JDRPxU2DvFnmBru5reaNYfxg4ZLmRPuCB9EVPdclsVZWpfKXweSOOL5PzQekadew1CyXcQGOIdY/ie4pWDaqGJ0aBaDEskZgH2Pp9UoN99p9tqCgu6UJgdQfQx/Rqfb7X0xDQwrm0g5EWSyP5SlBaHQdKUpQf/Z"
     },
     {
       "id": "circle-basket",
       "title": "Laundry Bin #1",
       "price": "$49.99",
       "image": "/registry/circle-basket.jpg",
-      "url": "https://www.amazon.com/SONGMICS-Laundry-Removable-Casters-URLS01MZ/dp/B084MLQ22X?colid=1QAMXLYPE5XKO&coliid=I1IDSB9KMM8LU4"
+      "url": "https://www.amazon.com/SONGMICS-Laundry-Removable-Casters-URLS01MZ/dp/B084MLQ22X?colid=1QAMXLYPE5XKO&coliid=I1IDSB9KMM8LU4",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAAAAMCBAb/xAAjEAACAQMEAgMBAAAAAAAAAAABAhEAAwQSISJBBWEUMVET/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFREBAQAAAAAAAAAAAAAAAAAAAEH/2gAMAwEAAhEDEQA/APQ5N+6uW1tX49D82rVprmtSXY8htJ/ahlso8gRqEx9T6q1pgCm43Yd+6zVdmO2q0CSTufsz3So+NcXMSVBA1sN009nqlaRm7j2vmodC8wzMIHIwBJqvxbcqVlNLBuMCY6PqlKDWLjri2v5ozsJLS7SdzNKUoP/Z"
     },
     {
       "id": "rectangle-basket",
       "title": "Laundry Bin #2",
       "price": "$59.99",
       "image": "/registry/rectangle-basket.jpg",
-      "url": "https://www.amazon.com/StorageWorks-Laundry-Rolling-Clothing-Organizer/dp/B0FSRPG4G7?colid=1QAMXLYPE5XKO&coliid=I3R8Y6LNF6HVX0"
+      "url": "https://www.amazon.com/StorageWorks-Laundry-Rolling-Clothing-Organizer/dp/B0FSRPG4G7?colid=1QAMXLYPE5XKO&coliid=I3R8Y6LNF6HVX0",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAIDBAX/xAAkEAACAgECBgMBAAAAAAAAAAABAgARAwQSBRQhMTJxEyJBUf/EABYBAQEBAAAAAAAAAAAAAAAAAAABAv/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AO9xPDr8uoHL6lUxV4C1N/3cJmVOLK21He7q/mVwPdrc6+dlV1sgEjoCZHeqKXdgFUEknsJlVuAZFwoMzh8gH2YCgT6iWDtE0iDY0ZtzIpaqsj8md9Ni5jEAtJTEoPEnpViIga4iIH//2Q=="
     },
     {
       "id": "dining-chairs",
       "title": "Dining Chairs",
       "price": "$138.59",
       "image": "/registry/dining-chairs.jpg",
-      "url": "https://www.amazon.com/Roundhill-Furniture-Windvale-Fabric-Upholstered/dp/B08M5T347P?colid=1QAMXLYPE5XKO&coliid=I35O2ANZ8X9ZY"
+      "url": "https://www.amazon.com/Roundhill-Furniture-Windvale-Fabric-Upholstered/dp/B08M5T347P?colid=1QAMXLYPE5XKO&coliid=I35O2ANZ8X9ZY",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGQABAAMBAQAAAAAAAAAAAAAAAAIDBAUG/8QAJRAAAgIBAwQBBQAAAAAAAAAAAQIDEQAEISIFEjFBI1FhcZGx/8QAFgEBAQEAAAAAAAAAAAAAAAAAAQAC/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A9C0kLayaKNlLKq9yr685CW0id2oBd7PgDOeJZtP1GSVkaQvx5cPS/bJazqay6cxrG/yBRYI2JAPvIszSLM7OlMLqx4xlKTEA7GyzE/s4zDTcNTITZru+tb5WeZFgCjdD8V/MYxBVE0fZOMYwT//Z"
     },
     {
       "id": "bed-frame",
       "title": "Bed Frame",
       "price": "$79.99",
       "image": "/registry/bed-frame.jpg",
-      "url": "https://www.amazon.com/Kujielan-Minimalist-headboard-Platform-Foundation/dp/B0DPWVBX99?colid=1QAMXLYPE5XKO&coliid=I3ENIMF8CZ6DEB"
+      "url": "https://www.amazon.com/Kujielan-Minimalist-headboard-Platform-Foundation/dp/B0DPWVBX99?colid=1QAMXLYPE5XKO&coliid=I3ENIMF8CZ6DEB",
+      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAMEBQb/xAAhEAACAgIBBAMAAAAAAAAAAAABAgARAwQhBSIxURNxsf/EABYBAQEBAAAAAAAAAAAAAAAAAAIAA//EABcRAQEBAQAAAAAAAAAAAAAAAAARQQH/2gAMAwEAAhEDEQA/AOp2GAdRfINw+ZAas8cHiZm1sbWNGc6/zMGoKpNke/UpbHUtl8qINPKXHNkXX5DSjfV1cWpiY2rs7wRznwdzMT2kChErxRb2XbHkcJwB4kS5mKluL+vMRM9PEZysxs0TERAb/9k="
     }
   ]
 }

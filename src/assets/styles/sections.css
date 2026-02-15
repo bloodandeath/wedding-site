@@ -2,6 +2,7 @@
 .section {
     position: relative;
     padding: 3.2rem 0;
+    contain: layout style;
 }
 
 .section--alt {

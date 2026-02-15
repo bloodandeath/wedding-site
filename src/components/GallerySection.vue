@@ -25,13 +25,16 @@
           >
             <!-- Clone of last slide -->
             <div v-if="slides.length > 1" class="slide" aria-hidden="true">
-              <div class="media">
+              <div class="media" :style="lqipStyle(slides[slides.length - 1])">
                 <img
                     class="img"
+                    :class="{ loaded: loaded[slides[slides.length - 1].src] }"
                     :src="slides[slides.length - 1].src"
                     :alt="''"
                     loading="lazy"
+                    decoding="async"
                     draggable="false"
+                    @load="onImgLoad(slides[slides.length - 1].src)"
                 />
               </div>
             </div>
@@ -42,26 +45,33 @@
                 :key="s.src"
                 class="slide"
             >
-              <div class="media">
+              <div class="media" :style="lqipStyle(s)">
                 <img
                     class="img"
+                    :class="{ loaded: loaded[s.src] }"
                     :src="s.src"
                     :alt="s.alt || ''"
                     :loading="i === 0 ? 'eager' : 'lazy'"
+                    :fetchpriority="i === 0 ? 'high' : 'auto'"
+                    decoding="async"
                     draggable="false"
+                    @load="onImgLoad(s.src)"
                 />
               </div>
             </div>
 
             <!-- Clone of first slide -->
             <div v-if="slides.length > 1" class="slide" aria-hidden="true">
-              <div class="media">
+              <div class="media" :style="lqipStyle(slides[0])">
                 <img
                     class="img"
+                    :class="{ loaded: loaded[slides[0].src] }"
                     :src="slides[0].src"
                     :alt="''"
                     loading="lazy"
+                    decoding="async"
                     draggable="false"
+                    @load="onImgLoad(slides[0].src)"
                 />
               </div>
             </div>
@@ -135,7 +145,7 @@
 </template>
 
 <script setup>
-import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref } from "vue";
 
 const props = defineProps({
   slides: { type: Array, default: () => [] },
@@ -144,6 +154,17 @@ const props = defineProps({
 
 const viewportEl = ref(null);
 const trackEl = ref(null);
+
+// ── LQIP image loading state ────────────────────────────────────────
+const loaded = reactive({});
+
+function onImgLoad(src) {
+  loaded[src] = true;
+}
+
+function lqipStyle(slide) {
+  return slide.lqip ? { "--lqip": `url(${slide.lqip})` } : null;
+}
 
 // trackIndex includes the leading clone: 0 = clone-last, 1 = first real, ...
 const trackIndex = ref(1);
@@ -456,14 +477,29 @@ onBeforeUnmount(() => {
 }
 
 .media {
+  position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
   border-radius: 16px;
-  background: transparent;
+  background: rgba(222, 231, 221, 0.72);
+}
+
+/* LQIP blurred placeholder */
+.media::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  background-image: var(--lqip, none);
+  background-size: cover;
+  background-position: center;
+  filter: blur(20px);
+  z-index: 0;
 }
 
 .img {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
   display: block;
@@ -472,6 +508,12 @@ onBeforeUnmount(() => {
   -webkit-user-drag: none;
   user-drag: none;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.img.loaded {
+  opacity: 1;
 }
 
 /* Navigation arrows — positioned on gallery-wrap, outside the viewport mask */

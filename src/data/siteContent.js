@@ -21,34 +21,32 @@ export const siteContent = {
             {
                 src: "/gallery/00.jpg",
                 alt: "The day she said yes",
+                lqip: "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAMEBf/EACQQAAEEAQMDBQAAAAAAAAAAAAEAAgMRBBIiQRMUMSMyQlGR/8QAFgEBAQEAAAAAAAAAAAAAAAAAAwEC/8QAGhEAAwADAQAAAAAAAAAAAAAAAAECAxITUf/aAAwDAQACEQMRAD8AxcduTKdrQ5vIaLs0ndtKYtb/AEwTW/7BrhWaGxEFoF8E8J7cCGOqL3DVdOdYtC6HnE2Khxp2xhoy+mB8R4QqHe7wPxCmz9N8JP/Z",
             },
             {
                 src: "/gallery/01.jpg",
                 alt: "Us at the Marine Corps Ball in 2025",
+                lqip: "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAEEAwb/xAAhEAACAgEEAgMAAAAAAAAAAAABAgARAwQSIWEiURMy0f/EABUBAQEAAAAAAAAAAAAAAAAAAAEA/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAMAwEAAhEDEQA/AOdxHOX89OoA9oeepdqQmbSFiu3KGJ27bAHr8kaeepVWshgL56mOXhSLNRgpFWBr4r7qET/doQVf/9k=",
             },
             {
                 src: "/gallery/02.jpg",
                 alt: "Cute photo on a bench in New Bern",
+                lqip: "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAANABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAIBBAX/xAAmEAACAQMCBQUBAAAAAAAAAAABAgMABBESMQUTFCFxIkFCUbHx/8QAFgEBAQEAAAAAAAAAAAAAAAAAAgAD/8QAGhEAAwEAAwAAAAAAAAAAAAAAAAECERIhYf/aAAwDAQACEQMRAD8AabiXU3SRINCY06s5P92ore/HOdmIaQ6VUDdh481m38ymaQpGsex9Pbv908BEfFi6qMRrhVxsR70KTlJmsZXRbueMXUMxR0WMj4nv+UVHVRmWXmW0ch1bt4FFHS4en//Z",
             },
             {
                 src: "/gallery/03.jpg",
-                alt: "Wishing fountain New Bern",
+                alt: "Cara's back yard",
+                lqip: "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAANABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQAE/8QAIRAAAgICAgEFAAAAAAAAAAAAAQIDEQASBCJxITEyQZH/xAAVAQEBAAAAAAAAAAAAAAAAAAABAv/EABcRAQEBAQAAAAAAAAAAAAAAAAAREkH/2gAMAwEAAhEDEQA/ABXgEdavZ9ySKA85p5HOYQmGJmZWA2o2t+cUfj1A3clWBJB9frBuD2aQuNyDQ2N1kSHjCzSbMApIByxVo47+C/mWToP/2Q==",
             },
             {
                 src: "/gallery/04.jpg",
-                alt: "Cara's back yard",
+                alt: "Christmas 2025",
+                lqip: "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAANABQDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAUCAwQG/8QAIxAAAgEEAQMFAAAAAAAAAAAAAQIDAAQREjEFIVEUMkFxof/EABcBAAMBAAAAAAAAAAAAAAAAAAABAgP/xAAZEQACAwEAAAAAAAAAAAAAAAAAAQIRExL/2gAMAwEAAhEDEQA/AEJuXvJlEntDYGF4HmtkgFvCSMvMASCrHBXgVf0ZxDbSvoCdsflRsJGbZpTuXb65qLNYw6TYmE5XtqCfnYZNFdT6aB+7QRk+StFLQMz/2Q==",
             },
             {
                 src: "/gallery/05.jpg",
-                alt: "Christmas 2025",
-            },
-            {
-                src: "/gallery/06.jpg",
-                alt: "Blue Sky Golf Course",
-            },
-            {
-                src: "/gallery/07.jpg",
                 alt: "Pirate's Cove Hike",
+                lqip: "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAANABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAMEAv/EACAQAAIBBAIDAQAAAAAAAAAAAAECAwAEESESEyIxcZH/xAAWAQEBAQAAAAAAAAAAAAAAAAACAAH/xAAaEQACAgMAAAAAAAAAAAAAAAAAARExAhIh/9oADAMBAAIRAxEAPwCaMSb6ypK7941SpYpElSWGZ2QAHiSMDW6nS5aKBpFHkCPlKtp5Lm5eNnIR8kgfuKKxdD2UFFyx7AdrkZ+0Vq3tuUZAcgKxAGM6orHCcFfT/9k=",
             },
         ],
     },
@@ -93,9 +91,9 @@ export const siteContent = {
     faqs: [
         { q: "When should I RSVP by?", a: "Please RSVP by April 15, 2026." },
         { q: "Can I bring a plus one?", a: "Please reach out to us first, as seating is limited." },
-        { q: "What time should I arrive?", a: "The cerimony will begin at 11:15 AM sharp. The doors will open at 11:00 AM. Please be seated before 11:10 AM." },
+        { q: "What time should I arrive?", a: "The ceremony will begin at 11:15 AM sharp. The doors will open at 11:00 AM. Please be seated before 11:10 AM." },
         { q: "Will there be an open bar?", a: "Beer and wine will be provided. If you'd like spirits, there will be a cash bar available." },
-        { q: "What is the menu?", a: "The menu will be provided by the venue. We will be serving a buffet-style lunch. Please let us know if you have any dietary restrictions. We will post it as soon as we have it." },
+        { q: "What is the menu?", a: "The menu will be provided by the venue. We will be serving a buffet-style lunch. Please let us know if you have any dietary restrictions." },
     ],
 
     contacts: [

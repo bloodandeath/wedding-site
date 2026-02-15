@@ -22,8 +22,15 @@
             target="_blank"
             rel="noreferrer"
         >
-          <div class="reg-img">
-            <img :src="item.image" :alt="item.title" loading="lazy" />
+          <div class="reg-img" :style="item.lqip ? { '--lqip': `url(${item.lqip})` } : null">
+            <img
+                :src="item.image"
+                :alt="item.title"
+                loading="lazy"
+                decoding="async"
+                :class="{ loaded: loaded[item.image] }"
+                @load="onImgLoad(item.image)"
+            />
           </div>
 
           <div class="reg-body">
@@ -43,8 +50,15 @@
 </template>
 
 <script setup>
+import { reactive } from "vue";
 import registryData from "@/data/registry.amazon.json";
 
 const registryItems = registryData.items ?? [];
 const amazonRegistryUrl = registryData.amazonRegistryUrl ?? "https://www.amazon.com/";
+
+const loaded = reactive({});
+
+function onImgLoad(src) {
+  loaded[src] = true;
+}
 </script>
