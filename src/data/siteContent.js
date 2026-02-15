@@ -32,15 +32,23 @@ export const siteContent = {
             },
             {
                 src: "/gallery/03.jpg",
-                alt: "Pirate's Cove Hike",
+                alt: "Wishing fountain New Bern",
             },
             {
                 src: "/gallery/04.jpg",
-                alt: "Standing under the Rockville sign",
+                alt: "Cara's back yard",
             },
             {
                 src: "/gallery/05.jpg",
-                alt: "Kissing near the wishing fountain",
+                alt: "Christmas 2025",
+            },
+            {
+                src: "/gallery/06.jpg",
+                alt: "Blue Sky Golf Course",
+            },
+            {
+                src: "/gallery/07.jpg",
+                alt: "Pirate's Cove Hike",
             },
         ],
     },
@@ -85,7 +93,7 @@ export const siteContent = {
     faqs: [
         { q: "When should I RSVP by?", a: "Please RSVP by April 15, 2026." },
         { q: "Can I bring a plus one?", a: "Please reach out to us first, as seating is limited." },
-        { q: "What time should I arrive?", a: "We will begin at 11:15 AM sharp. The doors will at 11:00 AM. Please be seated before 11:10 AM." },
+        { q: "What time should I arrive?", a: "The cerimony will begin at 11:15 AM sharp. The doors will open at 11:00 AM. Please be seated before 11:10 AM." },
         { q: "Will there be an open bar?", a: "Beer and wine will be provided. If you'd like spirits, there will be a cash bar available." },
         { q: "What is the menu?", a: "The menu will be provided by the venue. We will be serving a buffet-style lunch. Please let us know if you have any dietary restrictions. We will post it as soon as we have it." },
     ],

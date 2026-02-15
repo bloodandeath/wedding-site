@@ -1,9 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
 
-    <title>The Breton Wedding</title>
+    <title>Mary & Corbin's Wedding</title>
+    <meta name="title" content="Mary & Corbin's Wedding - May 23, 2026" />
+    <meta
+      name="description"
+      content="Join us for the wedding of Mary Christensen and Corbin Breton at The Club Continental in Orange Park, FL."
+    />
+
+    <!-- Open Graph / Facebook / iMessage -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://thebretonwedding.com/" />
+    <meta property="og:title" content="Mary & Corbin's Wedding" />
+    <meta
+      property="og:description"
+      content="May 23, 2026 • The Club Continental, Orange Park, FL. RSVP and details inside."
+    />
+    <meta
+      property="og:image"
+      content="https://thebretonwedding.com/og-image.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="The Breton Wedding" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://thebretonwedding.com/" />
+    <meta property="twitter:title" content="Mary & Corbin's Wedding" />
+    <meta
+      property="twitter:description"
+      content="May 23, 2026 • The Club Continental, Orange Park, FL."
+    />
+    <meta
+      property="twitter:image"
+      content="https://thebretonwedding.com/og-image.jpg"
+    />
+
+    <link rel="canonical" href="https://thebretonwedding.com/" />
+    <meta name="theme-color" content="#d5f4df" />
 
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -12,10 +49,39 @@
     <meta name="apple-mobile-web-app-title" content="Wedding" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-</head>
-<body>
-      <div id="app"></div>
-      <script type="module" src="/src/main.js"></script>
-</body>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Event",
+        "name": "Mary & Corbin's Wedding",
+        "startDate": "2026-05-23T11:00",
+        "endDate": "2026-05-23T15:00",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "location": {
+          "@type": "Place",
+          "name": "The Club Continental",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "2143 Astor St",
+            "addressLocality": "Orange Park",
+            "postalCode": "32073",
+            "addressRegion": "FL",
+            "addressCountry": "US"
+          }
+        },
+        "image": ["https://thebretonwedding.com/og-image.jpg"],
+        "description": "The wedding ceremony and reception of Mary Christensen and Corbin Breton."
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
