@@ -2,13 +2,6 @@
   "amazonRegistryUrl": "https://www.amazon.com/wedding/guest-view/1QAMXLYPE5XKO",
   "items": [
     {
-      "id": "bar-stools",
-      "title": "Swivel Bar Stools",
-      "price": "$169.99",
-      "image": "/registry/bar-stools.jpg",
-      "url": "https://www.amazon.com/LUE-BONA-Counter-Upholstered-Barstools/dp/B0FXDLGXTZ?colid=1QAMXLYPE5XKO&coliid=I3RLTJ9P2YGMAD"
-    },
-    {
       "id": "toaster",
       "title": "4-Slice Toaster",
       "price": "$59.95",
@@ -151,9 +144,9 @@
     {
       "id": "weight-plate-45",
       "title": "45lb Weight Plate",
-      "price": "$46.99",
+      "price": "$51.99",
       "image": "/registry/weight-plate-45.jpg",
-      "url": "https://www.amazon.com/CAP-Barbell-Budget-Olympic-Bumper/dp/B0CLFQ5GG4?colid=1QAMXLYPE5XKO&coliid=IQ1C81TW8D433"
+      "url": "https://www.amazon.com/CAP-Barbell-Better-Olympic-Bumper/dp/B0CHL5BK64?colid=1QAMXLYPE5XKO&coliid=I2399NC3A0HAAF&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&th=1"
     },
     {
       "id": "circle-basket",
