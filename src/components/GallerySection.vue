@@ -180,7 +180,7 @@ const trackStyle = computed(() => {
         ? `translateX(calc(${base}% + ${px}px))`
         : `translateX(${base}%)`,
     transition: transitionEnabled.value
-        ? "transform 500ms cubic-bezier(0.33, 1, 0.68, 1)"
+        ? "transform 450ms cubic-bezier(0.33, 1, 0.68, 1)"
         : "none",
   };
 });
@@ -385,7 +385,7 @@ onBeforeUnmount(() => {
   z-index: 7;
 
   opacity: 0.08;
-  mix-blend-mode: overlay;
+  mix-blend-mode: soft-light;
   background-repeat: repeat;
   background-size: 180px 180px;
 
@@ -408,17 +408,16 @@ onBeforeUnmount(() => {
   z-index: 6;
 
   background:
-      radial-gradient(70% 70% at 50% 50%, rgba(255,255,255,0.00) 58%, rgba(255,255,255,0.05) 78%, rgba(255,255,255,0.00) 100%),
-      radial-gradient(140px 140px at 50% 0%, rgba(255,255,255,0.035), rgba(255,255,255,0) 72%),
-      radial-gradient(140px 140px at 50% 100%, rgba(255,255,255,0.035), rgba(255,255,255,0) 72%),
-      radial-gradient(180px 180px at 0% 50%, rgba(255,255,255,0.03), rgba(255,255,255,0) 75%),
-      radial-gradient(180px 180px at 100% 50%, rgba(255,255,255,0.03), rgba(255,255,255,0) 75%),
-      radial-gradient(260px 260px at 50% 50%, rgba(255,255,255,0.025), rgba(255,255,255,0) 72%);
+      radial-gradient(78% 78% at 50% 50%, rgba(255,255,255,0.00) 54%, rgba(255,255,255,0.05) 74%, rgba(255,255,255,0.00) 100%),
+      radial-gradient(200px 200px at 50% 0%, rgba(255,255,255,0.035), rgba(255,255,255,0) 72%),
+      radial-gradient(200px 200px at 50% 100%, rgba(255,255,255,0.035), rgba(255,255,255,0) 72%),
+      radial-gradient(240px 240px at 0% 50%, rgba(255,255,255,0.03), rgba(255,255,255,0) 75%),
+      radial-gradient(240px 240px at 100% 50%, rgba(255,255,255,0.03), rgba(255,255,255,0) 75%),
+      radial-gradient(320px 320px at 50% 50%, rgba(255,255,255,0.025), rgba(255,255,255,0) 72%);
 
-  filter: blur(3.5px);
   opacity: 0.85;
 
-  background-size: 140% 140%;
+  background-size: 150% 150%;
   animation: cloud-drift 24s ease-in-out infinite;
   transform-origin: center;
 }
@@ -447,6 +446,7 @@ onBeforeUnmount(() => {
   display: flex;
   width: 100%;
   will-change: transform;
+  backface-visibility: hidden;
 }
 
 /* Slides */
