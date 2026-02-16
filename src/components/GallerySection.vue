@@ -45,7 +45,7 @@
                 :key="s.src"
                 class="slide"
             >
-              <div class="media" :style="lqipStyle(s)">
+              <div class="media" :style="lqipStyle(s)" :class="slideAnimClass(i)">
                 <img
                     class="img"
                     :class="{ loaded: loaded[s.src] }"
@@ -76,9 +76,6 @@
               </div>
             </div>
           </div>
-
-          <!-- Cloud frame (decorative overlay) -->
-          <div class="cloudFrame" aria-hidden="true"></div>
         </div>
 
         <!-- Navigation arrows — OUTSIDE viewport so they don't scroll -->
@@ -171,6 +168,9 @@ const trackIndex = ref(1);
 const transitionEnabled = ref(true);
 const dragOffset = ref(0);
 
+// ── Slide animation state ───────────────────────────────────────────
+let shouldAnimate = false;
+
 let autoplayTimer = null;
 let autoplayResumeTimer = null;
 let isTransitioning = false;
@@ -206,10 +206,18 @@ const trackStyle = computed(() => {
   };
 });
 
+// ── Slide animation class ───────────────────────────────────────────
+
+function slideAnimClass(i) {
+  if (!shouldAnimate || i !== realIndex.value) return {};
+  return { animate__animated: true, animate__fadeIn: true };
+}
+
 // ── Navigation ──────────────────────────────────────────────────────
 
 function goNext() {
   if (isTransitioning || props.slides.length <= 1) return;
+  shouldAnimate = true;
   transitionEnabled.value = true;
   trackIndex.value++;
   isTransitioning = true;
@@ -218,6 +226,7 @@ function goNext() {
 
 function goPrev() {
   if (isTransitioning || props.slides.length <= 1) return;
+  shouldAnimate = true;
   transitionEnabled.value = true;
   trackIndex.value--;
   isTransitioning = true;
@@ -226,6 +235,7 @@ function goPrev() {
 
 function goTo(i) {
   if (isTransitioning) return;
+  shouldAnimate = true;
   transitionEnabled.value = true;
   trackIndex.value = i + 1;
   isTransitioning = true;
@@ -314,6 +324,7 @@ function onPointerUp(e) {
   if (Math.abs(delta) > threshold) {
     if (delta < 0) goNext();
     else goPrev();
+    shouldAnimate = false; // drag provides its own visual feedback
   }
 }
 
@@ -333,6 +344,7 @@ function startAutoplay() {
 
   autoplayTimer = setInterval(() => {
     if (!isTransitioning && !isDragging) {
+      shouldAnimate = true;
       transitionEnabled.value = true;
       trackIndex.value++;
       isTransitioning = true;
@@ -418,48 +430,6 @@ onBeforeUnmount(() => {
 @keyframes grain-drift {
   0% { background-position: 0 0; }
   100% { background-position: 180px 120px; }
-}
-
-/* Cloud frame overlay */
-.cloudFrame {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  border-radius: 16px;
-  z-index: 6;
-
-  background:
-      radial-gradient(78% 78% at 50% 50%, rgba(255,255,255,0.00) 54%, rgba(255,255,255,0.05) 74%, rgba(255,255,255,0.00) 100%),
-      radial-gradient(200px 200px at 50% 0%, rgba(255,255,255,0.035), rgba(255,255,255,0) 72%),
-      radial-gradient(200px 200px at 50% 100%, rgba(255,255,255,0.035), rgba(255,255,255,0) 72%),
-      radial-gradient(240px 240px at 0% 50%, rgba(255,255,255,0.03), rgba(255,255,255,0) 75%),
-      radial-gradient(240px 240px at 100% 50%, rgba(255,255,255,0.03), rgba(255,255,255,0) 75%),
-      radial-gradient(320px 320px at 50% 50%, rgba(255,255,255,0.025), rgba(255,255,255,0) 72%);
-
-  opacity: 0.85;
-
-  background-size: 150% 150%;
-  animation: cloud-drift 24s ease-in-out infinite;
-  transform-origin: center;
-}
-
-@keyframes cloud-drift {
-  0% {
-    transform: translate3d(-1.8%, -1.2%, 0) scale(1.02);
-    opacity: 0.78;
-  }
-  35% {
-    transform: translate3d(1.2%, 1.4%, 0) scale(1.045);
-    opacity: 0.92;
-  }
-  65% {
-    transform: translate3d(1.6%, -0.8%, 0) scale(1.035);
-    opacity: 0.88;
-  }
-  100% {
-    transform: translate3d(-1.2%, 1.0%, 0) scale(1.02);
-    opacity: 0.82;
-  }
 }
 
 /* Track — flex row, animated via translateX */
@@ -599,10 +569,14 @@ onBeforeUnmount(() => {
   transform: scale(1.18);
 }
 
+/* Gallery slide animation timing — matches track's 450ms */
+.media.animate__animated {
+    --animate-duration: 450ms;
+}
+
 /* Respect reduced-motion preferences */
 @media (prefers-reduced-motion: reduce) {
   .viewport::after { animation: none; }
-  .cloudFrame { animation: none; }
   .track { transition: none !important; }
 }
 </style>
