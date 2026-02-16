@@ -1,7 +1,7 @@
 <template>
   <section class="section" id="travel">
     <div class="container">
-      <h2 class="h2">Travel & stay</h2>
+      <h2 class="h2">Travel & Stay</h2>
 
       <div class="grid grid--2">
         <article class="card" v-for="acc in accommodations" :key="acc.name">
@@ -19,12 +19,12 @@
         </article>
 
         <article class="card card--travel">
-          <h3 class="h3">Getting there</h3>
+          <h3 class="h3">Getting There</h3>
           <ul class="list">
             <li><strong>Airport:</strong> {{ travel.airport }}</li>
             <li><strong>Parking:</strong> {{ travel.parking }}</li>
             <li><strong>Rideshare:</strong> {{ travel.rideshare }}</li>
-            <li v-if="travel.rentalCar"><strong>Rental car:</strong> {{ travel.rentalCar }}</li>
+            <li v-if="travel.rentalCar"><strong>Rental Car:</strong> {{ travel.rentalCar }}</li>
           </ul>
         </article>
       </div>
