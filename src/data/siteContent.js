@@ -53,9 +53,9 @@ export const siteContent = {
 
     schedule: [
         { time: "11:00 AM", title: "Guests Arrive", notes: "Please be seated by 11:10 AM." },
-        { time: "11:15 AM", title: "Processional",  notes: "The Ceremony Begins" },
-        { time: "11:30 AM", title: "Social Hour", notes: "Hors d'oeuvres & Drinks" },
-        { time: "12:30 PM - 3:00 PM", title: "Reception", notes: "Lunch, Toasts, and Dancing!" },
+        { time: "11:15 AM", title: "Processional",  notes: "The ceremony begins" },
+        { time: "11:30 AM", title: "Social Hour", notes: "Hors d'oeuvres & drinks" },
+        { time: "12:30 PM - 3:00 PM", title: "Reception", notes: "Lunch, toasts, and dancing!" },
     ],
 
     accommodations: [
