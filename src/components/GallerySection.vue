@@ -174,6 +174,7 @@ let shouldAnimate = false;
 let autoplayTimer = null;
 let autoplayResumeTimer = null;
 let isTransitioning = false;
+let transitionSafetyTimer = null;
 
 // ── Drag state (non-reactive for perf) ──────────────────────────────
 let isDragging = false;
@@ -221,6 +222,8 @@ function goNext() {
   transitionEnabled.value = true;
   trackIndex.value++;
   isTransitioning = true;
+  clearTimeout(transitionSafetyTimer);
+  transitionSafetyTimer = setTimeout(() => { isTransitioning = false; }, 500);
   onUserInteraction();
 }
 
@@ -230,21 +233,26 @@ function goPrev() {
   transitionEnabled.value = true;
   trackIndex.value--;
   isTransitioning = true;
+  clearTimeout(transitionSafetyTimer);
+  transitionSafetyTimer = setTimeout(() => { isTransitioning = false; }, 500);
   onUserInteraction();
 }
 
 function goTo(i) {
-  if (isTransitioning) return;
+  if (isTransitioning || trackIndex.value === i + 1) return;
   shouldAnimate = true;
   transitionEnabled.value = true;
   trackIndex.value = i + 1;
   isTransitioning = true;
+  clearTimeout(transitionSafetyTimer);
+  transitionSafetyTimer = setTimeout(() => { isTransitioning = false; }, 500);
   onUserInteraction();
 }
 
 function onTransitionEnd(e) {
   if (e.target !== trackEl.value) return;
 
+  clearTimeout(transitionSafetyTimer);
   isTransitioning = false;
   const n = props.slides.length;
 
@@ -348,6 +356,8 @@ function startAutoplay() {
       transitionEnabled.value = true;
       trackIndex.value++;
       isTransitioning = true;
+      clearTimeout(transitionSafetyTimer);
+      transitionSafetyTimer = setTimeout(() => { isTransitioning = false; }, 500);
     }
   }, props.autoplayMs);
 }
@@ -369,6 +379,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   stopAutoplay();
   if (autoplayResumeTimer) clearTimeout(autoplayResumeTimer);
+  clearTimeout(transitionSafetyTimer);
 });
 </script>
 
