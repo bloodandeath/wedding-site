@@ -1,5 +1,5 @@
 <template>
-  <section class="section" id="travel">
+  <section class="section" id="travel" data-nosnippet>
     <div class="container">
       <h2 class="h2">Travel & Stay</h2>
 
