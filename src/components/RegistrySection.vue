@@ -14,13 +14,13 @@
       </div>
 
       <div class="reg-carousel" aria-label="Registry items carousel">
-        <a
+        <component
+            :is="item.purchased ? 'div' : 'a'"
             v-for="item in registryItems"
             :key="item.id"
             class="reg-card"
-            :href="item.url"
-            target="_blank"
-            rel="noreferrer"
+            :class="{ 'reg-card--purchased': item.purchased }"
+            v-bind="item.purchased ? {} : { href: item.url, target: '_blank', rel: 'noreferrer' }"
         >
           <div class="reg-img" :style="item.lqip ? { '--lqip': `url(${item.lqip})` } : null">
             <img
@@ -38,10 +38,11 @@
             <span class="reg-price" v-if="item.price">{{ item.price }}</span>
 
             <div class="reg-meta">
-              <span class="reg-cta">View on Amazon →</span>
+              <span class="reg-cta" v-if="!item.purchased">View on Amazon →</span>
+              <span class="reg-purchased-label" v-else>Purchased</span>
             </div>
           </div>
-        </a>
+        </component>
       </div>
 
       <p class="muted registry-footnote">Availability is always up to date at the Amazon registry link</p>

@@ -87,7 +87,7 @@
 
 .reg-img {
     position: relative;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 1 / 1;
     width: 100%;
     background: rgba(255, 255, 255, 0.45);
     overflow: hidden;
@@ -154,6 +154,28 @@
     font-weight: 750;
     color: var(--pastel-sage-3);
     white-space: nowrap;
+}
+
+/* Purchased state */
+.reg-card--purchased {
+    opacity: 0.55;
+    pointer-events: none;
+    cursor: default;
+}
+
+.reg-card--purchased:hover {
+    transform: none;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.10);
+}
+
+.reg-card--purchased .reg-price {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.reg-purchased-label {
+    font-weight: 700;
+    color: var(--light-sage-1);
 }
 
 .registry-footnote {
