@@ -44,10 +44,27 @@ async function prerender() {
   const { port } = server.address();
   console.log(`Prerender: serving dist/ on http://127.0.0.1:${port}`);
 
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
-  });
+  // Try Puppeteer's bundled Chrome (works locally on Windows/Mac).
+  // Falls back to @sparticuz/chromium for Alpine/musl Docker environments where
+  // the glibc-linked Chrome binary cannot execute.
+  let browser;
+  try {
+    browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
+    });
+  } catch (err) {
+    if (err.code !== 'ENOENT') throw err;
+    console.log('Prerender: falling back to @sparticuz/chromium for Alpine environment...');
+    const chromium = (await import('@sparticuz/chromium')).default;
+    const puppeteerCore = (await import('puppeteer-core')).default;
+    browser = await puppeteerCore.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
+    });
+  }
   const page = await browser.newPage();
   await page.goto(`http://127.0.0.1:${port}/`, { waitUntil: 'networkidle0' });
 
