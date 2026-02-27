@@ -54,7 +54,8 @@ async function prerender() {
       args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
     });
   } catch (err) {
-    if (err.code !== 'ENOENT') throw err;
+    // Puppeteer wraps ENOENT in a custom error — check message too, not just code
+    if (err.code !== 'ENOENT' && !err.message?.includes('ENOENT')) throw err;
     console.log('Prerender: falling back to @sparticuz/chromium for Alpine environment...');
     const chromium = (await import('@sparticuz/chromium')).default;
     const puppeteerCore = (await import('puppeteer-core')).default;
