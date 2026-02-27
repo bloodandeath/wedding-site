@@ -44,7 +44,10 @@ async function prerender() {
   const { port } = server.address();
   console.log(`Prerender: serving dist/ on http://127.0.0.1:${port}`);
 
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
+  });
   const page = await browser.newPage();
   await page.goto(`http://127.0.0.1:${port}/`, { waitUntil: 'networkidle0' });
 
