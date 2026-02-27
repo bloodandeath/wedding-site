@@ -6,6 +6,8 @@
  */
 
 import { readFile, writeFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { execSync } from 'node:child_process';
 import { createServer } from 'node:http';
 import { join, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -39,33 +41,62 @@ function serve() {
   });
 }
 
+/**
+ * Returns a path to a working system Chromium, or null.
+ * Puppeteer's bundled Chrome is glibc-linked and won't run on Alpine Linux (musl libc).
+ * @sparticuz/chromium has the same problem — it's also a glibc binary.
+ * Alpine's own `apk add chromium` installs a musl-native Chromium that actually works.
+ */
+function findOrInstallChromium() {
+  const systemPaths = [
+    '/usr/bin/chromium',
+    '/usr/bin/chromium-browser',
+    '/usr/bin/google-chrome',
+    '/usr/bin/google-chrome-stable',
+  ];
+  const found = systemPaths.find(p => existsSync(p));
+  if (found) return found;
+
+  // Alpine Linux
+  try {
+    console.log('Prerender: installing Chromium via apk...');
+    execSync('apk add --no-cache chromium nss freetype harfbuzz ca-certificates ttf-freefont', { stdio: 'pipe' });
+    if (existsSync('/usr/bin/chromium')) return '/usr/bin/chromium';
+  } catch {}
+
+  // Debian/Ubuntu
+  try {
+    console.log('Prerender: installing Chromium via apt-get...');
+    execSync('apt-get install -y chromium', { stdio: 'pipe' });
+    if (existsSync('/usr/bin/chromium')) return '/usr/bin/chromium';
+    if (existsSync('/usr/bin/chromium-browser')) return '/usr/bin/chromium-browser';
+  } catch {}
+
+  return null;
+}
+
 async function prerender() {
   const server = await serve();
   const { port } = server.address();
   console.log(`Prerender: serving dist/ on http://127.0.0.1:${port}`);
 
-  // Try Puppeteer's bundled Chrome (works locally on Windows/Mac).
-  // Falls back to @sparticuz/chromium for Alpine/musl Docker environments where
-  // the glibc-linked Chrome binary cannot execute.
+  const systemChrome = findOrInstallChromium();
   let browser;
   try {
     browser = await puppeteer.launch({
       headless: true,
+      executablePath: systemChrome ?? undefined,
       args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
     });
   } catch (err) {
-    // Puppeteer wraps ENOENT in a custom error — check message too, not just code
-    if (err.code !== 'ENOENT' && !err.message?.includes('ENOENT')) throw err;
-    console.log('Prerender: falling back to @sparticuz/chromium for Alpine environment...');
-    const chromium = (await import('@sparticuz/chromium')).default;
-    const puppeteerCore = (await import('puppeteer-core')).default;
-    browser = await puppeteerCore.launch({
-      args: chromium.args,
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath(),
-      headless: chromium.headless,
-    });
+    server.close();
+    if (err.code === 'ENOENT' || err.message?.includes('ENOENT')) {
+      console.warn('Prerender skipped: no working Chromium found in this environment.');
+      return;
+    }
+    throw err;
   }
+
   const page = await browser.newPage();
   await page.goto(`http://127.0.0.1:${port}/`, { waitUntil: 'networkidle0' });
 
