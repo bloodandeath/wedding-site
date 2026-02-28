@@ -180,16 +180,8 @@
       "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAAAAUEAQf/xAAoEAACAQMCBAYDAAAAAAAAAAABAwIABBEFBhITIUEUIjFRYbFScZH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A2bj3A20ebSzIjOIHMZjJGewqHbbg1JDRPxU2DvFnmBru5reaNYfxg4ZLmRPuCB9EVPdclsVZWpfKXweSOOL5PzQekadew1CyXcQGOIdY/ie4pWDaqGJ0aBaDEskZgH2Pp9UoN99p9tqCgu6UJgdQfQx/Rqfb7X0xDQwrm0g5EWSyP5SlBaHQdKUpQf/Z"
     },
     {
-      "id": "circle-basket",
-      "title": "Laundry Bin #1",
-      "price": "$49.99",
-      "image": "/registry/circle-basket.jpg",
-      "url": "https://www.amazon.com/SONGMICS-Laundry-Removable-Casters-URLS01MZ/dp/B084MLQ22X?colid=1QAMXLYPE5XKO&coliid=I1IDSB9KMM8LU4",
-      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAAAAMCBAb/xAAjEAACAQMEAgMBAAAAAAAAAAABAhEAAwQSISJBBWEUMVET/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFREBAQAAAAAAAAAAAAAAAAAAAEH/2gAMAwEAAhEDEQA/APQ5N+6uW1tX49D82rVprmtSXY8htJ/ahlso8gRqEx9T6q1pgCm43Yd+6zVdmO2q0CSTufsz3So+NcXMSVBA1sN009nqlaRm7j2vmodC8wzMIHIwBJqvxbcqVlNLBuMCY6PqlKDWLjri2v5ozsJLS7SdzNKUoP/Z"
-    },
-    {
       "id": "rectangle-basket",
-      "title": "Laundry Bin #2",
+      "title": "Laundry Bin",
       "price": "$59.99",
       "image": "/registry/rectangle-basket.jpg",
       "url": "https://www.amazon.com/StorageWorks-Laundry-Rolling-Clothing-Organizer/dp/B0FSRPG4G7?colid=1QAMXLYPE5XKO&coliid=I3R8Y6LNF6HVX0",
@@ -202,14 +194,6 @@
       "image": "/registry/dining-chairs.jpg",
       "url": "https://www.amazon.com/Roundhill-Furniture-Windvale-Fabric-Upholstered/dp/B08M5T347P?colid=1QAMXLYPE5XKO&coliid=I35O2ANZ8X9ZY",
       "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGQABAAMBAQAAAAAAAAAAAAAAAAIDBAUG/8QAJRAAAgIBAwQBBQAAAAAAAAAAAQIDEQAEISIFEjFBI1FhcZGx/8QAFgEBAQEAAAAAAAAAAAAAAAAAAQAC/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A9C0kLayaKNlLKq9yr685CW0id2oBd7PgDOeJZtP1GSVkaQvx5cPS/bJazqay6cxrG/yBRYI2JAPvIszSLM7OlMLqx4xlKTEA7GyzE/s4zDTcNTITZru+tb5WeZFgCjdD8V/MYxBVE0fZOMYwT//Z"
-    },
-    {
-      "id": "bed-frame",
-      "title": "Bed Frame",
-      "price": "$79.99",
-      "image": "/registry/bed-frame.jpg",
-      "url": "https://www.amazon.com/Kujielan-Minimalist-headboard-Platform-Foundation/dp/B0DPWVBX99?colid=1QAMXLYPE5XKO&coliid=I3ENIMF8CZ6DEB",
-      "lqip": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAMEBQb/xAAhEAACAgIBBAMAAAAAAAAAAAABAgARAwQhBSIxURNxsf/EABYBAQEBAAAAAAAAAAAAAAAAAAIAA//EABcRAQEBAQAAAAAAAAAAAAAAAAARQQH/2gAMAwEAAhEDEQA/AOp2GAdRfINw+ZAas8cHiZm1sbWNGc6/zMGoKpNke/UpbHUtl8qINPKXHNkXX5DSjfV1cWpiY2rs7wRznwdzMT2kChErxRb2XbHkcJwB4kS5mKluL+vMRM9PEZysxs0TERAb/9k="
     }
   ]
 }
