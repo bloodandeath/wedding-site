@@ -53,7 +53,7 @@ export const siteContent = {
 
     schedule: [
         { time: "11:00 AM", title: "Guests Arrive", notes: "Please be seated by 11:10 AM." },
-        { time: "11:15 AM", title: "Processional",  notes: "The ceremony begins" },
+        { time: "11:15 AM", title: "Processional", notes: "The ceremony begins" },
         { time: "11:30 AM", title: "Social Hour", notes: "Hors d'oeuvres & drinks" },
         { time: "12:30 PM - 3:00 PM", title: "Reception", notes: "Lunch, toasts, and dancing!" },
     ],
@@ -91,7 +91,6 @@ export const siteContent = {
     faqs: [
         { q: "When should I RSVP by?", a: "Please RSVP by April 15, 2026." },
         { q: "Can I bring a plus one?", a: "Please reach out to us first, as seating is limited." },
-        { q: "What time should I arrive?", a: "The ceremony will begin at 11:15 AM sharp. The doors will open at 11:00 AM. Please be seated before 11:10 AM." },
         { q: "Will there be an open bar?", a: "Beer and wine will be provided. If you'd like spirits, there will be a cash bar available." },
         { q: "What is the menu?", a: "The menu will be provided by the venue. We will be serving a buffet-style lunch. Please let us know if you have any dietary restrictions." },
     ],
