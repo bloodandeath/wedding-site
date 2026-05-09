@@ -4,7 +4,7 @@
       <h2 class="h2">{{ title }}</h2>
       <p v-if="lead" class="lead">{{ lead }}</p>
 
-      <article class="card rsvp-card">
+      <article v-if="!closed" class="card rsvp-card">
         <!-- Form -->
         <form v-if="!submitted" @submit.prevent="onSubmit" novalidate>
 
@@ -197,7 +197,23 @@
         </div>
       </article>
 
-      <p v-if="helpText" class="text muted rsvp-help">{{ helpText }}</p>
+      <article v-else class="card rsvp-card rsvp-closed-card" aria-live="polite">
+        <div class="rsvp-closed__icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="12" width="36" height="26" rx="4" stroke="currentColor" stroke-width="2"/>
+            <path d="M8 15l16 12 16-12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="36" cy="36" r="7" fill="var(--panel)" stroke="currentColor" stroke-width="2"/>
+            <path d="M33 36l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="h3 rsvp-closed__heading">{{ closedHeading }}</h3>
+        <p v-if="closedMessage" class="text rsvp-closed__message">{{ closedMessage }}</p>
+        <a v-if="closedCtaLabel" class="btn rsvp-closed__cta" :href="closedCtaHref">
+          {{ closedCtaLabel }}
+        </a>
+      </article>
+
+      <p v-if="!closed && helpText" class="text muted rsvp-help">{{ helpText }}</p>
     </div>
   </section>
 </template>
@@ -211,6 +227,11 @@ const props = defineProps({
   deadlineText: { type: String, default: "" },
   submitUrl: { type: String, default: "" },
   helpText: { type: String, default: "" },
+  closed: { type: Boolean, default: false },
+  closedHeading: { type: String, default: "RSVPs are closed" },
+  closedMessage: { type: String, default: "" },
+  closedCtaLabel: { type: String, default: "" },
+  closedCtaHref: { type: String, default: "#contact" },
 });
 
 const form = reactive({
@@ -586,5 +607,41 @@ async function onSubmit() {
   margin-top: 0.75rem;
   text-align: center;
   font-size: 0.88rem;
+}
+
+/* ── Closed state ───────────────────────────────────── */
+
+.rsvp-closed-card {
+  text-align: center;
+  padding: 2.25rem 1.5rem;
+}
+
+.rsvp-closed__icon {
+  color: var(--sage);
+  display: inline-flex;
+  margin-bottom: 0.75rem;
+  opacity: 0.85;
+}
+
+.rsvp-closed__icon svg {
+  width: 44px;
+  height: 44px;
+}
+
+.rsvp-closed__heading {
+  font-size: 1.25rem;
+  color: var(--sage);
+  margin: 0 0 0.6rem;
+}
+
+.rsvp-closed__message {
+  color: var(--muted);
+  max-width: 46ch;
+  margin: 0 auto 1.25rem;
+  line-height: 1.55;
+}
+
+.rsvp-closed__cta {
+  min-width: min(220px, 100%);
 }
 </style>

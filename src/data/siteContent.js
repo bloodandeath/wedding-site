@@ -81,11 +81,17 @@ export const siteContent = {
     },
 
     rsvp: {
+        closed: true,
         title: "RSVP",
         lead: "Please let us know if you can make it. We can't wait to celebrate with you!",
         deadlineText: "Please RSVP by April 15, 2026.",
         submitUrl: "https://script.google.com/macros/s/AKfycbyvnTMgA3BQy0csQ9Ok00wRwHa9SETxFcOPRDnbBMdUdZt2wDEsNW5HUGvURvl9impPFA/exec",  // Google Apps Script web app URL — see docs/google-sheets-rsvp.md
         helpText: "Having trouble? Reach out to us directly.",
+
+        closedHeading: "RSVPs are closed",
+        closedMessage: "Thanks to everyone who replied — we can't wait to celebrate with you on May 23rd! If you still need to reach us about your RSVP or anything else, please get in touch and we'll do our best to make it work.",
+        closedCtaLabel: "Contact us",
+        closedCtaHref: "#contact",
     },
 
     faqs: [

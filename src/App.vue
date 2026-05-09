@@ -37,11 +37,16 @@
 
     <RsvpSection
         data-reveal
+        :closed="c.rsvp.closed"
         :title="c.rsvp.title"
         :lead="c.rsvp.lead"
         :deadlineText="c.rsvp.deadlineText"
         :submitUrl="c.rsvp.submitUrl"
         :helpText="c.rsvp.helpText"
+        :closedHeading="c.rsvp.closedHeading"
+        :closedMessage="c.rsvp.closedMessage"
+        :closedCtaLabel="c.rsvp.closedCtaLabel"
+        :closedCtaHref="c.rsvp.closedCtaHref"
     />
 
     <RegistrySection data-reveal />
